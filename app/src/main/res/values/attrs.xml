@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="drawable_width" format="dimension" />
+    <attr name="drawable_height" format="dimension" />
+    <attr name="start_width" format="dimension" />
+    <attr name="start_height" format="dimension" />
+    <attr name="top_width" format="dimension" />
+    <attr name="top_height" format="dimension" />
+    <attr name="end_width" format="dimension" />
+    <attr name="end_height" format="dimension" />
+    <attr name="bottom_width" format="dimension" />
+    <attr name="bottom_height" format="dimension" />
+
+    <declare-styleable name="TextDrawable">
+        <attr name="drawable_width" />
+        <attr name="drawable_height" />
+        <attr name="start_width" />
+        <attr name="start_height" />
+        <attr name="top_width" />
+        <attr name="top_height" />
+        <attr name="end_width" />
+        <attr name="end_height" />
+        <attr name="bottom_width" />
+        <attr name="bottom_height" />
+    </declare-styleable>
+
+</resources>

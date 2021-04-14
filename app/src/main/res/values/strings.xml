@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">Demo02App</string>
+
+    <!-- url -->
+    <string name="url_login">http://192.168.1.106:8080/login</string>
+    <string name="url_register">http://192.168.1.106:8080/register</string>
+
+    <!--  shared preference  -->
+    <string name="pref_login_key">preference_login</string>
+
+    <!-- 用户名 -->
+    <string name="pref_username">pref_username</string>
+    <!-- 密码 -->
+    <string name="pref_password">pref_password</string>
+    <!-- 注销 -->
+    <string name="pref_logout">pref_logout</string>
+    <!-- 记住密码 -->
+    <string name="pref_remember_me">pref_remember_me</string>
+    <!-- token -->
+    <string name="pref_token">pref_token</string>
+    <!-- permissions -->
+    <string name="pref_permissions">pref_permissions</string>
+    <!--    <string name="pref_logout">logout</string>-->
+
+    <!-- bundle params keys-->
+    <string name="bundle_name">bundle_data</string>
+    <string name="bundle_username">bundle_username</string>
+    <string name="bundle_password">bundle_password</string>
+
+    <!-- params keys-->
+    <string name="param_username">username</string>
+    <string name="param_password">password</string>
+
+    <!-- ui -->
+    <string name="ui_login_id">用户名/邮箱/电话号码</string>
+    <string name="ui_password">密码</string>
+    <string name="ui_remember_me">记住密码</string>
+    <string name="ui_login">登录</string>
+    <string name="ui_logout">退出登录</string>
+    <string name="ui_register">注册</string>
+    <string name="ui_message">消息</string>
+    <string name="ui_meeting">会议</string>
+    <string name="ui_notice">公告</string>
+    <string name="ui_mine">我的</string>
+
+    <string name="ui_nickname">昵称</string>
+    <string name="ui_last_message">最近的一条消息</string>
+    <string name="hint_publisher">发布者</string>
+    <string name="hint_date">2020-01-01</string>
+
+    <string name="username_invalid">用户名格式不正确</string>
+    <string name="password_invalid">密码格式正确</string>
+    <string name="login_failed">登录失败</string>
+
+    <!-- info -->
+    <string name="invalid_username">username is invalid</string>
+    <string name="invalid_password">password is invalid</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--text-->
+    <string name="long_text">这是一段长文字。这是一段长文字。这是一段长文字。</string>
+    <string name="test_time">
+        2020/01/02 18:39
+    </string>
+
+    <string name="large_text">
+        这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
+        这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
+        这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
+        这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
+
+    </string>
+
+    <string name="hint_time1">18:00</string>
+    <string name="hint_time2">18:30</string>
+    <string name="hint_time_range">18:00–18:30</string>
+    <string name="hint_title">会议主题</string>
+    <string name="hint_address">1号楼2F201</string>
+    <string name="ui_schedule">日程</string>
+    <string name="ui_log">日志</string>
+    <string name="ui_file">文件</string>
+
+</resources>
