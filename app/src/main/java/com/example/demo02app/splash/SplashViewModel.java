@@ -9,32 +9,49 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
+import com.example.demo02app.login.MyCallback;
 import com.example.demo02app.login.data.LoginRepository;
 import com.example.demo02app.login.data.LoginResult;
+
+import java.io.IOException;
 
 public class SplashViewModel extends ViewModel {
     private static final String TAG = SplashViewModel.class.getName();
     @NonNull
-    private LoginRepository loginRepository;
+    private final LoginRepository loginRepository;
 
     /**
      * 用户是否注销
      */
-    private LiveData<Boolean> isLogoutLiveData;
+    private final LiveData<Boolean> isLogoutLiveData;
 
     /**
      * 登录结果
      */
-    private MutableLiveData<LoginResult> LoginResultLiveData;
+    private final MutableLiveData<LoginResult> loginResultLiveData = new MutableLiveData<>();
 
     private SplashViewModel(@NonNull LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
-        LoginResultLiveData = loginRepository.getLoginResultLiveData();
         isLogoutLiveData = loginRepository.getIsLogoutLiveData();
     }
 
     public void autoLogin() {
-        loginRepository.login();
+        try {
+            loginRepository.login(new MyCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    loginResultLiveData.postValue(loginResult);
+                }
+
+                @Override
+                public void onFailure() {
+                    loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
+        }
     }
 
     // Getters
@@ -43,17 +60,15 @@ public class SplashViewModel extends ViewModel {
     }
 
     public LiveData<LoginResult> getLoginResultLiveData() {
-        return LoginResultLiveData;
+        return loginResultLiveData;
     }
 
     public static final class Factory extends ViewModelProvider.NewInstanceFactory {
+
         @NonNull
-        private Application application;
-        @NonNull
-        private LoginRepository loginRepository;
+        private final LoginRepository loginRepository;
 
         public Factory(@NonNull Application application) {
-            this.application = application;
             loginRepository = ((MyApplication) application).getLoginRepository();
         }
 

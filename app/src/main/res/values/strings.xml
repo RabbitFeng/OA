@@ -29,7 +29,9 @@
 
     <!-- params keys-->
     <string name="param_username">username</string>
+    <string name="param_phone">phone</string>
     <string name="param_password">password</string>
+
 
     <!-- ui -->
     <string name="ui_login_id">用户名/邮箱/电话号码</string>
@@ -48,9 +50,11 @@
     <string name="hint_publisher">发布者</string>
     <string name="hint_date">2020-01-01</string>
 
-    <string name="username_invalid">用户名格式不正确</string>
-    <string name="password_invalid">密码格式正确</string>
-    <string name="login_failed">登录失败</string>
+    <string name="ui_username_invalid">用户名格式不正确</string>
+    <string name="ui_password_invalid">密码格式不正确</string>
+    <string name="ui_login_failed">登录失败</string>
+    <string name="ui_phone_invalid">电话号码格式不正确</string>
+    <string name="ui_register_failed">注册失败</string>
 
     <!-- info -->
     <string name="invalid_username">username is invalid</string>
@@ -81,5 +85,8 @@
     <string name="ui_schedule">日程</string>
     <string name="ui_log">日志</string>
     <string name="ui_file">文件</string>
+    <string name="hint_phone">手机号码</string>
+    <string name="ui_phone">手机号码</string>
+    <string name="ui_email">邮箱</string>
 
 </resources>

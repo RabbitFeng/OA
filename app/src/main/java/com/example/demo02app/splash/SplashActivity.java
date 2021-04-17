@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MainActivity;
@@ -28,20 +27,21 @@ public class SplashActivity extends AppCompatActivity {
         SplashViewModel.Factory factory = new SplashViewModel.Factory(getApplication());
         viewModel = new ViewModelProvider(this, factory).get(SplashViewModel.class);
 
-        viewModel.getIsLogoutLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLogout) {
-                if(isLogout==null){
-                    return;
-                }
-                if(isLogout){
-                    intentToLogin();
-                }else {
-                    viewModel.autoLogin();
-                }
+        // observe isLogoutLiveData. When isLogout is not null, userCache is loaded.
+        viewModel.getIsLogoutLiveData().observe(this, isLogout -> {
+            if(isLogout==null){
+                return;
+            }
+            if(isLogout){
+                Log.d(TAG, "isLogout: 用户注销，跳转到登录界面");
+                intentToLogin();
+            }else {
+                Log.d(TAG, "isLogout: 用户未注销，自动登录");
+                viewModel.autoLogin();
             }
         });
 
+        // observe the result of login
         viewModel.getLoginResultLiveData().observe(this, loginResult -> {
             Log.d(TAG, "loginResult: called");
             if (loginResult == null || loginResult.getResult() == null) {
@@ -49,14 +49,13 @@ public class SplashActivity extends AppCompatActivity {
             }
             Log.d(TAG, "loginResult:" + loginResult.getResult());
             if (loginResult.getResult() == LoginResult.SUCCESS) {
-                // 登录成功
+                // login succeed
                 intentToMain();
             } else {
+                // login fail
                 intentToLogin();
             }
         });
-
-
     }
 
     private void intentToMain() {

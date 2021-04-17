@@ -2,7 +2,6 @@ package com.example.demo02app.login.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -14,6 +13,7 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.login.MyCallback;
 import com.example.demo02app.login.data.model.LoggedInUser;
+import com.example.demo02app.login.data.model.RegisterUser;
 import com.example.demo02app.util.OkHttpUtil;
 import com.example.demo02app.util.PermissionsUtil;
 
@@ -33,25 +33,13 @@ import okhttp3.Response;
 public class LoginRepository {
 
     private static final String TAG = LoginRepository.class.getName();
-    /**
-     * 单例
-     */
+
     private volatile static LoginRepository sInstance;
 
     /**
      * 是否注销
      */
     private final MediatorLiveData<Boolean> isLogoutLiveData = new MediatorLiveData<>();
-
-    /**
-     * 当前操作用户
-     */
-    private final MutableLiveData<LoggedInUser> loggedInUserLiveData = new MutableLiveData<>();
-
-    /**
-     * 登录状态
-     */
-    private final MutableLiveData<LoginResult> loginResultLiveData = new MutableLiveData<>();
 
     /**
      * 本地缓存的用户信息
@@ -61,29 +49,27 @@ public class LoginRepository {
     /**
      * 是否在加载缓存数据
      */
-    private final MediatorLiveData<Boolean> isLoading = new MediatorLiveData<>();
+    private final MediatorLiveData<Boolean> isLoadingLiveData = new MediatorLiveData<>();
 
     @NonNull
-    Context appContext;
+    private final Context appContext;
 
     @NonNull
-    private LoginDataSource loginDataSource;
-
-    @NonNull
-    private MyExecutors executors;
+    private final MyExecutors executors;
 
     private LoginRepository(@NonNull Context appContext, @NonNull MyExecutors executors) {
         this.appContext = appContext;
         this.executors = executors;
-        this.loginDataSource = new LoginDataSource(appContext);
 
-        isLoading.setValue(true);
-        isLoading.addSource(userCacheLiveData, userCache -> {
-            isLoading.postValue(userCache == null);
+        isLoadingLiveData.setValue(true);
+        // 监听UserCache变化，是否在加载缓存用户数据
+        isLoadingLiveData.addSource(userCacheLiveData, userCache -> {
+            isLoadingLiveData.postValue(userCache == null);
             if (userCache != null) {
                 isLogoutLiveData.postValue(userCache.isLogout());
             }
         });
+        // 监听UserCache变化，用户是否注销
         isLogoutLiveData.addSource(userCacheLiveData, userCache -> {
             if (userCache != null) {
                 isLogoutLiveData.postValue(userCache.isLogout());
@@ -110,6 +96,13 @@ public class LoginRepository {
         });
     }
 
+    /**
+     * 获取单例
+     *
+     * @param context   appContext
+     * @param executors 线程池
+     * @return LoginRepository单例
+     */
     public static LoginRepository getInstance(@NonNull Context context, @NonNull MyExecutors executors) {
         if (sInstance == null) {
             synchronized (LoginRepository.class) {
@@ -123,146 +116,76 @@ public class LoginRepository {
 
     /**
      * 默认登录
-     * 搭配isLoading
+     * @param callback 回调接口
+     * @throws IOException IOException
      */
-    public void login() {
-        LoggedInUser user = loggedInUserLiveData.getValue() == null ?
-                userCacheLiveData.getValue() : loggedInUserLiveData.getValue();
-        login(user);
+    public void login(@NonNull MyCallback<LoginResult> callback) throws IOException {
+        LoggedInUser user = userCacheLiveData.getValue();
+        if (user == null) {
+            throw new IOException("You must observe isLoadingLiveData to ensure " +
+                    "that userCacheLiveData get the cache from local data source");
+        } else {
+            login(user, callback);
+        }
     }
 
     /**
      * 登录
      *
-     * @param user user
+     * @param loggedInUser loggedInUser
+     * @param callback 回调接口
      */
-    public void login(LoggedInUser user) {
-        if (user == null) {
-            Log.d(TAG, "login: loggedInUser is null");
-            loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
-        } else {
-            Log.d(TAG, "login: " + "[username:" + user.getUsername() + "," +
-                    "password:" + user.getPassword() + "]");
-            OkHttpUtil.postAsync(getString(R.string.url_login), convertLoggedUserToMap(user), new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if (!response.isSuccessful()) {
-                        loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
-                        return;
-                    }
-                    String s = Objects.requireNonNull(response.body()).string();
-                    try {
-                        JSONObject jsonObject = new JSONObject(s);
-                        Log.d(TAG, "onResponse: json:" + jsonObject.toString());
-                        int result = jsonObject.getInt("result");
-                        switch (result) {
-                            default:
-                                loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
-                            case LoginResult.USERNAME_NOT_EXIT:
-                                loginResultLiveData.postValue(new LoginResult(LoginResult.USERNAME_NOT_EXIT));
-                                break;
-                            case LoginResult.PASSWORD_ERROR:
-                                loginResultLiveData.postValue(new LoginResult(LoginResult.PASSWORD_ERROR));
-                                break;
-                            case LoginResult.SUCCESS:
-                                loginResultLiveData.postValue(new LoginResult(LoginResult.SUCCESS));
-                                loginDataSource.addUserCacheLocal(user);
-                                break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
-                    }
-                }
-            });
-        }
-    }
-
-//    /**
-//     * 登录
-//     *
-//     * @param loggedInUser
-//     * @param myCallback
-//     */
-//    public void login(LoggedInUser loggedInUser) {
-//        OkHttpUtil.postAsync(getString(R.string.url_login), convertLoggedUserToMap(loggedInUser), new Callback() {
-//            @Override
-//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//                // 登录失败
-//                myCallback.onFailure();
-//            }
-//
-//            @Override
-//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//                String s = Objects.requireNonNull(response.body()).string();
-//                try {
-//                    JSONObject jsonObject = new JSONObject(s);
-//                    int result = jsonObject.getInt("result");
-//                    switch (result) {
-//                        default:
-//                        case LoginResult.USERNAME_NOT_EXIT:
-//                            loginResultLiveData.postValue(new LoginResult(LoginResult.USERNAME_NOT_EXIT));
-//                            break;
-//                        case LoginResult.PASSWORD_ERROR:
-//                            loginResultLiveData.postValue(new LoginResult(LoginResult.PASSWORD_ERROR));
-//                            break;
-//                        case LoginResult.SUCCESS:
-//                            myCallback.onSuccess(loggedInUser);
-//                            break;
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    myCallback.onFailure();
-//                }
-//            }
-//        });
-//    }
-
-    /**
-     * 注册
-     *
-     * @param user
-     * @param callback
-     */
-    public void register(LoggedInUser user, MyCallback<LoggedInUser> callback) {
-        Map<String, String> map = new HashMap<String, String>() {{
-            put(getString(R.string.param_username), user.getUsername());
-            put(getString(R.string.param_password), user.getPassword());
-        }};
-        OkHttpUtil.postAsync(getString(R.string.url_register), map, new Callback() {
+    public void login(@NonNull LoggedInUser loggedInUser, @NonNull MyCallback<LoginResult> callback) {
+        OkHttpUtil.postAsync(getString(R.string.url_login), convertLoggedUserToMap(loggedInUser), new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException interruptedException) {
-                            interruptedException.printStackTrace();
-                        }
-                        callback.onFailure();
-                    }
-                }).start();
+                callback.onFailure();
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                // 获取服务端返回值
-                // String str = response.body().string();
-                new Thread(() -> {
+                if (response.isSuccessful()) {
+                    String string = Objects.requireNonNull(response.body()).string();
                     try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                        JSONObject jsonObject = new JSONObject(string);
+                        int result = jsonObject.getInt("result");
+                        callback.onSuccess(new LoginResult(result));
+                    } catch (JSONException e) {
                         e.printStackTrace();
+                        callback.onFailure();
                     }
-                    LoggedInUser fakeUser = user;
-                    callback.onSuccess(fakeUser);
-                }).start();
+                }
+
+            }
+        });
+    }
+
+    /**
+     * 注册
+     * @param registerUser registerUser
+     * @param callback 回调接口
+     */
+    public void register(RegisterUser registerUser, MyCallback<RegisterResult> callback) {
+        OkHttpUtil.postAsync(getString(R.string.url_register), convertRegisterUserToMap(registerUser), new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                // register Fail
+                callback.onFailure();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String string = Objects.requireNonNull(response.body()).string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        int result = jsonObject.getInt("result");
+                        callback.onSuccess(new RegisterResult(result));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                }
             }
         });
     }
@@ -272,29 +195,29 @@ public class LoginRepository {
         return isLogoutLiveData;
     }
 
-    public LiveData<LoggedInUser> getLoggedInUserLiveData() {
-        return loggedInUserLiveData;
-    }
-
     public MutableLiveData<LoggedInUser> getUserCacheLiveData() {
         return userCacheLiveData;
     }
 
-    public MutableLiveData<LoginResult> getLoginResultLiveData() {
-        return loginResultLiveData;
+    public MediatorLiveData<Boolean> getIsLoadingLiveData() {
+        return isLoadingLiveData;
     }
 
-    public MediatorLiveData<Boolean> getIsLoading() {
-        return isLoading;
-    }
-
-    private Map<String, String> convertLoggedUserToMap(LoggedInUser loggedInUser) {
+    // Converters
+    private Map<String, String> convertLoggedUserToMap(@NonNull LoggedInUser loggedInUser) {
         return new HashMap<String, String>() {
             {
                 put(getString(R.string.param_username), loggedInUser.getUsername());
                 put(getString(R.string.param_password), loggedInUser.getPassword());
             }
         };
+    }
+
+    private Map<String, String> convertRegisterUserToMap(@NonNull RegisterUser registerUser) {
+        return new HashMap<String, String>() {{
+            put(getString(R.string.param_phone), registerUser.getPhone());
+            put(getString(R.string.param_password), registerUser.getPassword());
+        }};
     }
 
     private String getString(@StringRes Integer resId) {

@@ -2,6 +2,7 @@ package com.example.demo02app;
 
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,20 +22,21 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
 
-    private SparseArray<Fragment> fragmentSparseArray = new SparseArray<>();
+    private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<>();
 
-    private SparseArray<Integer> titleSparseArray = new SparseArray<>();
+    //    private SparseArray<Integer> titleSparseArray = new SparseArray<>();
+    private final SparseIntArray titleSparseArray = new SparseIntArray();
 
     private RadioGroup rg;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainViewModel.Factory factory = new MainViewModel.Factory();
-        viewModel = new ViewModelProvider(this, factory).get(MainViewModel.class);
         if (savedInstanceState == null) {
+            MainViewModel.Factory factory = new MainViewModel.Factory();
+            viewModel = new ViewModelProvider(this, factory).get(MainViewModel.class);
+
             fragmentSparseArray.put(R.id.rb_message, MessageFragment.newInstance());
             fragmentSparseArray.put(R.id.rb_meeting, MeetingFragment.newInstance());
             fragmentSparseArray.put(R.id.rb_notice, NoticeFragment.newInstance());
@@ -46,14 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
             rg = findViewById(R.id.rg);
 
-            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fl_container, fragmentSparseArray.get(checkedId))
-                            .commitNow();
-                    Objects.requireNonNull(getSupportActionBar()).setTitle(titleSparseArray.get(checkedId));
-                }
+            rg.setOnCheckedChangeListener((group, checkedId) -> {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fl_container, fragmentSparseArray.get(checkedId))
+                        .commitNow();
+                Objects.requireNonNull(getSupportActionBar()).setTitle(titleSparseArray.get(checkedId));
             });
 
             rg.check(R.id.rb_message);

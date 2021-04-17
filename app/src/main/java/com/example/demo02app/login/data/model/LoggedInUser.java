@@ -1,6 +1,7 @@
 package com.example.demo02app.login.data.model;
 
 public class LoggedInUser {
+    private String userId;
     private String username;
     private String password;
     private Integer permission;

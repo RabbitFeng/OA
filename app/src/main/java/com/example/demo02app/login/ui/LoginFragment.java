@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
     }
 
@@ -92,31 +93,28 @@ public class LoginFragment extends Fragment {
         });
 
         // 观察登录结果
-        loginViewModel.getLoginResultLiveData().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-            @Override
-            public void onChanged(LoginResult loginResult) {
-                Log.d(TAG, "onChanged: called");
-                if (loginResult == null || loginResult.getResult() == null) {
-                    Log.d(TAG, "onChanged: loginResult is null");
-                    return;
-                }
-                switch (loginResult.getResult()) {
-                    case LoginResult.PASSWORD_ERROR:
-                        Toast.makeText(requireContext(), "密码错误", Toast.LENGTH_SHORT).show();
-                        break;
-                    case LoginResult.USERNAME_NOT_EXIT:
-                        Toast.makeText(requireContext(), "用户名错误", Toast.LENGTH_SHORT).show();
-                        break;
-                    case LoginResult.SUCCESS:
-                        Toast.makeText(requireContext(), "登录成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(requireActivity(), MainActivity.class);
-                        startActivity(intent);
-                        requireActivity().finish();
-                        break;
-                    case LoginResult.FAILURE:
-                        Toast.makeText(requireContext(), "登陆失败", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+        loginViewModel.getLoginResultLiveData().observe(getViewLifecycleOwner(), loginResult -> {
+            Log.d(TAG, "onChanged: called");
+            if (loginResult == null || loginResult.getResult() == null) {
+                Log.d(TAG, "onChanged: loginResult is null");
+                return;
+            }
+            switch (loginResult.getResult()) {
+                case LoginResult.PASSWORD_ERROR:
+                    Toast.makeText(requireContext(), "密码错误", Toast.LENGTH_SHORT).show();
+                    break;
+                case LoginResult.USERNAME_NOT_EXIT:
+                    Toast.makeText(requireContext(), "用户名错误", Toast.LENGTH_SHORT).show();
+                    break;
+                case LoginResult.SUCCESS:
+                    Toast.makeText(requireContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(requireActivity(), MainActivity.class);
+                    startActivity(intent);
+                    requireActivity().finish();
+                    break;
+                case LoginResult.FAILURE:
+                    Toast.makeText(requireContext(), "登陆失败", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
     }
@@ -135,7 +133,7 @@ public class LoginFragment extends Fragment {
         @Override
         public void afterTextChanged(Editable s) {
 //            loginViewModel.updateLoggedInUser(binding.etUsername.getText().toString(), binding.etPassword.getText().toString());
-            loginViewModel.update();
+            loginViewModel.updateFormState();
         }
     };
 }

@@ -7,7 +7,7 @@ import androidx.annotation.StringRes;
 public class RegisterFormState {
     @Nullable
     @StringRes
-    private Integer usernameInvalid;
+    private Integer phoneInvalid;
     @Nullable
     @StringRes
     private Integer passwordInvalid;
@@ -15,8 +15,8 @@ public class RegisterFormState {
     @NonNull
     private boolean invalid;
 
-    public RegisterFormState(@Nullable Integer usernameInvalid, @Nullable Integer passwordInvalid) {
-        this.usernameInvalid = usernameInvalid;
+    public RegisterFormState(@Nullable Integer phoneInvalid, @Nullable Integer passwordInvalid) {
+        this.phoneInvalid = phoneInvalid;
         this.passwordInvalid = passwordInvalid;
         invalid = false;
     }
@@ -26,8 +26,8 @@ public class RegisterFormState {
     }
 
     @Nullable
-    public Integer getUsernameInvalid() {
-        return usernameInvalid;
+    public Integer getPhoneInvalid() {
+        return phoneInvalid;
     }
 
     @Nullable

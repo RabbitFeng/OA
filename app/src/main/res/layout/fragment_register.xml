@@ -6,29 +6,32 @@
     <data>
 
         <variable
-            name="loginViewModel"
-            type="com.example.demo02app.login.ui.LoginViewModel" />
+            name="registerViewModel"
+            type="com.example.demo02app.login.ui.RegisterViewModel" />
 
     </data>
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/ui_login_id"
-            android:inputType="textEmailAddress|number" />
+            android:text="@={registerViewModel.registerUserLiveData.phone}"
+            android:hint="@string/ui_phone"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_username"
             android:layout_margin="10dp"
+            android:drawableEnd="@mipmap/visible"
+            android:text="@={registerViewModel.registerUserLiveData.password}"
             android:hint="@string/ui_password"
             android:inputType="textPassword" />
 
@@ -36,10 +39,9 @@
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_password"
             android:layout_margin="10dp"
             android:background="@color/white"
             android:text="@string/ui_register" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>
