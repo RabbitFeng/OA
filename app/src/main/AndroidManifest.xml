@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.demo02app">
+
     <!-- 网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,8 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Demo02App">
+        <service
+            android:name=".service.JWebSocketClientService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".model.chat.ui.ChatActivity" />
         <!-- SplashActivity -->
-        <activity android:name=".splash.SplashActivity">
+        <activity android:name=".model.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +29,8 @@
         </activity>
         <!-- LoginActivity -->
         <activity
-            android:name=".login.ui.LoginActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-
-        </activity>
-        <!--MainActivity-->
+            android:name=".model.login.ui.LoginActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- MainActivity -->
         <activity android:name=".MainActivity">
 
         </activity>

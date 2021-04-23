@@ -6,7 +6,7 @@
 
         <variable
             name="messageItem"
-            type="com.example.demo02app.message.data.MessageItem" />
+            type="com.example.demo02app.model.message.data.MessageItem" />
     </data>
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:padding="5dp"
-            android:src="@mipmap/profile_male" />
+            android:src="@mipmap/profile_pic_male" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -50,7 +50,7 @@
             android:maxLength="15"
             android:maxLines="1"
             android:text="@{messageItem.lastMessage}"
-            android:textColor="@color/Gray"
+            android:textColor="@color/gray"
             android:textSize="15sp" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_alignParentEnd="true"
             android:hint="2020-10-01"
             android:text="@{messageItem.timeOfMessage}"
-            android:textColor="@color/Gray"
+            android:textColor="@color/gray"
             android:textSize="18sp" />
 
     </RelativeLayout>

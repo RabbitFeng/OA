@@ -10,13 +10,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mine.ui.MineFragment">
+        tools:context=".model.mine.ui.MineFragment">
 
         <RelativeLayout
             android:id="@+id/rl_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lightGray"
+            android:background="@color/light_gray"
             android:padding="10dp">
 
             <!-- 头像 -->
@@ -25,7 +25,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/profile_male" />
+                android:src="@mipmap/profile_pic_male" />
 
             <!-- 昵称 -->
             <TextView

@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.example.demo02app.login.data.model.LoggedInUser" />
+        <import type="com.example.demo02app.model.login.data.model.LoggedInUser" />
 
         <variable
             name="loginUserViewModel"
-            type="com.example.demo02app.login.ui.LoginViewModel" />
+            type="com.example.demo02app.model.login.ui.LoginViewModel" />
     </data>
 
     <RelativeLayout

@@ -12,12 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/srl_refresh"
-        tools:context=".message.ui.MessageFragment">
+        tools:context=".model.message.ui.MessageFragment">
 
-        <!--        <ListView-->
-        <!--            android:id="@+id/lv_message_item"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent" />-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

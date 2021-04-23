@@ -5,14 +5,14 @@
 
         <variable
             name="meetingItem"
-            type="com.example.demo02app.meeting.data.MeetingItem" />
+            type="com.example.demo02app.model.meeting.data.MeetingItem" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/lightGray"
+        android:background="@color/light_gray"
         android:padding="5dp">
 
         <ImageView

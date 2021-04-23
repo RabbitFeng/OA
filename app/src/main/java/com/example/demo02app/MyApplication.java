@@ -2,9 +2,11 @@ package com.example.demo02app;
 
 import android.app.Application;
 
-import com.example.demo02app.login.data.LoginRepository;
+import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.repository.UserRepository;
 
 public class MyApplication extends Application {
+    public LoggedInUser currentUser;
     private MyExecutors myExecutors;
 
     @Override
@@ -17,8 +19,16 @@ public class MyApplication extends Application {
         return myExecutors;
     }
 
-    public LoginRepository getLoginRepository() {
-        return LoginRepository.getInstance(getApplicationContext(),getMyExecutors());
+    public UserRepository getLoginRepository() {
+        return UserRepository.getInstance(getApplicationContext(), getMyExecutors());
+    }
+
+    public void setCurrentUser(LoggedInUser loggedInUser) {
+        currentUser = loggedInUser;
+    }
+
+    public LoggedInUser getCurrentUser() {
+        return currentUser;
     }
 }
 

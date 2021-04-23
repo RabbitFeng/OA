@@ -7,7 +7,7 @@
 
         <variable
             name="registerViewModel"
-            type="com.example.demo02app.login.ui.RegisterViewModel" />
+            type="com.example.demo02app.model.login.ui.RegisterViewModel" />
 
     </data>
 

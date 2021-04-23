@@ -3,6 +3,7 @@ package com.example.demo02app.util.adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -18,18 +19,27 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
 
     /**
      * 获取布局id
+     *
      * @param viewType view类型
      * @return 布局id
      */
+    @LayoutRes
     public abstract int getLayoutId(int viewType);
 
     /**
      * 绑定
-     * @param holder ViewHolder
-     * @param t 数据
+     *
+     * @param holder   ViewHolder
+     * @param t        数据
      * @param position 位置
      */
-    public abstract void onBind(ViewHolder<B> holder, T t, int position);
+    public abstract void onBind(@NonNull ViewHolder<B> holder, @NonNull T t, int position);
+
+    /**
+     * 更新列表
+     * @param list list of T
+     */
+    public abstract void setList(@NonNull List<T> list);
 
     @NonNull
     @Override
@@ -49,6 +59,7 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
     }
 
     public static class ViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
+        @NonNull
         protected B binding;
 
         public ViewHolder(B binding) {
@@ -56,6 +67,7 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
             this.binding = binding;
         }
 
+        @NonNull
         public B getBinding() {
             return binding;
         }

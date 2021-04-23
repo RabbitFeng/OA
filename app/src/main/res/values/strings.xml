@@ -4,10 +4,14 @@
     <!-- url -->
     <string name="url_login">http://192.168.1.106:8080/login</string>
     <string name="url_register">http://192.168.1.106:8080/register</string>
+    <string name="url_webSocket">ws://192.168.1.106:8080/websocket/</string>
+
 
     <!--  shared preference  -->
     <string name="pref_login_key">preference_login</string>
 
+    <!--用户ID-->
+    <string name="pref_user_id">pref_user_id</string>
     <!-- 用户名 -->
     <string name="pref_username">pref_username</string>
     <!-- 密码 -->
@@ -19,7 +23,7 @@
     <!-- token -->
     <string name="pref_token">pref_token</string>
     <!-- permissions -->
-    <string name="pref_permissions">pref_permissions</string>
+    <string name="pref_identity">prf_identity</string>
     <!--    <string name="pref_logout">logout</string>-->
 
     <!-- bundle params keys-->
@@ -28,10 +32,11 @@
     <string name="bundle_password">bundle_password</string>
 
     <!-- params keys-->
-    <string name="param_username">username</string>
-    <string name="param_phone">phone</string>
-    <string name="param_password">password</string>
-
+    <string name="param_user_id">u_id</string>
+    <string name="param_username">u_username</string>
+    <string name="param_phone">u_phone</string>
+    <string name="param_password">u_password</string>
+    <string name="param_identity">u_identity</string>
 
     <!-- ui -->
     <string name="ui_login_id">用户名/邮箱/电话号码</string>
@@ -51,17 +56,15 @@
     <string name="hint_date">2020-01-01</string>
 
     <string name="ui_username_invalid">用户名格式不正确</string>
-    <string name="ui_password_invalid">密码格式不正确</string>
+    <string name="ui_password_invalid">密码必须不少于六位</string>
     <string name="ui_login_failed">登录失败</string>
     <string name="ui_phone_invalid">电话号码格式不正确</string>
+    <string name="ui_register_succeed">注册成功</string>
     <string name="ui_register_failed">注册失败</string>
 
-    <!-- info -->
-    <string name="invalid_username">username is invalid</string>
-    <string name="invalid_password">password is invalid</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- action -->
+    <string name="action_webSocket">android.intent.action.CHAT_RECEIVER</string>
 
     <!--text-->
     <string name="long_text">这是一段长文字。这是一段长文字。这是一段长文字。</string>
@@ -88,5 +91,13 @@
     <string name="hint_phone">手机号码</string>
     <string name="ui_phone">手机号码</string>
     <string name="ui_email">邮箱</string>
+    <string name="ui_setting">设置</string>
+    <string name="ui_function">功能</string>
+
+    <string name="dialog_message_logout">是否退出登录？</string>
+    <string name="dialog_positive">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

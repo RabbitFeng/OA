@@ -6,14 +6,14 @@
 
         <variable
             name="noticeItem"
-            type="com.example.demo02app.notice.data.NoticeItem" />
+            type="com.example.demo02app.model.notice.data.NoticeItem" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/lightGray">
+        android:background="@color/light_gray">
 
         <ImageView
             android:id="@+id/iv"

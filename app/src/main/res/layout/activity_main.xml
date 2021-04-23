@@ -1,57 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/fl_container"
-        android:layout_above="@+id/ll_bottom"
+    <data>
+
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/dl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:background="@color/lightGray"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/rg"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:showDividers="middle">
+            android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/rb_message"
-                style="@style/CustomStyle.RadioButtonStyle"
-                android:drawableTop="@drawable/selector_rb_message"
-                android:text="@string/ui_message" />
+            <androidx.appcompat.widget.Toolbar
+                android:background="?attr/colorPrimary"
+                android:id="@+id/tb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <FrameLayout
+                android:id="@+id/fl_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tb"
+                android:layout_above="@+id/ll_bottom" />
 
-            <RadioButton
-                android:id="@+id/rb_meeting"
-                style="@style/CustomStyle.RadioButtonStyle"
-                android:drawableTop="@drawable/selector_rb_meeting"
-                android:text="@string/ui_meeting"
-                />
-            <RadioButton
-                android:id="@+id/rb_notice"
-                style="@style/CustomStyle.RadioButtonStyle"
-                android:drawableTop="@drawable/selector_rb_notice"
-                android:text="@string/ui_notice" />
+            <LinearLayout
+                android:id="@+id/ll_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/light_gray"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rb_mine"
-                style="@style/CustomStyle.RadioButtonStyle"
-                android:drawableTop="@drawable/selector_rb_mine"
-                android:text="@string/ui_mine" />
-        </RadioGroup>
-    </LinearLayout>
-</RelativeLayout>
+                <RadioGroup
+                    android:id="@+id/rg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:showDividers="middle">
+
+                    <RadioButton
+                        android:id="@+id/rb_message"
+                        style="@style/CustomStyle.RadioButtonStyle"
+                        android:drawableTop="@drawable/selector_rb_message"
+                        android:text="@string/ui_message" />
+
+                    <RadioButton
+                        android:id="@+id/rb_meeting"
+                        style="@style/CustomStyle.RadioButtonStyle"
+                        android:drawableTop="@drawable/selector_rb_meeting"
+                        android:text="@string/ui_meeting" />
+
+                    <RadioButton
+                        android:id="@+id/rb_notice"
+                        style="@style/CustomStyle.RadioButtonStyle"
+                        android:drawableTop="@drawable/selector_rb_notice"
+                        android:text="@string/ui_notice" />
+
+                    <RadioButton
+                        android:id="@+id/rb_mine"
+                        style="@style/CustomStyle.RadioButtonStyle"
+                        android:drawableTop="@drawable/selector_rb_mine"
+                        android:text="@string/ui_mine" />
+                </RadioGroup>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/layout_drawer_menu"
+            layout="@layout/drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
