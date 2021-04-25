@@ -7,77 +7,92 @@
 
     </data>
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".model.mine.ui.MineFragment">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/rl_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/light_gray"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            tools:context=".model.mine.ui.MineFragment">
 
-            <!-- 头像 -->
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/profile_pic_male" />
-
-            <!-- 昵称 -->
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_profile"
-                android:layout_centerHorizontal="true"
-                android:ellipsize="end"
-                android:hint="@string/ui_nickname"
-                android:singleLine="true"
-                android:textSize="20sp" />
+                android:background="@color/light_gray"
+                android:padding="10dp">
+
+                <!-- 头像 -->
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/profile_pic_male" />
+
+                <!-- 昵称 -->
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_profile"
+                    android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
+                    android:hint="@string/ui_nickname"
+                    android:singleLine="true"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_top"
+                android:gravity="fill_horizontal"
+                android:padding="10dp">
+
+                <TableRow>
+                    <!-- 日程 -->
+                    <com.example.demo02app.util.view.TextDrawable
+                        android:id="@+id/td_schedule"
+                        android:layout_weight="1"
+                        android:drawableTop="@mipmap/schedule"
+                        android:text="@string/ui_schedule"
+                        android:textAlignment="center"
+                        app:drawable_height="64dp"
+                        app:drawable_width="64dp" />
+                    <!-- 日志 -->
+                    <com.example.demo02app.util.view.TextDrawable
+                        android:id="@+id/td_log"
+                        android:layout_weight="1"
+                        android:drawableTop="@mipmap/log"
+                        android:text="@string/ui_log"
+                        android:textAlignment="center"
+                        app:drawable_height="64dp"
+                        app:drawable_width="64dp" />
+                    <!-- 文件 -->
+                    <com.example.demo02app.util.view.TextDrawable
+                        android:id="@+id/td_file"
+                        android:layout_weight="1"
+                        android:drawableTop="@mipmap/file"
+                        android:text="@string/ui_file"
+                        android:textAlignment="center"
+                        app:drawable_height="64dp"
+                        app:drawable_width="64dp" />
+                    <!-- 身份 -->
+                    <com.example.demo02app.util.view.TextDrawable
+                        android:id="@+id/td_identity"
+                        android:layout_weight="1"
+                        android:drawableTop="@mipmap/identity"
+                        android:text="@string/ui_identity"
+                        android:textAlignment="center"
+                        app:drawable_height="64dp"
+                        app:drawable_width="64dp" />
+                </TableRow>
+            </TableLayout>
 
         </RelativeLayout>
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_top"
-            android:gravity="fill_horizontal"
-            android:padding="10dp">
-
-            <TableRow>
-                <!-- 日程 -->
-                <com.example.demo02app.util.view.TextDrawable
-                    android:id="@+id/td_schedule"
-                    android:layout_weight="1"
-                    android:drawableTop="@mipmap/schedule"
-                    android:text="@string/ui_schedule"
-                    android:textAlignment="center"
-                    app:drawable_height="64dp"
-                    app:drawable_width="64dp" />
-                <!-- 日志 -->
-                <com.example.demo02app.util.view.TextDrawable
-                    android:id="@+id/td_log"
-                    android:layout_weight="1"
-                    android:drawableTop="@mipmap/log"
-                    android:text="@string/ui_log"
-                    android:textAlignment="center"
-                    app:drawable_height="64dp"
-                    app:drawable_width="64dp" />
-                <!-- 文件 -->
-                <com.example.demo02app.util.view.TextDrawable
-                    android:id="@+id/td_file"
-                    android:layout_weight="1"
-                    android:drawableTop="@mipmap/file"
-                    android:text="@string/ui_file"
-                    android:textAlignment="center"
-                    app:drawable_height="64dp"
-                    app:drawable_width="64dp" />
-            </TableRow>
-        </TableLayout>
-
-    </RelativeLayout>
+    </FrameLayout>
 </layout>

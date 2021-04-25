@@ -15,10 +15,18 @@ public class RegisterUser {
     @NonNull
     private String password;
 
+    @NonNull
+    private String realName;
 
-    public RegisterUser(String phone,  @NonNull String password) {
+    @NonNull
+    private int identity;
+
+
+    public RegisterUser(@NonNull String phone, @NonNull String password, @NonNull String realName, int identity) {
         this.phone = phone;
         this.password = password;
+        this.realName = realName;
+        this.identity = identity;
     }
 
     @NotNull
@@ -40,11 +48,30 @@ public class RegisterUser {
         this.password = password;
     }
 
+    @NonNull
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(@NonNull String realName) {
+        this.realName = realName;
+    }
+
+    public int getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(int identity) {
+        this.identity = identity;
+    }
+
     @Override
     public String toString() {
         return "RegisterUser{" +
                 "phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", realName='" + realName + '\'' +
+                ", identity=" + identity +
                 '}';
     }
 }

@@ -12,18 +12,18 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@={registerViewModel.registerUserLiveData.phone}"
             android:hint="@string/ui_phone"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="@={registerViewModel.registerUserLiveData.phone}" />
 
         <EditText
             android:id="@+id/et_password"
@@ -31,9 +31,24 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:drawableEnd="@mipmap/visible"
-            android:text="@={registerViewModel.registerUserLiveData.password}"
             android:hint="@string/ui_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="@={registerViewModel.registerUserLiveData.password}" />
+
+        <EditText
+            android:id="@+id/et_real_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/ui_real_name"
+            android:text="@={registerViewModel.registerUserLiveData.realName}" />
+
+        <Spinner
+            android:id="@+id/s_identity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:entries="@array/ui_spinner_identity" />
 
         <Button
             android:id="@+id/btn_register"

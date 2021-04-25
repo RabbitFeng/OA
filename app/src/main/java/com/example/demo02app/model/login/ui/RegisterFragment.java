@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import com.example.demo02app.databinding.FragmentRegisterBinding;
 
 public class RegisterFragment extends Fragment {
 
-    public interface RegisterListener{
+    public interface RegisterListener {
         void onSuccess();
     }
 
@@ -85,7 +86,7 @@ public class RegisterFragment extends Fragment {
             }
             if (registerResult.getError() != null) {
                 Toast.makeText(requireContext(), getString(registerResult.getError()), Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(requireContext(), getString(R.string.ui_register_succeed), Toast.LENGTH_SHORT).show();
                 // 注册成功
                 // 自动登录
@@ -128,6 +129,20 @@ public class RegisterFragment extends Fragment {
                 return true;
             }
             return false;
+        });
+
+        binding.sIdentity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int identity = getResources().getIntArray(R.array.identity_value)[position];
+                registerViewModel.getRegisterUserLiveData().getValue().setIdentity(identity);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
 
         // 注册按钮

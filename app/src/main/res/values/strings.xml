@@ -63,6 +63,8 @@
     <string name="ui_register_failed">注册失败</string>
 
 
+
+
     <!-- action -->
     <string name="action_webSocket">android.intent.action.CHAT_RECEIVER</string>
 
@@ -99,5 +101,12 @@
     <string name="dialog_cancel">取消</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ui_address_book">联系人</string>
+    <string name="ui_identity">身份</string>
+    <string name="select_register_identity">选择要注册的身份</string>
+    <string name="ui_register_employee">注册为员工</string>
+    <string name="ui_register_admin">注册为管理员</string>
+    <string name="ui_real_name">姓名</string>
+    <string name="ui_position">职位</string>
 
 </resources>

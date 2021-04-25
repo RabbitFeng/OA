@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ui_spinner_identity">
+        <item>普通用户</item>
+        <item>管理员</item>
+    </string-array>
+
+    <integer-array name="identity_value">
+        <item>0x01</item>
+        <item>0x02</item>
+    </integer-array>
+</resources>

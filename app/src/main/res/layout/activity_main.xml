@@ -53,6 +53,12 @@
                         android:text="@string/ui_message" />
 
                     <RadioButton
+                        android:id="@+id/rb_address_book"
+                        style="@style/CustomStyle.RadioButtonStyle"
+                        android:drawableTop="@drawable/selector_rb_address_book"
+                        android:text="@string/ui_address_book" />
+
+                    <RadioButton
                         android:id="@+id/rb_meeting"
                         style="@style/CustomStyle.RadioButtonStyle"
                         android:drawableTop="@drawable/selector_rb_meeting"

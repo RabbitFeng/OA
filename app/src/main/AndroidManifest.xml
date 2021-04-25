@@ -30,6 +30,7 @@
         <!-- LoginActivity -->
         <activity
             android:name=".model.login.ui.LoginActivity"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- MainActivity -->
         <activity android:name=".MainActivity">
 
