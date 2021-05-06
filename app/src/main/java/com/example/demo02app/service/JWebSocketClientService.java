@@ -86,10 +86,13 @@ public class JWebSocketClientService extends Service {
             client.send(message);
         }
     }
-    private void sendBroadcast(){
+
+    private void sendBroadcast() {
         Log.d(TAG, "sendBroadcast: called");
         Intent intent = new Intent();
         intent.setAction(getString(R.string.action_webSocket));
         sendBroadcast(intent);
     }
+
+
 }

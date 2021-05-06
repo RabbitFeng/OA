@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,11 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
      * 数据源
      */
     protected List<T> list;
+
+    /**
+     * item点击事件回调
+     */
+    private OnItemClickCallback<T> onItemClickCallback;
 
     /**
      * 获取布局id
@@ -37,9 +43,15 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
 
     /**
      * 更新列表
+     *
      * @param list list of T
      */
     public abstract void setList(@NonNull List<T> list);
+
+    public AbstractBindingAdapter(@Nullable List<T> list, @Nullable OnItemClickCallback<T> onItemClickCallback) {
+        this.list = list;
+        this.onItemClickCallback = onItemClickCallback;
+    }
 
     @NonNull
     @Override
@@ -51,6 +63,20 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
     @Override
     public void onBindViewHolder(@NonNull ViewHolder<B> holder, int position) {
         onBind(holder, list.get(position), position);
+        // 绑定点击事件
+        holder.getBinding().getRoot().setOnClickListener(v -> {
+            if (onItemClickCallback == null) {
+                return;
+            }
+            onItemClickCallback.onClick(list.get(position));
+        });
+
+        holder.getBinding().getRoot().setOnLongClickListener(v -> {
+            if (onItemClickCallback == null) {
+                return false;
+            }
+            return onItemClickCallback.onLongClick(list.get(position));
+        });
     }
 
     @Override

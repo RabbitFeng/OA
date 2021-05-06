@@ -30,12 +30,14 @@
     <string name="bundle_name">bundle_data</string>
     <string name="bundle_username">bundle_username</string>
     <string name="bundle_password">bundle_password</string>
+    <string name="bundle_message_from">bundle_message_from</string>
 
     <!-- params keys-->
     <string name="param_user_id">u_id</string>
     <string name="param_username">u_username</string>
     <string name="param_phone">u_phone</string>
     <string name="param_password">u_password</string>
+    <string name="param_real_name">u_real_name</string>
     <string name="param_identity">u_identity</string>
 
     <!-- ui -->
@@ -61,9 +63,6 @@
     <string name="ui_phone_invalid">电话号码格式不正确</string>
     <string name="ui_register_succeed">注册成功</string>
     <string name="ui_register_failed">注册失败</string>
-
-
-
 
     <!-- action -->
     <string name="action_webSocket">android.intent.action.CHAT_RECEIVER</string>
@@ -108,5 +107,6 @@
     <string name="ui_register_admin">注册为管理员</string>
     <string name="ui_real_name">姓名</string>
     <string name="ui_position">职位</string>
+    <string name="ui_remark">备注</string>
 
 </resources>

@@ -3,22 +3,23 @@ package com.example.demo02app;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.demo02app.repository.UserRepository;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.repository.UserRepository;
 
 public class MainViewModel extends ViewModel {
 
-    private MutableLiveData<LoggedInUser> loggedInUserLiveData;
+    private LiveData<LoggedInUser> loggedInUserLiveData;
 
     @NonNull
     private final UserRepository userRepository;
 
     public MainViewModel(@NonNull UserRepository userRepository) {
         this.userRepository = userRepository;
+        loggedInUserLiveData = userRepository.getUserCacheLiveData();
     }
 
     public void logout() {
@@ -26,8 +27,7 @@ public class MainViewModel extends ViewModel {
         userRepository.logout();
     }
 
-
-    public MutableLiveData<LoggedInUser> getLoggedInUserLiveData() {
+    public LiveData<LoggedInUser> getLoggedInUserLiveData() {
         return loggedInUserLiveData;
     }
 

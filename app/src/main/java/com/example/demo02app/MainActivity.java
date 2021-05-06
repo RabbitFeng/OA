@@ -14,15 +14,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.databinding.ActivityMainBinding;
 import com.example.demo02app.model.adressbook.ui.AddressBookFragment;
+import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
 import com.example.demo02app.model.meeting.ui.MeetingFragment;
 import com.example.demo02app.model.message.ui.MessageFragment;
 import com.example.demo02app.model.mine.ui.MineFragment;
 import com.example.demo02app.model.notice.ui.NoticeFragment;
+import com.example.demo02app.service.JWebSocketClientService;
 
 public class MainActivity extends AppCompatActivity implements FragmentCallback {
 
@@ -61,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
             viewModel = new ViewModelProvider(this, factory).get(MainViewModel.class);
 
             binding.rg.setOnCheckedChangeListener((group, checkedId) -> {
-                Log.d(TAG, "checkedChange: " + checkedId);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fl_container, fragmentSparseArray.get(checkedId))
                         .commitNow();
@@ -86,6 +88,18 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                         }).setNegativeButton(R.string.dialog_cancel, (dialog, which) -> {
                 }).show();
             });
+
+            viewModel.getLoggedInUserLiveData().observe(this, new Observer<LoggedInUser>() {
+                @Override
+                public void onChanged(LoggedInUser user) {
+                    if (user == null) {
+                        Log.d(TAG, "onChanged: user is null");
+                    } else {
+                        Log.d(TAG, "onChanged: user is not null "+user.getUserId());
+
+                    }
+                }
+            });
         }
     }
 
@@ -95,21 +109,34 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     protected void onStart() {
         super.onStart();
         // 开启WebSocket服务
-//        intentWebSocketService = new Intent(MainActivity.this, JWebSocketClientService.class);
-//        intentWebSocketService.putExtra(getString(R.string.param_username), "");
-//        startService(intentWebSocketService);
+        intentWebSocketService = new Intent(MainActivity.this, JWebSocketClientService.class);
+        intentWebSocketService.putExtra(getString(R.string.param_username), "");
+        startService(intentWebSocketService);
     }
 
     @Override
     protected void onStop() {
         // 关闭WebSocket服务
-//        stopService(intentWebSocketService);
+        stopService(intentWebSocketService);
         super.onStop();
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentNeedsFullScreen(boolean isNeed) {
+        binding.llBottom.setVisibility(isNeed ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onFragmentAddToBackStack(@NonNull Fragment fragment, @NonNull String name) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_container, fragment)
+                .addToBackStack(name)
+                .commit();
     }
 
     private void logout() {
@@ -119,17 +146,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         finish();
     }
 
-    @Override
-    public void onFragmentNeedsFullScreen(boolean isNeed) {
-        binding.llBottom.setVisibility(isNeed ? View.GONE : View.VISIBLE);
-    }
-
-
-    @Override
-    public void onFragmentAddToBackStack(@NonNull Fragment fragment, @NonNull String name) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fl_container, fragment)
-                .addToBackStack(name)
-                .commit();
+    public LoggedInUser getCurrentUser() {
+        return viewModel.getLoggedInUserLiveData().getValue();
     }
 }

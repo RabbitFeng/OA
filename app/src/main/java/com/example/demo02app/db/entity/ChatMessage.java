@@ -3,58 +3,71 @@ package com.example.demo02app.db.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "chat_message")
 public class ChatMessage {
-    @ColumnInfo(name = "cm_from_id")
-    @NonNull
-    private String fromId;
-    @ColumnInfo(name = "cm_to_id")
-    @NonNull
-    private String toId;
+    @PrimaryKey
+    private int id;
+
+    @ColumnInfo(name = "cm_sender")
+    private String sender;
+
+    @ColumnInfo(name = "cm_receiver")
+    private String receiver;
+
     @ColumnInfo(name = "cm_content")
     @NonNull
     private String content;
-    @ColumnInfo(name = "cm_timestamp")
-    @NonNull
-    private long timestamp;
 
-    public ChatMessage(String fromId, String toId, String content, long timestamp) {
-        this.fromId = fromId;
-        this.toId = toId;
+    @ColumnInfo(name = "cm_time")
+    private long time;
+
+    public ChatMessage(String sender, String receiver, @NonNull String content, long time) {
+        this.sender = sender;
+        this.receiver = receiver;
         this.content = content;
-        this.timestamp = timestamp;
+        this.time = time;
     }
 
-    public String getFromId() {
-        return fromId;
+    public String getSender() {
+        return sender;
     }
 
-    public void setFromId(String fromId) {
-        this.fromId = fromId;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public String getToId() {
-        return toId;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setToId(String toId) {
-        this.toId = toId;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
+    @NonNull
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(@NonNull String content) {
         this.content = content;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public long getTime() {
+        return time;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -2,48 +2,62 @@ package com.example.demo02app.model.message.data;
 
 import android.graphics.Bitmap;
 
-public class MessageItem {
-    private Bitmap profile;
-    private String nickname;
-    private String lastMessage;
-    private String timeOfMessage;
+import androidx.annotation.NonNull;
 
-    public MessageItem(Bitmap profile, String nickname, String currentMessage, String timeOfMessage) {
+public class MessageItem {
+    @NonNull
+    private String from;
+    private Bitmap profile;
+    private String remarkName;
+    private String latestMessage;
+    private String timeOfLatestMessage;
+
+    public MessageItem(@NonNull String from, Bitmap profile, String nickname, String latestMessage, String timeOfLatestMessage) {
+        this.from = from;
         this.profile = profile;
-        this.nickname = nickname;
-        this.lastMessage = currentMessage;
-        this.timeOfMessage = timeOfMessage;
+        this.remarkName = nickname;
+        this.latestMessage = latestMessage;
+        this.timeOfLatestMessage = timeOfLatestMessage;
     }
 
     public Bitmap getProfile() {
         return profile;
     }
 
+    @NonNull
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(@NonNull String from) {
+        this.from = from;
+    }
+
     public void setProfile(Bitmap profile) {
         this.profile = profile;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getRemarkName() {
+        return remarkName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setRemarkName(String remarkName) {
+        this.remarkName = remarkName;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getLatestMessage() {
+        return latestMessage;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setLatestMessage(String latestMessage) {
+        this.latestMessage = latestMessage;
     }
 
-    public String getTimeOfMessage() {
-        return timeOfMessage;
+    public String getTimeOfLatestMessage() {
+        return timeOfLatestMessage;
     }
 
-    public void setTimeOfMessage(String timeOfMessage) {
-        this.timeOfMessage = timeOfMessage;
+    public void setTimeOfLatestMessage(String timeOfLatestMessage) {
+        this.timeOfLatestMessage = timeOfLatestMessage;
     }
 }

@@ -80,7 +80,6 @@ public class UserRepository {
         readLocalCache();
     }
 
-
     /**
      * 获取单例
      *

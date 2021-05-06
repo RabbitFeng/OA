@@ -107,23 +107,6 @@ public class LoginFragment extends Fragment {
                 startActivity(intent);
                 requireActivity().finish();
             }
-//            switch (loginResult.getResult()) {
-//                case LoginResult.PASSWORD_ERROR:
-//                    Toast.makeText(requireContext(), "密码错误", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case LoginResult.USERNAME_NOT_EXIT:
-//                    Toast.makeText(requireContext(), "用户名错误", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case LoginResult.SUCCESS:
-//                    Toast.makeText(requireContext(), "登录成功", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(requireActivity(), MainActivity.class);
-//                    startActivity(intent);
-//                    requireActivity().finish();
-//                    break;
-//                case LoginResult.FAILURE:
-//                    Toast.makeText(requireContext(), "登陆失败", Toast.LENGTH_SHORT).show();
-//                    break;
-//            }
         });
     }
 

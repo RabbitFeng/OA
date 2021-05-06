@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="addressBookItem"
+            type="com.example.demo02app.model.adressbook.data.AddressBookItem" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/profile_pic_male"
+            android:id="@+id/iv_profile_pic"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/tv_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_profile_pic"
+            android:layout_alignBottom="@id/iv_profile_pic"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@+id/iv_profile_pic"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="@string/ui_remark"
+            android:text="@{addressBookItem.remarkName}"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+</layout>

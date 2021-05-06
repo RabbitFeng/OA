@@ -7,9 +7,15 @@ import com.example.demo02app.R;
 import com.example.demo02app.model.chat.data.ChatMessage;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.example.demo02app.databinding.ItemChatMessageBinding> {
+
+    public ChatMessageAdapter() {
+        super(null,null);
+    }
 
     @Override
     public int getLayoutId(int viewType) {
@@ -17,7 +23,7 @@ public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.
     }
 
     @Override
-    public void onBind(@NonNull ViewHolder<com.example.demo02app.databinding.ItemChatMessageBinding> holder, @NonNull ChatMessage chatMessage, int position) {
+    public void onBind(@NotNull @NonNull ViewHolder<com.example.demo02app.databinding.ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessage chatMessage, int position) {
         holder.getBinding().setChatMessage(chatMessage);
         holder.getBinding().executePendingBindings();
     }

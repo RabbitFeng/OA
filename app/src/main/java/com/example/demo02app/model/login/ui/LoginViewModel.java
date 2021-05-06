@@ -74,8 +74,8 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onComplete(Result<LoggedInUser> t) {
                 if (t instanceof Result.Success) {
+                    // login succeed
                     LoggedInUser data = ((Result.Success<LoggedInUser>) t).getData();
-                    userRepository.updateUserCache(data);
                     loginResultLiveData.postValue(new LoginResult(data));
                 } else {
                     loginResultLiveData.postValue(new LoginResult(R.string.ui_login_failed));

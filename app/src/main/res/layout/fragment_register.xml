@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.example.demo02app.util.converter.IdentityConverter" />
 
         <variable
             name="registerViewModel"
@@ -35,20 +38,21 @@
             android:inputType="textPassword"
             android:text="@={registerViewModel.registerUserLiveData.password}" />
 
-        <EditText
-            android:id="@+id/et_real_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/ui_real_name"
-            android:text="@={registerViewModel.registerUserLiveData.realName}" />
+<!--        <EditText-->
+<!--            android:id="@+id/et_real_name"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:hint="@string/ui_real_name"-->
+<!--            android:text="@={registerViewModel.registerUserLiveData.realName}" />-->
 
-        <Spinner
-            android:id="@+id/s_identity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:entries="@array/ui_spinner_identity" />
+<!--        <Spinner-->
+<!--            android:id="@+id/s_identity"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:entries="@array/ui_spinner_identity"-->
+<!--            app:select="@={IdentityConverter.convertToString(registerViewModel.registerUserLiveData.identity)}" />-->
 
         <Button
             android:id="@+id/btn_register"
