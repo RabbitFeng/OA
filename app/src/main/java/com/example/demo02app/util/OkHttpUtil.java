@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -16,14 +17,11 @@ import okhttp3.Response;
 
 public class OkHttpUtil {
     /**
-     * 异步post
      *
-     * @param urlStr   url字符串
-     * @param map      映射
-     * @param callback 回调接口
+     * @param urlStr url字符串
+     * @param map    映射
      */
-    public static void postAsync(@NonNull String urlStr, @Nullable Map<String, String> map,
-                                 @NonNull Callback callback) {
+    public static Call post(@NonNull String urlStr, @Nullable Map<String, String> map) {
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(5000, TimeUnit.MILLISECONDS).build();
         FormBody.Builder builder = new FormBody.Builder();
         if (map != null) {
@@ -37,7 +35,7 @@ public class OkHttpUtil {
                 .url(urlStr)
                 .put(builder.build())
                 .build();
-        client.newCall(request).enqueue(callback);
+        return client.newCall(request);
     }
 
     public static Response postSyn(@NonNull String urlStr, Map<String, String> map, @NonNull Callback callback) throws IOException {

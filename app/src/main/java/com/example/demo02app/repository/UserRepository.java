@@ -99,7 +99,7 @@ public class UserRepository {
     }
 
     public void login(@NonNull final LoggedInUser loggedInUser, @NonNull RepositoryCallback<LoggedInUser> callback) {
-        OkHttpUtil.postAsync(getString(R.string.url_login), convertLoggedUserToMap(loggedInUser), new Callback() {
+        OkHttpUtil.post(getString(R.string.url_login), convertLoggedUserToMap(loggedInUser)).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 callback.onComplete(new Result.Error<>(e));
@@ -141,10 +141,10 @@ public class UserRepository {
      * @param callback
      */
     public void register(@NonNull final RegisterUser registerUser, RepositoryCallback<LoggedInUser> callback) {
-        OkHttpUtil.postAsync(getString(R.string.url_register), convertRegisterUserToMap(registerUser), new Callback() {
+
+        OkHttpUtil.post(getString(R.string.url_register), convertRegisterUserToMap(registerUser)).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                // register Fail
                 callback.onComplete(new Result.Error<>(e));
             }
 
