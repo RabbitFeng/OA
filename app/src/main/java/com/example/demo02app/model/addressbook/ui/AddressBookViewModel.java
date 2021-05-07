@@ -1,4 +1,4 @@
-package com.example.demo02app.model.adressbook.ui;
+package com.example.demo02app.model.addressbook.ui;
 
 import android.app.Application;
 import android.util.Log;
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.adressbook.data.AddressBookItem;
+import com.example.demo02app.model.addressbook.data.AddressBookItem;
 import com.example.demo02app.repository.AddressBookRepository;
 
 import java.util.List;
@@ -31,6 +31,10 @@ public class AddressBookViewModel extends ViewModel {
         this.currentUserId = currentUserId;
         addressBookItemLiveData = addressBookRepository.loadAddressBook(currentUserId);
         Log.d(TAG, "AddressBookViewModel: userID " + currentUserId);
+    }
+
+    public void reLoad() {
+        addressBookRepository.loadFromNet(currentUserId);
     }
 
     public LiveData<List<AddressBookItem>> getAddressBookListLiveData() {

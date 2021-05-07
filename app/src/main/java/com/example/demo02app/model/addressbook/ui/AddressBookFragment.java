@@ -1,4 +1,4 @@
-package com.example.demo02app.model.adressbook.ui;
+package com.example.demo02app.model.addressbook.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.demo02app.MainActivity;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookBinding;
-import com.example.demo02app.model.adressbook.data.AddressBookItem;
+import com.example.demo02app.model.addressbook.data.AddressBookItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 public class AddressBookFragment extends Fragment {
@@ -50,13 +50,15 @@ public class AddressBookFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // 下拉刷新
+                mViewModel.reLoad();
+
             }
         });
 
         addressBookAdapter = new AddressBookAdapter(null, new OnItemClickCallback<AddressBookItem>() {
             @Override
             public void onClick(@NonNull AddressBookItem addressBookItem) {
-
+                Log.d(TAG, "onClick: " + addressBookItem.getUserId());
             }
 
             @Override
@@ -65,11 +67,16 @@ public class AddressBookFragment extends Fragment {
             }
         });
 
+        binding.rvAddressBook.setAdapter(addressBookAdapter);
+
         mViewModel.getAddressBookListLiveData().observe(getViewLifecycleOwner(), addressBooks -> {
             if (addressBooks == null) {
                 return;
             }
-            Log.d(TAG, "onActivityCreated: called");
+            Log.d(TAG, "onActivityCreated: changed " + addressBooks.size());
+            for (AddressBookItem addressBook : addressBooks) {
+                Log.d(TAG, "onActivityCreated: " + addressBook);
+            }
             addressBookAdapter.setList(addressBooks);
         });
 

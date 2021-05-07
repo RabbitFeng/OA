@@ -1,9 +1,9 @@
-package com.example.demo02app.model.adressbook.data;
+package com.example.demo02app.model.addressbook.data;
 
 import androidx.room.ColumnInfo;
 
 public class AddressBookItem {
-    @ColumnInfo(name = "ad_user_id")
+    @ColumnInfo(name = "ad_user_other")
     private String userId;
     @ColumnInfo(name = "ad_remark_name")
     private String remarkName;
@@ -27,5 +27,13 @@ public class AddressBookItem {
 
     public void setRemarkName(String remarkName) {
         this.remarkName = remarkName;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBookItem{" +
+                "userId='" + userId + '\'' +
+                ", remarkName='" + remarkName + '\'' +
+                '}';
     }
 }

@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.databinding.ActivityMainBinding;
-import com.example.demo02app.model.adressbook.ui.AddressBookFragment;
+import com.example.demo02app.model.addressbook.ui.AddressBookFragment;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
 import com.example.demo02app.model.meeting.ui.MeetingFragment;
