@@ -27,7 +27,7 @@ public class MeetingAdapter extends AbstractBindingAdapter<MeetingItem,ItemMeeti
     }
 
     @Override
-    public void onBind(@NonNull @NotNull ViewHolder<ItemMeetingBinding> holder, @NotNull MeetingItem meetingItem, int position) {
+    public void onBind(@NonNull @NotNull BindingHolder<ItemMeetingBinding> holder, @NotNull MeetingItem meetingItem, int position) {
         holder.getBinding().setMeetingItem(meetingItem);
         holder.getBinding().executePendingBindings();
     }

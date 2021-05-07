@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
+import com.example.demo02app.databinding.ItemChatMessageBinding;
 import com.example.demo02app.model.chat.data.ChatMessage;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 
@@ -23,7 +24,7 @@ public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.
     }
 
     @Override
-    public void onBind(@NotNull @NonNull ViewHolder<com.example.demo02app.databinding.ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessage chatMessage, int position) {
+    public void onBind(@NotNull @NonNull BindingHolder<ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessage chatMessage, int position) {
         holder.getBinding().setChatMessage(chatMessage);
         holder.getBinding().executePendingBindings();
     }

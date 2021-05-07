@@ -12,9 +12,9 @@ import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import java.util.List;
 
-public class AddressBookAdapter extends AbstractBindingAdapter<AddressBookItem, ItemAddressBookBinding> {
+public class AddressBookItemAdapter extends AbstractBindingAdapter<AddressBookItem, ItemAddressBookBinding> {
 
-    public AddressBookAdapter(@Nullable List<AddressBookItem> list, @Nullable OnItemClickCallback<AddressBookItem> onItemClickCallback) {
+    public AddressBookItemAdapter(@Nullable List<AddressBookItem> list, @Nullable OnItemClickCallback<AddressBookItem> onItemClickCallback) {
         super(list, onItemClickCallback);
     }
 
@@ -24,7 +24,7 @@ public class AddressBookAdapter extends AbstractBindingAdapter<AddressBookItem, 
     }
 
     @Override
-    public void onBind(@NonNull ViewHolder<ItemAddressBookBinding> holder, @NonNull AddressBookItem addressBookItem, int position) {
+    public void onBind(@NonNull BindingHolder<ItemAddressBookBinding> holder, @NonNull AddressBookItem addressBookItem, int position) {
         holder.getBinding().setAddressBookItem(addressBookItem);
         holder.getBinding().executePendingBindings();
     }

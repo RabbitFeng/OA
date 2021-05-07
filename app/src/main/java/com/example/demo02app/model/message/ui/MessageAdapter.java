@@ -34,7 +34,7 @@ public class MessageAdapter extends AbstractBindingAdapter<MessageItem, ItemMess
     }
 
     @Override
-    public void onBind(@NonNull @NotNull ViewHolder<ItemMessageBinding> holder, @NotNull MessageItem item, int position) {
+    public void onBind(@NonNull @NotNull BindingHolder<ItemMessageBinding> holder, @NotNull MessageItem item, int position) {
         holder.getBinding().setMessageItem(item);
         holder.getBinding().executePendingBindings();
     }

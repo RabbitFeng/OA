@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> extends RecyclerView.Adapter<AbstractBindingAdapter.ViewHolder<B>> {
+public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> extends RecyclerView.Adapter<AbstractBindingAdapter.BindingHolder<B>> {
     /**
      * 数据源
      */
@@ -39,7 +39,7 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
      * @param t        数据
      * @param position 位置
      */
-    public abstract void onBind(@NonNull ViewHolder<B> holder, @NonNull T t, int position);
+    public abstract void onBind(@NonNull BindingHolder<B> holder, @NonNull T t, int position);
 
     /**
      * 更新列表
@@ -55,13 +55,13 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
 
     @NonNull
     @Override
-    public ViewHolder<B> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BindingHolder<B> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         B binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), getLayoutId(viewType), parent, false);
-        return new ViewHolder<>(binding);
+        return new BindingHolder<>(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder<B> holder, int position) {
+    public void onBindViewHolder(@NonNull BindingHolder<B> holder, int position) {
         onBind(holder, list.get(position), position);
         // 绑定点击事件
         holder.getBinding().getRoot().setOnClickListener(v -> {
@@ -84,11 +84,11 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
         return list == null ? 0 : list.size();
     }
 
-    public static class ViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
+    public static class BindingHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
         @NonNull
         protected B binding;
 
-        public ViewHolder(B binding) {
+        public BindingHolder(B binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

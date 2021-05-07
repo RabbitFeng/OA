@@ -11,23 +11,28 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.demo02app.MainActivity;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookBinding;
-import com.example.demo02app.model.addressbook.data.AddressBookItem;
-import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 public class AddressBookFragment extends Fragment {
 
     private static final String TAG = AddressBookFragment.class.getName();
-    private FragmentAddressBookBinding binding;
     private AddressBookViewModel mViewModel;
-    private AddressBookAdapter addressBookAdapter;
 
-    public static AddressBookFragment newInstance() {
-        return new AddressBookFragment();
+    private FragmentAddressBookBinding binding;
+
+    private static final String USER_OTHER = "user_other";
+
+    private AddressBookFragment() {
+    }
+
+    public AddressBookFragment forAddressBook(@NonNull String userOther) {
+        AddressBookFragment fragment = new AddressBookFragment();
+        Bundle data = new Bundle();
+        data.putString(USER_OTHER, userOther);
+        fragment.setArguments(data);
+        return fragment;
     }
 
     @Override
@@ -41,44 +46,18 @@ public class AddressBookFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AddressBookViewModel.Factory factory = new AddressBookViewModel.Factory(requireActivity().getApplication(),
-                ((MainActivity) requireActivity()).getCurrentUser().getUserId());
-        mViewModel = new ViewModelProvider(requireActivity(), factory).get(AddressBookViewModel.class);
-        binding.setLifecycleOwner(this);
+                requireArguments().getString(USER_OTHER));
+        mViewModel = new ViewModelProvider(this, factory).get(AddressBookViewModel.class);
 
-        binding.srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
+        binding.btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
-                // 下拉刷新
-                mViewModel.reLoad();
-
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: called");
             }
         });
 
-        addressBookAdapter = new AddressBookAdapter(null, new OnItemClickCallback<AddressBookItem>() {
-            @Override
-            public void onClick(@NonNull AddressBookItem addressBookItem) {
-                Log.d(TAG, "onClick: " + addressBookItem.getUserId());
-            }
-
-            @Override
-            public boolean onLongClick(@NonNull AddressBookItem addressBookItem) {
-                return false;
-            }
-        });
-
-        binding.rvAddressBook.setAdapter(addressBookAdapter);
-
-        mViewModel.getAddressBookListLiveData().observe(getViewLifecycleOwner(), addressBooks -> {
-            if (addressBooks == null) {
-                return;
-            }
-            Log.d(TAG, "onActivityCreated: changed " + addressBooks.size());
-            for (AddressBookItem addressBook : addressBooks) {
-                Log.d(TAG, "onActivityCreated: " + addressBook);
-            }
-            addressBookAdapter.setList(addressBooks);
-        });
 
     }
 

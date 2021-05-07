@@ -23,7 +23,7 @@ public class NoticeAdapter extends AbstractBindingAdapter<NoticeItem, ItemNotice
     }
 
     @Override
-    public void onBind(@NonNull @NotNull ViewHolder<ItemNoticeBinding> holder, @NotNull NoticeItem noticeItem, int position) {
+    public void onBind(@NonNull @NotNull BindingHolder<ItemNoticeBinding> holder, @NotNull NoticeItem noticeItem, int position) {
         holder.getBinding().setNoticeItem(noticeItem);
         holder.getBinding().executePendingBindings();
     }

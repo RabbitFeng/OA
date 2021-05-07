@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.databinding.ActivityMainBinding;
-import com.example.demo02app.model.addressbook.ui.AddressBookFragment;
+import com.example.demo02app.model.addressbook.ui.AddressBookListFragment;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
 import com.example.demo02app.model.meeting.ui.MeetingFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<Fragment>() {
         {
             put(R.id.rb_message, MessageFragment.newInstance());
-            put(R.id.rb_address_book, AddressBookFragment.newInstance());
+            put(R.id.rb_address_book, AddressBookListFragment.newInstance());
             put(R.id.rb_meeting, MeetingFragment.newInstance());
             put(R.id.rb_notice, NoticeFragment.newInstance());
             put(R.id.rb_mine, new MineFragment(MainActivity.this));

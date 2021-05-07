@@ -110,5 +110,6 @@
     <string name="ui_real_name">姓名</string>
     <string name="ui_position">职位</string>
     <string name="ui_remark">备注</string>
+    <string name="ui_chat">聊天</string>
 
 </resources>
