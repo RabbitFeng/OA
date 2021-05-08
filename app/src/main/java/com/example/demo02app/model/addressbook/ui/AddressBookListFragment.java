@@ -59,6 +59,8 @@ public class AddressBookListFragment extends Fragment {
             @Override
             public void onClick(@NonNull AddressBookItem addressBookItem) {
                 Log.d(TAG, "onClick: " + addressBookItem.getUserId());
+                ((MainActivity)requireActivity()).show(AddressBookFragment.forAddressBook(addressBookItem.getUserId()),
+                        "addressBook");
             }
 
             @Override

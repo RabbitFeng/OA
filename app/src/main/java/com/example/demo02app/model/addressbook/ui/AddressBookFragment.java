@@ -1,5 +1,6 @@
 package com.example.demo02app.model.addressbook.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookBinding;
+import com.example.demo02app.model.chat.ui.ChatActivity;
 
 public class AddressBookFragment extends Fragment {
 
     private static final String TAG = AddressBookFragment.class.getName();
+
     private AddressBookViewModel mViewModel;
 
     private FragmentAddressBookBinding binding;
@@ -27,7 +30,7 @@ public class AddressBookFragment extends Fragment {
     private AddressBookFragment() {
     }
 
-    public AddressBookFragment forAddressBook(@NonNull String userOther) {
+    public static AddressBookFragment forAddressBook(@NonNull String userOther) {
         AddressBookFragment fragment = new AddressBookFragment();
         Bundle data = new Bundle();
         data.putString(USER_OTHER, userOther);
@@ -54,7 +57,12 @@ public class AddressBookFragment extends Fragment {
         binding.btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: called");
+                Log.d(TAG, "onClick: called " + mViewModel.getUserOther());
+                Intent intent = new Intent(requireActivity(), ChatActivity.class);
+                Bundle data = new Bundle();
+                data.putString(getString(R.string.bundle_user_other), mViewModel.getUserOther());
+                intent.putExtra(getString(R.string.bundle_name), data);
+                startActivity(intent);
             }
         });
 

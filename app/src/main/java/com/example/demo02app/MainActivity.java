@@ -21,10 +21,10 @@ import com.example.demo02app.databinding.ActivityMainBinding;
 import com.example.demo02app.model.addressbook.ui.AddressBookListFragment;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
-import com.example.demo02app.model.meeting.ui.MeetingFragment;
-import com.example.demo02app.model.message.ui.MessageFragment;
+import com.example.demo02app.model.meeting.ui.MeetingListFragment;
+import com.example.demo02app.model.message.ui.MessageItemFragment;
 import com.example.demo02app.model.mine.ui.MineFragment;
-import com.example.demo02app.model.notice.ui.NoticeFragment;
+import com.example.demo02app.model.notice.ui.NoticeListFragment;
 import com.example.demo02app.service.JWebSocketClientService;
 
 public class MainActivity extends AppCompatActivity implements FragmentCallback {
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
 
     private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<Fragment>() {
         {
-            put(R.id.rb_message, MessageFragment.newInstance());
+            put(R.id.rb_message, MessageItemFragment.newInstance());
             put(R.id.rb_address_book, AddressBookListFragment.newInstance());
-            put(R.id.rb_meeting, MeetingFragment.newInstance());
-            put(R.id.rb_notice, NoticeFragment.newInstance());
+            put(R.id.rb_meeting, MeetingListFragment.newInstance());
+            put(R.id.rb_notice, NoticeListFragment.newInstance());
             put(R.id.rb_mine, new MineFragment(MainActivity.this));
         }
     };
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                     if (user == null) {
                         Log.d(TAG, "onChanged: user is null");
                     } else {
-                        Log.d(TAG, "onChanged: user is not null "+user.getUserId());
+                        Log.d(TAG, "onChanged: user is not null " + user.getUserId());
 
                     }
                 }
@@ -148,5 +148,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
 
     public LoggedInUser getCurrentUser() {
         return viewModel.getLoggedInUserLiveData().getValue();
+    }
+
+    public void show(Fragment fragment, String name) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_container, fragment)
+                .addToBackStack(name)
+                .commit();
     }
 }

@@ -36,13 +36,12 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-//        Intent intent = getIntent();
-//        String messageFrom = intent.getStringExtra(getString(R.string.bundle_message_from));
-//        Log.d(TAG, "onCreate: MessageFrom:" + messageFrom);
+        String userOther = getIntent().getBundleExtra(getString(R.string.bundle_name))
+                .getString(getString(R.string.bundle_user_other));
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, ChatFragment.newInstance())
+                    .replace(R.id.fl_container, ChatFragment.forUserChat(userOther))
                     .commitNow();
         }
     }

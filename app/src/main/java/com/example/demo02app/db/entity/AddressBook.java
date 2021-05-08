@@ -18,10 +18,18 @@ public class AddressBook {
     @ColumnInfo(name = "ad_remark_name")
     private String remarkName;
 
-    public AddressBook(@NonNull String userHost, @NonNull String userOther, String remarkName) {
+    @ColumnInfo(name = "ad_user_phone")
+    private String userPhone;
+
+    @ColumnInfo(name = "ad_user_real_name")
+    private String realName;
+
+    public AddressBook(@NonNull String userHost, @NonNull String userOther, String remarkName, String userPhone, String realName) {
         this.userHost = userHost;
         this.userOther = userOther;
         this.remarkName = remarkName;
+        this.userPhone = userPhone;
+        this.realName = realName;
     }
 
     @NonNull
@@ -48,5 +56,21 @@ public class AddressBook {
 
     public void setRemarkName(String remarkName) {
         this.remarkName = remarkName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

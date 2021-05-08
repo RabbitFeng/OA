@@ -22,14 +22,14 @@ import com.example.demo02app.util.adapter.OnItemClickCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageFragment extends Fragment {
-    private static final String TAG = MessageFragment.class.getName();
+public class MessageItemFragment extends Fragment {
+    private static final String TAG = MessageItemFragment.class.getName();
     private FragmentMessageBinding binding;
-    private MessageViewModel mViewModel;
-    private MessageAdapter adapter;
+    private MessageItemViewModel mViewModel;
+    private MessageItemAdapter adapter;
 
-    public static MessageFragment newInstance() {
-        return new MessageFragment();
+    public static MessageItemFragment newInstance() {
+        return new MessageItemFragment();
     }
 
     @Override
@@ -45,10 +45,10 @@ public class MessageFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(MessageItemViewModel.class);
 
         Log.d(TAG, "onActivityCreated: 关闭toolbar");
-        adapter = new MessageAdapter(null, new OnItemClickCallback<MessageItem>() {
+        adapter = new MessageItemAdapter(null, new OnItemClickCallback<MessageItem>() {
             @Override
             public void onClick(@NonNull MessageItem messageItem) {
                 // 跳转到ChatActivity

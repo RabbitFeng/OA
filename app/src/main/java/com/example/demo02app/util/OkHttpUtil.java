@@ -17,7 +17,6 @@ import okhttp3.Response;
 
 public class OkHttpUtil {
     /**
-     *
      * @param urlStr url字符串
      * @param map    映射
      */

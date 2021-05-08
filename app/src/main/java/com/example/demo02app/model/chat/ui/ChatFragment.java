@@ -31,6 +31,8 @@ public class ChatFragment extends Fragment {
 
     private FragmentChatBinding binding;
 
+    private final static String USER_OTHER = "user_other";
+
     private int rvRollBack;
 
     private JWebSocketClientService socketClientService;
@@ -50,8 +52,13 @@ public class ChatFragment extends Fragment {
         }
     };
 
-    public static ChatFragment newInstance() {
-        return new ChatFragment();
+    public static ChatFragment forUserChat(String userOther) {
+        ChatFragment chatFragment = new ChatFragment();
+        Bundle data = new Bundle();
+        data.putString(USER_OTHER, userOther);
+        chatFragment.setArguments(data);
+        Log.d(TAG, "forUserChat: new instance with userOther:" + userOther);
+        return chatFragment;
     }
 
     @Override
@@ -66,7 +73,9 @@ public class ChatFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(ChatViewModel.class);
+        ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
+                requireArguments().getString(USER_OTHER));
+        mViewModel = new ViewModelProvider(this, factory).get(ChatViewModel.class);
 
         // 监听视图变化，使得软键盘弹出时，RecyclerView能够跟随最后一项
         binding.rvMessage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {

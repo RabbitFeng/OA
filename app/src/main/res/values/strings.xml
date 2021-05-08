@@ -5,6 +5,7 @@
     <string name="url_login">http://192.168.1.106:8080/login</string>
     <string name="url_register">http://192.168.1.106:8080/register</string>
     <string name="url_address_book">http://192.168.1.106:8080/address_book</string>
+    <string name="url_address_book_id">http://192.168.1.106:8080/address_book_id</string>
     <string name="url_webSocket">ws://192.168.1.106:8080/websocket/</string>
 
     <!--  shared preference  -->
@@ -31,6 +32,7 @@
     <string name="bundle_username">bundle_username</string>
     <string name="bundle_password">bundle_password</string>
     <string name="bundle_message_from">bundle_message_from</string>
+    <string name="bundle_user_other">bundle_user_other</string>
 
     <!-- params keys-->
     <string name="param_user_id">u_id</string>
@@ -39,8 +41,9 @@
     <string name="param_password">u_password</string>
     <string name="param_real_name">u_real_name</string>
     <string name="param_identity">u_identity</string>
-    <string name="param_ab_user_other">ab_user_other</string>
-    <string name="param_ab_remark">ab_remark</string>
+    <string name="param_user_host">ab_host</string>
+    <string name="param_user_other">ab_other</string>
+    <string name="param_remark">ab_remark</string>
 
     <!-- ui -->
     <string name="ui_login_id">用户名/邮箱/电话号码</string>
@@ -80,7 +83,6 @@
         这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
         这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
         这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，这是一段长文字，
-
     </string>
 
     <string name="hint_time1">18:00</string>
@@ -111,5 +113,6 @@
     <string name="ui_position">职位</string>
     <string name="ui_remark">备注</string>
     <string name="ui_chat">聊天</string>
+
 
 </resources>

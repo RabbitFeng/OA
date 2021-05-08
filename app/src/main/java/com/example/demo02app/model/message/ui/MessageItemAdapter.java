@@ -16,15 +16,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MessageAdapter extends AbstractBindingAdapter<MessageItem, ItemMessageBinding> {
+public class MessageItemAdapter extends AbstractBindingAdapter<MessageItem, ItemMessageBinding> {
 
-    private static final String TAG = MessageAdapter.class.getName();
+    private static final String TAG = MessageItemAdapter.class.getName();
 
-    public MessageAdapter() {
+    public MessageItemAdapter() {
         super(null, null);
     }
 
-    public MessageAdapter(@Nullable List<MessageItem> list, @Nullable OnItemClickCallback<MessageItem> onItemClickCallback) {
+    public MessageItemAdapter(@Nullable List<MessageItem> list, @Nullable OnItemClickCallback<MessageItem> onItemClickCallback) {
         super(list, onItemClickCallback);
     }
 

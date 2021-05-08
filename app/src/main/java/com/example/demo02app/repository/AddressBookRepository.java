@@ -61,9 +61,9 @@ public class AddressBookRepository {
         return database.addressBookDao().selectAddressBook(uId);
     }
 
-    public void loadFromNet(String uId) {
+    public void loadFromNet(String userHost) {
         OkHttpUtil.post(getString(R.string.url_address_book), new HashMap<String, String>() {{
-            put(getString(R.string.param_user_id), uId);
+            put(getString(R.string.param_user_host), userHost);
         }}).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -81,9 +81,12 @@ public class AddressBookRepository {
                         JSONArray jsonArray = new JSONArray(string);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String userOther = jsonObject.getString(getString(R.string.param_ab_user_other));
-                            String remark = jsonObject.getString(getString(R.string.param_ab_remark));
-                            addressBooks.add(new AddressBook(uId,userOther,remark));
+                            String userOther = jsonObject.getString(getString(R.string.param_user_other));
+                            String remark = jsonObject.getString(getString(R.string.param_remark));
+                            String phone = jsonObject.getString(getString(R.string.param_phone));
+                            String realName = jsonObject.getString(getString(R.string.param_real_name));
+
+                            addressBooks.add(new AddressBook(userHost,userOther,remark,phone,realName));
                         }
                         database.addressBookDao().insertAddressBook(addressBooks);
                         Log.d(TAG, "onResponse: insertSuccess");
@@ -98,7 +101,32 @@ public class AddressBookRepository {
                 }
             }
         });
+    }
 
+    public LiveData<AddressBook> findAddressBookByUserId(String userHost, String userOther) {
+        findByIdFromNetWork(userOther);
+        return database.addressBookDao().selectAddressBookByUserId(userHost, userOther);
+    }
+
+    private void findByIdFromNetWork(String userOther) {
+        OkHttpUtil.post(getString(R.string.url_address_book_id), new HashMap<String, String>() {{
+            put(getString(R.string.param_user_other), userOther);
+        }}).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: called");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String string = response.body().string();
+                    Log.d(TAG, "onResponse: called " + string);
+
+                }
+
+            }
+        });
     }
 
     private String getString(@StringRes int stringRes) {
