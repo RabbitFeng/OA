@@ -1,11 +1,10 @@
 package com.example.demo02app.model.chat.ui;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,41 +15,48 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentChatBinding;
-import com.example.demo02app.service.JWebSocketClientService;
+import com.example.demo02app.model.chat.entity.ChatMessageItem;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ChatFragment extends Fragment {
 
     private static final String TAG = ChatFragment.class.getName();
 
-    private ChatViewModel mViewModel;
+    private ChatViewModel viewModel;
 
     private FragmentChatBinding binding;
 
+    private ChatMessageItemAdapter adapter;
+
     private final static String USER_OTHER = "user_other";
+
 
     private int rvRollBack;
 
-    private JWebSocketClientService socketClientService;
+//    private JWebSocketClientService socketClientService;
 
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected: called");
-            JWebSocketClientService.JWebSocketClientBinder binder =
-                    (JWebSocketClientService.JWebSocketClientBinder) service;
-            socketClientService = binder.getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "onServiceDisconnected: called");
-        }
-    };
+//    private ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            Log.d(TAG, "onServiceConnected: called");
+//            JWebSocketClientService.JWebSocketClientBinder binder =
+//                    (JWebSocketClientService.JWebSocketClientBinder) service;
+//            socketClientService = binder.getService();
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            Log.d(TAG, "onServiceDisconnected: called");
+//        }
+//    };
 
     public static ChatFragment forUserChat(String userOther) {
         ChatFragment chatFragment = new ChatFragment();
@@ -75,7 +81,26 @@ public class ChatFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
                 requireArguments().getString(USER_OTHER));
-        mViewModel = new ViewModelProvider(this, factory).get(ChatViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(ChatViewModel.class);
+
+        adapter = new ChatMessageItemAdapter();
+        binding.rvMessage.setAdapter(adapter);
+
+        viewModel.getChatMessageListLiveData().observe(this, new Observer<List<ChatMessageItem>>() {
+            @Override
+            public void onChanged(List<ChatMessageItem> chatMessageItems) {
+                if(chatMessageItems==null){
+                    return;
+                }
+                Log.d(TAG, "onChanged: called " + chatMessageItems.size());
+                adapter.setList(chatMessageItems);
+
+                for (ChatMessageItem chatMessageItem : chatMessageItems) {
+                    Log.d(TAG, chatMessageItem.toString());
+                }
+
+            }
+        });
 
         // 监听视图变化，使得软键盘弹出时，RecyclerView能够跟随最后一项
         binding.rvMessage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
@@ -123,10 +148,32 @@ public class ChatFragment extends Fragment {
             return false;
         });
 
+        binding.viewInput.etContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                viewModel.update(s.toString());
+
+                Log.d(TAG, "afterTextChanged: called s:" + binding.viewInput.etContent.getText().toString());
+                viewModel.update(binding.viewInput.etContent.getText().toString());
+            }
+        });
+
+        // 发送消息
         binding.viewInput.btnSend.setOnClickListener(v -> {
             String content = binding.viewInput.etContent.getText().toString();
             if (!content.isEmpty()) {
-//                socketClientService.sendMessage();
+                Log.d(TAG, "onActivityCreated: " + Objects.requireNonNull(viewModel.getChatMessageMutableLiveData().getValue()).toString());
+                ((ChatActivity) requireActivity()).sendMessage(viewModel.getChatMessageMutableLiveData().getValue());
             }
         });
     }

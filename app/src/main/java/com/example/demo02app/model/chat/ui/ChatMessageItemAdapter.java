@@ -5,16 +5,16 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemChatMessageBinding;
-import com.example.demo02app.model.chat.data.ChatMessage;
+import com.example.demo02app.model.chat.entity.ChatMessageItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.example.demo02app.databinding.ItemChatMessageBinding> {
+public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageItem, com.example.demo02app.databinding.ItemChatMessageBinding> {
 
-    public ChatMessageAdapter() {
+    public ChatMessageItemAdapter() {
         super(null,null);
     }
 
@@ -24,15 +24,15 @@ public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.
     }
 
     @Override
-    public void onBind(@NotNull @NonNull BindingHolder<ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessage chatMessage, int position) {
-        holder.getBinding().setChatMessage(chatMessage);
+    public void onBind(@NotNull @NonNull BindingHolder<ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessageItem chatMessageItem, int position) {
+        holder.getBinding().setChatMessageItem(chatMessageItem);
         holder.getBinding().executePendingBindings();
     }
 
     @Override
-    public void setList(@NonNull List<ChatMessage> chatMessageList) {
+    public void setList(@NonNull List<ChatMessageItem> chatMessageItemList) {
         if (this.list == null) {
-            this.list = chatMessageList;
+            this.list = chatMessageItemList;
             notifyItemRangeChanged(0, list.size());
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
@@ -43,7 +43,7 @@ public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.
 
                 @Override
                 public int getNewListSize() {
-                    return chatMessageList.size();
+                    return chatMessageItemList.size();
                 }
 
                 @Override
@@ -56,7 +56,7 @@ public class ChatMessageAdapter extends AbstractBindingAdapter<ChatMessage, com.
                     return false;
                 }
             });
-            this.list = chatMessageList;
+            this.list = chatMessageItemList;
             result.dispatchUpdatesTo(this);
         }
     }

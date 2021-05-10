@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.demo02app.MainActivity;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookListBinding;
-import com.example.demo02app.model.addressbook.data.AddressBookItem;
+import com.example.demo02app.model.addressbook.entity.AddressBookItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 public class AddressBookListFragment extends Fragment {

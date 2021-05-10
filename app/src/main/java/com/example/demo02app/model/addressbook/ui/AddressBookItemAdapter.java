@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemAddressBookBinding;
-import com.example.demo02app.model.addressbook.data.AddressBookItem;
+import com.example.demo02app.model.addressbook.entity.AddressBookItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 

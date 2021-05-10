@@ -4,9 +4,11 @@
 
     <data>
 
+        <import type="com.example.demo02app.util.converter.DateTimeConverter" />
+
         <variable
             name="messageItem"
-            type="com.example.demo02app.model.message.data.MessageItem" />
+            type="com.example.demo02app.model.message.entity.MessageItem" />
     </data>
 
     <RelativeLayout
@@ -49,7 +51,7 @@
             android:hint="@string/ui_last_message"
             android:maxLength="15"
             android:maxLines="1"
-            android:text="@{messageItem.latestMessage}"
+            android:text="@{}"
             android:textColor="@color/gray"
             android:textSize="15sp" />
 
@@ -58,8 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:hint="2020-10-01"
-            android:text="@{messageItem.timeOfLatestMessage}"
+            android:text="@{DateTimeConverter.convertToString(messageItem.timeOfLatestMessage)}"
             android:textColor="@color/gray"
             android:textSize="18sp" />
 

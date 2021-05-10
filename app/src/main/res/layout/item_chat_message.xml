@@ -6,9 +6,11 @@
 
         <import type="android.view.View" />
 
+        <import type="com.example.demo02app.util.converter.DateTimeConverter" />
+
         <variable
-            name="chatMessage"
-            type="com.example.demo02app.model.chat.data.ChatMessage" />
+            name="chatMessageItem"
+            type="com.example.demo02app.model.chat.entity.ChatMessageItem" />
     </data>
 
     <RelativeLayout
@@ -23,7 +25,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
             android:hint="2000-02-02 18:30:20"
-            android:text="@{chatMessage.time}"
+            android:text="@{DateTimeConverter.convertToString(chatMessageItem.time)}"
             android:textAlignment="center" />
 
         <ImageView
@@ -33,17 +35,17 @@
             android:layout_below="@+id/tv_time"
             android:layout_margin="10dp"
             android:src="@mipmap/profile_pic_male"
-            android:visibility="@{chatMessage.isSend?View.INVISIBLE:View.VISIBLE}" />
+            android:visibility="@{chatMessageItem.send?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_time"
-            android:layout_toStartOf="@+id/iv_profile_pic_mine"
+             android:layout_toStartOf="@+id/iv_profile_pic_mine"
             android:layout_toEndOf="@+id/iv_profile_pic_opposite"
             android:minWidth="100dp"
-            android:text="@string/large_text"
+            android:text="@{chatMessageItem.content}"
             android:textSize="18sp" />
 
         <ImageView
@@ -54,7 +56,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:src="@mipmap/profile_pic_male"
-            android:visibility="@{chatMessage.isSend?View.VISIBLE:View.INVISIBLE}" />
+            android:visibility="@{chatMessageItem.send?View.VISIBLE:View.INVISIBLE}" />
 
     </RelativeLayout>
 </layout>

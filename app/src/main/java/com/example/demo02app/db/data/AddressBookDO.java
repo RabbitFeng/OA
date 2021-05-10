@@ -1,11 +1,11 @@
-package com.example.demo02app.db.entity;
+package com.example.demo02app.db.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 @Entity(tableName = "address_book", primaryKeys = {"ad_user_host", "ad_user_other"})
-public class AddressBook {
+public class AddressBookDO {
     @ColumnInfo(name="ad_user_host")
     @NonNull
     private String userHost;
@@ -14,7 +14,6 @@ public class AddressBook {
     @NonNull
     private String userOther;
 
-    // 备注
     @ColumnInfo(name = "ad_remark_name")
     private String remarkName;
 
@@ -24,7 +23,7 @@ public class AddressBook {
     @ColumnInfo(name = "ad_user_real_name")
     private String realName;
 
-    public AddressBook(@NonNull String userHost, @NonNull String userOther, String remarkName, String userPhone, String realName) {
+    public AddressBookDO(@NonNull String userHost, @NonNull String userOther, String remarkName, String userPhone, String realName) {
         this.userHost = userHost;
         this.userOther = userOther;
         this.remarkName = remarkName;

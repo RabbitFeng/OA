@@ -38,21 +38,21 @@
             android:inputType="textPassword"
             android:text="@={registerViewModel.registerUserLiveData.password}" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/et_real_name"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:hint="@string/ui_real_name"-->
-<!--            android:text="@={registerViewModel.registerUserLiveData.realName}" />-->
+        <EditText
+            android:id="@+id/et_real_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/ui_real_name"
+            android:text="@={registerViewModel.registerUserLiveData.realName}" />
 
-<!--        <Spinner-->
-<!--            android:id="@+id/s_identity"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:entries="@array/ui_spinner_identity"-->
-<!--            app:select="@={IdentityConverter.convertToString(registerViewModel.registerUserLiveData.identity)}" />-->
+        <Spinner
+            android:id="@+id/s_identity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:entries="@array/ui_spinner_identity"
+            app:select="@={IdentityConverter.convertToString(registerViewModel.registerUserLiveData.identity)}" />
 
         <Button
             android:id="@+id/btn_register"

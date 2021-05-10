@@ -10,8 +10,8 @@ import androidx.lifecycle.LiveData;
 import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.db.AppDatabase;
-import com.example.demo02app.db.entity.AddressBook;
-import com.example.demo02app.model.addressbook.data.AddressBookItem;
+import com.example.demo02app.db.data.AddressBookDO;
+import com.example.demo02app.model.addressbook.entity.AddressBookItem;
 import com.example.demo02app.util.OkHttpUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +58,7 @@ public class AddressBookRepository {
 
     public LiveData<List<AddressBookItem>> loadAddressBook(String uId) {
         loadFromNet(uId);
-        return database.addressBookDao().selectAddressBook(uId);
+        return database.addressBookDao().selectAddressBookItem(uId);
     }
 
     public void loadFromNet(String userHost) {
@@ -77,7 +77,7 @@ public class AddressBookRepository {
                     String string = Objects.requireNonNull(response.body()).string();
                     // 存储到本地数据库
                     try {
-                        List<AddressBook> addressBooks = new ArrayList<>();
+                        List<AddressBookDO> addressBooks = new ArrayList<>();
                         JSONArray jsonArray = new JSONArray(string);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -86,9 +86,12 @@ public class AddressBookRepository {
                             String phone = jsonObject.getString(getString(R.string.param_phone));
                             String realName = jsonObject.getString(getString(R.string.param_real_name));
 
-                            addressBooks.add(new AddressBook(userHost,userOther,remark,phone,realName));
+                            addressBooks.add(new AddressBookDO(userHost,userOther,remark,phone,realName));
                         }
+
+                        database.addressBookDao().deleteAll();
                         database.addressBookDao().insertAddressBook(addressBooks);
+
                         Log.d(TAG, "onResponse: insertSuccess");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -103,7 +106,7 @@ public class AddressBookRepository {
         });
     }
 
-    public LiveData<AddressBook> findAddressBookByUserId(String userHost, String userOther) {
+    public LiveData<AddressBookDO> findAddressBookByUserId(String userHost, String userOther) {
         findByIdFromNetWork(userOther);
         return database.addressBookDao().selectAddressBookByUserId(userHost, userOther);
     }

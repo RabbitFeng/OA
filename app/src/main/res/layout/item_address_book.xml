@@ -6,7 +6,7 @@
 
         <variable
             name="addressBookItem"
-            type="com.example.demo02app.model.addressbook.data.AddressBookItem" />
+            type="com.example.demo02app.model.addressbook.entity.AddressBookItem" />
     </data>
 
     <RelativeLayout

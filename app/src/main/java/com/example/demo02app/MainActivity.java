@@ -22,7 +22,7 @@ import com.example.demo02app.model.addressbook.ui.AddressBookListFragment;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
 import com.example.demo02app.model.meeting.ui.MeetingListFragment;
-import com.example.demo02app.model.message.ui.MessageItemFragment;
+import com.example.demo02app.model.message.ui.MessageListFragment;
 import com.example.demo02app.model.mine.ui.MineFragment;
 import com.example.demo02app.model.notice.ui.NoticeListFragment;
 import com.example.demo02app.service.JWebSocketClientService;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
 
     private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<Fragment>() {
         {
-            put(R.id.rb_message, MessageItemFragment.newInstance());
+            put(R.id.rb_message, MessageListFragment.newInstance());
             put(R.id.rb_address_book, AddressBookListFragment.newInstance());
             put(R.id.rb_meeting, MeetingListFragment.newInstance());
             put(R.id.rb_notice, NoticeListFragment.newInstance());
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                         Log.d(TAG, "onChanged: user is null");
                     } else {
                         Log.d(TAG, "onChanged: user is not null " + user.getUserId());
-
                     }
                 }
             });

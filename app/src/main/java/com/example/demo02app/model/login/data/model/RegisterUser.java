@@ -21,7 +21,6 @@ public class RegisterUser {
     @NonNull
     private int identity;
 
-
     public RegisterUser(@NonNull String phone, @NonNull String password, @NonNull String realName, int identity) {
         this.phone = phone;
         this.password = password;

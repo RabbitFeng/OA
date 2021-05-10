@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemMessageBinding;
-import com.example.demo02app.model.message.data.MessageItem;
+import com.example.demo02app.model.message.entity.MessageItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 

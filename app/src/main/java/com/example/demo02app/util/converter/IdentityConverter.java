@@ -13,6 +13,4 @@ public class IdentityConverter {
     public static int convertToInteger(String identityName) {
         return IdentityUtil.getIdentity(identityName);
     }
-
-
 }

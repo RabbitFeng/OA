@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -130,19 +131,18 @@ public class RegisterFragment extends Fragment {
             return false;
         });
 
-//        binding.sIdentity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                int identity = getResources().getIntArray(R.array.identity_value)[position];
-//                registerViewModel.getRegisterUserLiveData().getValue().setIdentity(identity);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        binding.sIdentity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int identity = getResources().getIntArray(R.array.identity_value)[position];
+                registerViewModel.getRegisterUserLiveData().getValue().setIdentity(identity);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // 注册按钮
         binding.btnRegister.setOnClickListener(v -> registerViewModel.register());

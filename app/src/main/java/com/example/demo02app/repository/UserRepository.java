@@ -229,6 +229,8 @@ public class UserRepository {
         return new HashMap<String, String>() {{
             put(getString(R.string.param_username), registerUser.getPhone());
             put(getString(R.string.param_password), registerUser.getPassword());
+            put(getString(R.string.param_real_name), registerUser.getRealName());
+            put(getString(R.string.param_identity), String.valueOf(registerUser.getIdentity()));
         }};
     }
 

@@ -6,8 +6,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
+import com.example.demo02app.model.chat.entity.ChatMessage;
+import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.websocket.JWebSocketClient;
+import com.google.gson.GsonBuilder;
 
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -19,6 +23,8 @@ public class JWebSocketClientService extends Service {
     private final IBinder binder = new JWebSocketClientBinder();
     private URI uri;
     private JWebSocketClient client;
+
+    private MessageRepository messageRepository;
 
     // Binder
     public class JWebSocketClientBinder extends Binder {
@@ -38,6 +44,7 @@ public class JWebSocketClientService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: called");
+        messageRepository = ((MyApplication) getApplication()).getMessageRepository();
     }
 
     @Override
@@ -49,6 +56,7 @@ public class JWebSocketClientService extends Service {
             public void onMessage(String message) {
                 super.onMessage(message);
                 // 收到消息
+                Log.d(TAG, "onMessage: called:"+message);
                 sendBroadcast();
             }
 
@@ -81,9 +89,13 @@ public class JWebSocketClientService extends Service {
         super.onDestroy();
     }
 
-    public void sendMessage(String message) {
+    public void sendMessage(ChatMessage message) {
         if (client != null && client.isOpen()) {
-            client.send(message);
+            String s = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(message);
+            Log.d(TAG, "sendMessage: " + s);
+            messageRepository.insertMessage(message,true);
+//            jsonObject.put("")
+            client.send(s);
         }
     }
 

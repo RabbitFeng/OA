@@ -9,14 +9,14 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.db.entity.AddressBook;
+import com.example.demo02app.db.data.AddressBookDO;
 import com.example.demo02app.repository.AddressBookRepository;
 
 public class AddressBookViewModel extends AndroidViewModel {
 
     private String userOther;
 
-    private LiveData<AddressBook> addressBookLiveData;
+    private LiveData<AddressBookDO> addressBookLiveData;
 
     private AddressBookRepository addressBookRepository;
 

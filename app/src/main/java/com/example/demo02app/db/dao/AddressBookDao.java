@@ -6,19 +6,28 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.demo02app.db.entity.AddressBook;
-import com.example.demo02app.model.addressbook.data.AddressBookItem;
+import com.example.demo02app.db.data.AddressBookDO;
+import com.example.demo02app.model.addressbook.entity.AddressBookItem;
 
 import java.util.List;
 
 @Dao
 public interface AddressBookDao {
     @Query("select * from address_book where ad_user_host = :userHost order by ad_remark_name asc")
-    LiveData<List<AddressBookItem>> selectAddressBook(String userHost);
+    LiveData<List<AddressBookDO>> selectAddressBook(String userHost);
 
     @Query("select * from address_book where ad_user_host=:userHost and ad_user_other=:userOther")
-    LiveData<AddressBook> selectAddressBookByUserId(String userHost, String userOther);
+    LiveData<AddressBookDO> selectAddressBookByUserId(String userHost, String userOther);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAddressBook(List<AddressBook> addressBooks);
+    void insertAddressBook(List<AddressBookDO> addressBooks);
+
+    @Query("select ad_user_other,ad_remark_name " +
+            "from address_book " +
+            "where ad_user_host = :userHost " +
+            "order by ad_remark_name asc")
+    LiveData<List<AddressBookItem>> selectAddressBookItem(String userHost);
+
+    @Query("delete from address_book")
+    int deleteAll();
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demo02app.R;
+import com.example.demo02app.model.chat.entity.ChatMessage;
 import com.example.demo02app.service.JWebSocketClientService;
 
 public class ChatActivity extends AppCompatActivity {
@@ -39,6 +40,8 @@ public class ChatActivity extends AppCompatActivity {
         String userOther = getIntent().getBundleExtra(getString(R.string.bundle_name))
                 .getString(getString(R.string.bundle_user_other));
 
+        Log.d(TAG, "onCreate: userOther:" + userOther);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fl_container, ChatFragment.forUserChat(userOther))
@@ -59,5 +62,9 @@ public class ChatActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbindService(connection);
+    }
+
+    public void sendMessage(ChatMessage chatMessage){
+        socketClientService.sendMessage(chatMessage);
     }
 }

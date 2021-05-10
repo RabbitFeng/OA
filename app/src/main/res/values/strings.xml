@@ -2,11 +2,11 @@
     <string name="app_name">Demo02App</string>
 
     <!-- url -->
-    <string name="url_login">http://192.168.1.106:8080/login</string>
-    <string name="url_register">http://192.168.1.106:8080/register</string>
-    <string name="url_address_book">http://192.168.1.106:8080/address_book</string>
-    <string name="url_address_book_id">http://192.168.1.106:8080/address_book_id</string>
-    <string name="url_webSocket">ws://192.168.1.106:8080/websocket/</string>
+    <string name="url_login">http://192.168.1.107:8080/login</string>
+    <string name="url_register">http://192.168.1.107:8080/register</string>
+    <string name="url_address_book">http://192.168.1.107:8080/address_book</string>
+    <string name="url_address_book_id">http://192.168.1.107:8080/address_book_id</string>
+    <string name="url_webSocket">ws://192.168.1.107:8080/websocket/</string>
 
     <!--  shared preference  -->
     <string name="pref_login_key">preference_login</string>

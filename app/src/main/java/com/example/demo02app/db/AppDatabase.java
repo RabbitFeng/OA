@@ -11,11 +11,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.demo02app.MyExecutors;
 import com.example.demo02app.db.dao.AddressBookDao;
-import com.example.demo02app.db.entity.AddressBook;
-import com.example.demo02app.db.entity.ChatList;
-import com.example.demo02app.db.entity.ChatMessage;
+import com.example.demo02app.db.dao.ChatMessageDao;
+import com.example.demo02app.db.data.AddressBookDO;
+import com.example.demo02app.db.data.ChatListDO;
+import com.example.demo02app.db.data.ChatMessageDO;
 
-@Database(entities = {ChatList.class, ChatMessage.class, AddressBook.class}, exportSchema = false, version = 1)
+@Database(entities = {ChatListDO.class, ChatMessageDO.class, AddressBookDO.class}, exportSchema = false, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private volatile static AppDatabase sInstance;
@@ -25,6 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "my_app_db";
 
     public abstract AddressBookDao addressBookDao();
+
+    public abstract ChatMessageDao chatMessageDao();
 
     public static AppDatabase getInstance(final Context context, final MyExecutors executors) {
         if (sInstance == null) {

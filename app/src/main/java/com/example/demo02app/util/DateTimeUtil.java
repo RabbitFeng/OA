@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DateTimeUtil {
     public static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -68,13 +69,19 @@ public class DateTimeUtil {
 
     /**
      * 字符串转时间戳
+     *
      * @param str
      * @return
      * @throws ParseException
      */
-    public static long getTimestamp(String str) throws ParseException {
-        Date parse = SDF.parse(str);
-        return parse.getTime();
+    public static long getTimestamp(String str) {
+        Date parse = null;
+        try {
+            parse = SDF.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return Objects.requireNonNull(parse).getTime();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo02app.model.addressbook.data;
+package com.example.demo02app.model.addressbook.entity;
 
 import androidx.room.ColumnInfo;
 
