@@ -1,32 +1,56 @@
 package com.example.demo02app.model.chat.ui;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
-import com.example.demo02app.databinding.ItemChatMessageBinding;
+import com.example.demo02app.databinding.ItemChatMessageReceiverBinding;
+import com.example.demo02app.databinding.ItemChatMessageSendBinding;
 import com.example.demo02app.model.chat.entity.ChatMessageItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
-public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageItem, com.example.demo02app.databinding.ItemChatMessageBinding> {
+public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageItem, ViewDataBinding> {
+    public static final int VIEW_SEND = 0x01;
+    public static final int VIEW_RECEIVER = 0x02;
 
     public ChatMessageItemAdapter() {
-        super(null,null);
+        super(null, null);
     }
 
     @Override
     public int getLayoutId(int viewType) {
-        return R.layout.item_chat_message;
+        switch (viewType) {
+            default:
+            case VIEW_SEND:
+                return R.layout.item_chat_message_send;
+            case VIEW_RECEIVER:
+                return R.layout.item_chat_message_receiver;
+        }
     }
 
     @Override
-    public void onBind(@NotNull @NonNull BindingHolder<ItemChatMessageBinding> holder, @NotNull @NonNull ChatMessageItem chatMessageItem, int position) {
-        holder.getBinding().setChatMessageItem(chatMessageItem);
-        holder.getBinding().executePendingBindings();
+    public void onBind(@NonNull BindingHolder<ViewDataBinding> holder, @NonNull ChatMessageItem chatMessageItem, int position) {
+        ViewDataBinding binding = holder.getBinding();
+        if (binding instanceof ItemChatMessageSendBinding) {
+            ((ItemChatMessageSendBinding) binding).setChatMessageItem(chatMessageItem);
+        }else if(binding instanceof ItemChatMessageReceiverBinding){
+            ((ItemChatMessageReceiverBinding) binding).setChatMessageItem(chatMessageItem);
+        }
+//        binding.setVariable(BR.chatMessageItem,chatMessageItem);
+        binding.executePendingBindings();
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (list.get(position).isSend()) {
+            return VIEW_SEND;
+        } else {
+            return VIEW_RECEIVER;
+        }
     }
 
     @Override

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+
+        <import type="com.example.demo02app.util.converter.DateTimeConverter" />
+
+        <variable
+            name="chatMessageItem"
+            type="com.example.demo02app.model.chat.entity.ChatMessageItem" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:text="@{DateTimeConverter.convertToString(chatMessageItem.time)}"
+            android:textAlignment="center" />
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_time"
+            android:layout_toStartOf="@+id/iv_profile_pic_mine"
+            android:maxWidth="200dp"
+            android:text="@{chatMessageItem.content}"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_profile_pic_mine"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tv_time"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:src="@mipmap/profile_pic_male" />
+
+    </RelativeLayout>
+</layout>
