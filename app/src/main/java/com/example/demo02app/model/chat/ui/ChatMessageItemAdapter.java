@@ -1,6 +1,7 @@
 package com.example.demo02app.model.chat.ui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -9,6 +10,7 @@ import com.example.demo02app.databinding.ItemChatMessageReceiverBinding;
 import com.example.demo02app.databinding.ItemChatMessageSendBinding;
 import com.example.demo02app.model.chat.entity.ChatMessageItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
+import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import java.util.List;
 
@@ -16,8 +18,9 @@ public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageIt
     public static final int VIEW_SEND = 0x01;
     public static final int VIEW_RECEIVER = 0x02;
 
-    public ChatMessageItemAdapter() {
-        super(null, null);
+
+    public ChatMessageItemAdapter(@Nullable List<ChatMessageItem> list, @Nullable OnItemClickCallback<ChatMessageItem> onItemClickCallback) {
+        super(list, onItemClickCallback);
     }
 
     @Override
@@ -36,11 +39,12 @@ public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageIt
         ViewDataBinding binding = holder.getBinding();
         if (binding instanceof ItemChatMessageSendBinding) {
             ((ItemChatMessageSendBinding) binding).setChatMessageItem(chatMessageItem);
-        }else if(binding instanceof ItemChatMessageReceiverBinding){
+        } else if (binding instanceof ItemChatMessageReceiverBinding) {
             ((ItemChatMessageReceiverBinding) binding).setChatMessageItem(chatMessageItem);
         }
 //        binding.setVariable(BR.chatMessageItem,chatMessageItem);
         binding.executePendingBindings();
+
     }
 
 
@@ -72,12 +76,13 @@ public class ChatMessageItemAdapter extends AbstractBindingAdapter<ChatMessageIt
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return false;
+                    return list.get(oldItemPosition).getId() == chatMessageItemList.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    return false;
+                    return list.get(oldItemPosition).getTime() == chatMessageItemList.get(newItemPosition).getTime()
+                            && list.get(oldItemPosition).getContent().equals(chatMessageItemList.get(newItemPosition).getContent());
                 }
             });
             this.list = chatMessageItemList;

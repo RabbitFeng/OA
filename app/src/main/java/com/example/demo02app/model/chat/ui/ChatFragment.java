@@ -15,15 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentChatBinding;
 import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.util.adapter.OnItemClickCallback;
 
-import java.util.List;
 import java.util.Objects;
 
 public class ChatFragment extends Fragment {
@@ -38,7 +37,10 @@ public class ChatFragment extends Fragment {
 
     private final static String USER_OTHER = "user_other";
 
-
+    /**
+     * RecyclerView回滚距离
+     * 软键盘弹出/隐藏时,RecyclerView的布局大小改变,使得视图底部展示当前最后一条记录,手动滚动RecyclerView
+     */
     private int rvRollBack;
 
 //    private JWebSocketClientService socketClientService;
@@ -68,6 +70,14 @@ public class ChatFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
+                requireArguments().getString(USER_OTHER));
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(ChatViewModel.class);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chat, container, false);
@@ -77,28 +87,35 @@ public class ChatFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
-                requireArguments().getString(USER_OTHER));
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(ChatViewModel.class);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new ChatMessageItemAdapter(null, new OnItemClickCallback<ChatMessageItem>() {
+            @Override
+            public void onClick(@NonNull ChatMessageItem chatMessageItem) {
+                // 隐藏软键盘
+                binding.viewInput.etContent.clearFocus();
+                InputMethodManager inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(binding.viewInput.etContent.getWindowToken(), 0);
+            }
 
-        adapter = new ChatMessageItemAdapter();
+            @Override
+            public boolean onLongClick(@NonNull ChatMessageItem chatMessageItem) {
+                return false;
+            }
+        });
         binding.rvMessage.setAdapter(adapter);
 
-        viewModel.getChatMessageListLiveData().observe(this, new Observer<List<ChatMessageItem>>() {
-            @Override
-            public void onChanged(List<ChatMessageItem> chatMessageItems) {
-                if(chatMessageItems==null){
-                    return;
-                }
-                Log.d(TAG, "onChanged: called " + chatMessageItems.size());
-                adapter.setList(chatMessageItems);
+        // 对ChatMessageList注册观察
+        viewModel.getChatMessageListLiveData().observe(requireActivity(), chatMessageItems -> {
+            if (chatMessageItems == null) {
+                return;
+            }
+            Log.d(TAG, "onChanged: called " + chatMessageItems.size());
+            adapter.setList(chatMessageItems);
+            binding.rvMessage.scrollToPosition(chatMessageItems.size() - 1);
 
-                for (ChatMessageItem chatMessageItem : chatMessageItems) {
-                    Log.d(TAG, chatMessageItem.toString());
-                }
-
+            for (ChatMessageItem chatMessageItem : chatMessageItems) {
+                Log.d(TAG, chatMessageItem.toString());
             }
         });
 
@@ -142,6 +159,7 @@ public class ChatFragment extends Fragment {
 
         // 隐藏软键盘
         binding.rvMessage.setOnTouchListener((v, event) -> {
+            Log.d(TAG, "onTouch: called");
             binding.viewInput.etContent.clearFocus();
             InputMethodManager inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(binding.viewInput.etContent.getWindowToken(), 0);
@@ -151,20 +169,22 @@ public class ChatFragment extends Fragment {
         binding.viewInput.etContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "beforeTextChanged: " + s);
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Log.d(TAG, "onTextChanged: " + s);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 //                viewModel.update(s.toString());
-
                 Log.d(TAG, "afterTextChanged: called s:" + binding.viewInput.etContent.getText().toString());
-                viewModel.update(binding.viewInput.etContent.getText().toString());
+                String content = binding.viewInput.etContent.getText().toString();
+                viewModel.update(content);
+                binding.viewInput.btnSend.setEnabled(!content.isEmpty());
             }
         });
 
@@ -174,6 +194,10 @@ public class ChatFragment extends Fragment {
             if (!content.isEmpty()) {
                 Log.d(TAG, "onActivityCreated: " + Objects.requireNonNull(viewModel.getChatMessageMutableLiveData().getValue()).toString());
                 ((ChatActivity) requireActivity()).sendMessage(viewModel.getChatMessageMutableLiveData().getValue());
+                // 发送后清空输入框
+                binding.viewInput.etContent.getText().clear();
+                // 滚动到最后
+                binding.rvMessage.scrollToPosition(adapter.getItemCount() - 1);
             }
         });
     }

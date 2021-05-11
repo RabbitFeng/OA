@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
 public class ChatMessageItem {
+    @ColumnInfo(name = "cm_id")
+    private int id;
     @ColumnInfo(name = "cm_user_host")
     private String userHost;
     @ColumnInfo(name = "cm_user_other")
@@ -22,7 +24,8 @@ public class ChatMessageItem {
     @Override
     public String toString() {
         return "ChatMessageItem{" +
-                "userHost='" + userHost + '\'' +
+                "id=" + id +
+                ", userHost='" + userHost + '\'' +
                 ", userOther='" + userOther + '\'' +
                 ", isSend=" + isSend +
                 ", content='" + content + '\'' +
@@ -30,12 +33,22 @@ public class ChatMessageItem {
                 '}';
     }
 
-    public ChatMessageItem(String userHost, String userOther, boolean isSend, String content, long time) {
+    public ChatMessageItem(int id, String userHost, String userOther, boolean isSend, String content, long time) {
+        this.id = id;
         this.userHost = userHost;
         this.userOther = userOther;
         this.isSend = isSend;
         this.content = content;
         this.time = time;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserHost() {

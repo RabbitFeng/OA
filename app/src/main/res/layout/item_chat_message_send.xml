@@ -3,7 +3,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="android.view.View" />
 
         <import type="com.example.demo02app.util.converter.DateTimeConverter" />
 
@@ -32,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_time"
+            android:layout_margin="10dp"
             android:layout_toStartOf="@+id/iv_profile_pic_mine"
             android:maxWidth="200dp"
             android:text="@{chatMessageItem.content}"

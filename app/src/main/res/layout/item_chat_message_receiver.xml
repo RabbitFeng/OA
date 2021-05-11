@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <import type="com.example.demo02app.util.converter.DateTimeConverter" />
 
         <variable
@@ -39,6 +37,7 @@
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_below="@+id/tv_time"
             android:layout_toEndOf="@+id/iv_profile_pic_opposite"
             android:maxWidth="200dp"

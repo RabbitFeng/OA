@@ -12,7 +12,7 @@ import androidx.databinding.InverseBindingListener;
 public class SpinnerBindingAdapter {
     private static final String TAG = SpinnerBindingAdapter.class.getName();
 
-    @BindingAdapter(value = "app:select")
+    @BindingAdapter(value = "select")
     public static void selectItem(Spinner spinner, String str) {
         Log.d(TAG, "selectItem: called");
         int count = spinner.getAdapter().getCount();
@@ -25,13 +25,13 @@ public class SpinnerBindingAdapter {
         }
     }
 
-    @InverseBindingAdapter(attribute = "app:select", event = "app:selectAttrChanged")
+    @InverseBindingAdapter(attribute = "select", event = "selectAttrChanged")
     public static <T extends Spinner> String getSelectItem(T spinner) {
         Log.d(TAG, "getSelectItem: called");
         return spinner.getSelectedItem().toString();
     }
 
-    @BindingAdapter(value = {"app:selectAttrChanged"}, requireAll = false)
+    @BindingAdapter(value = {"selectAttrChanged"}, requireAll = false)
     public static void setListener(Spinner spinner,
                                    final InverseBindingListener listener) {
         Log.d(TAG, "setListener: called");

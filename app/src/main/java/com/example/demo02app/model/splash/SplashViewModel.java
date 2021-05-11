@@ -16,8 +16,6 @@ import com.example.demo02app.R;
 import com.example.demo02app.model.login.data.LoginResult;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.repository.UserRepository;
-import com.example.demo02app.repository.RepositoryCallback;
-import com.example.demo02app.repository.Result;
 
 public class SplashViewModel extends ViewModel {
     private static final String TAG = SplashViewModel.class.getName();
@@ -56,26 +54,17 @@ public class SplashViewModel extends ViewModel {
         if (loggedInUserLiveData.getValue() == null) {
             loginResultLiveData.postValue(new LoginResult(R.string.ui_login_failed));
         } else {
-            userRepository.login(loggedInUserLiveData.getValue(), new RepositoryCallback<LoggedInUser>() {
-                @Override
-                public void onComplete(Result<LoggedInUser> t) {
-                    if (t instanceof Result.Success) {
-                        LoggedInUser data = ((Result.Success<LoggedInUser>) t).getData();
-                        loginResultLiveData.postValue(new LoginResult(data));
-                    } else {
-                        loginResultLiveData.postValue(new LoginResult(R.string.ui_login_failed));
-                    }
-                }
-            });
-//            loginRepository.login(loggedInUserLiveData.getValue(), new MyCallback<LoginResult>() {
+            loginResultLiveData.postValue(new LoginResult(loggedInUserLiveData.getValue()));
+
+//            userRepository.login(loggedInUserLiveData.getValue(), new RepositoryCallback<LoggedInUser>() {
 //                @Override
-//                public void onSuccess(LoginResult loginResult) {
-//                    loginResultLiveData.postValue(loginResult);
-//                }
-//
-//                @Override
-//                public void onFailure() {
-//                    loginResultLiveData.postValue(new LoginResult(LoginResult.FAILURE));
+//                public void onComplete(Result<LoggedInUser> t) {
+//                    if (t instanceof Result.Success) {
+//                        LoggedInUser data = ((Result.Success<LoggedInUser>) t).getData();
+//                        loginResultLiveData.postValue(new LoginResult(data));
+//                    } else {
+//                        loginResultLiveData.postValue(new LoginResult(R.string.ui_login_failed));
+//                    }
 //                }
 //            });
         }
