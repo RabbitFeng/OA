@@ -35,7 +35,7 @@ public class RegisterViewModel extends ViewModel {
     public RegisterViewModel(@NonNull UserRepository userRepository) {
         this.userRepository = userRepository;
         // Ensure that the registerUserLiveData has an initial value to user data binding
-        registerUserLiveData.setValue(new RegisterUser("", "","", IdentityUtil.IDENTITY_EMPLOYEE));
+        registerUserLiveData.setValue(new RegisterUser("", "", "", IdentityUtil.IDENTITY_EMPLOYEE));
     }
 
     /**
@@ -43,7 +43,7 @@ public class RegisterViewModel extends ViewModel {
      */
     public void register() {
         Log.d(TAG, "register: called");
-        Log.d(TAG, "register: "+registerUserLiveData.getValue());
+        Log.d(TAG, "register: " + registerUserLiveData.getValue());
         RegisterUser user = registerUserLiveData.getValue();
         if (user == null) {
             Log.d(TAG, "register: user is null");
@@ -67,16 +67,21 @@ public class RegisterViewModel extends ViewModel {
     public void updateFormState() {
         Log.d(TAG, "updateFormState: called");
         RegisterUser user = registerUserLiveData.getValue();
+        Log.d(TAG, "updateFormState: " + user.getIdentity());
         if (user == null) {
             Log.d(TAG, "updateFormState:is null");
-            registerFormStateLiveData.setValue(new RegisterFormState(R.string.ui_phone_invalid, R.string.ui_password_invalid));
+            registerFormStateLiveData.setValue(new RegisterFormState(false));
         } else if (!isPhoneInvalid(user.getPhone())) {
             Log.d(TAG, "updateFormState: phone");
-            registerFormStateLiveData.setValue(new RegisterFormState(R.string.ui_phone_invalid, null));
+            registerFormStateLiveData.setValue(new RegisterFormState(R.string.ui_phone_invalid, null,null));
         } else if (!isPasswordInvalid(user.getPassword())) {
             Log.d(TAG, "updateFormState: password");
-            registerFormStateLiveData.setValue(new RegisterFormState(null, R.string.ui_password_invalid));
-        }else {
+            registerFormStateLiveData.setValue(new RegisterFormState(null, R.string.ui_password_invalid,null));
+        } else if (!isNameInvalid(user.getRealName())){
+            Log.d(TAG, "updateFormState: name");
+            registerFormStateLiveData.setValue(new RegisterFormState(null,null,R.string.ui_name_invalid));
+        }
+        else{
             Log.d(TAG, "updateFormState: no error");
             registerFormStateLiveData.setValue(new RegisterFormState(true));
         }
@@ -108,6 +113,13 @@ public class RegisterViewModel extends ViewModel {
         return password.trim().length() >= 6;
     }
 
+    private boolean isNameInvalid(String name) {
+        if (name == null) {
+            return false;
+        }
+        return name.trim().length() >= 1;
+    }
+
     // Getters
     public LiveData<RegisterUser> getRegisterUserLiveData() {
         return registerUserLiveData;
@@ -126,7 +138,7 @@ public class RegisterViewModel extends ViewModel {
         private final UserRepository userRepository;
 
         public Factory(Application application) {
-            userRepository = ((MyApplication) application).getLoginRepository();
+            userRepository = ((MyApplication) application).getUserRepository();
         }
 
         @SuppressWarnings("unchecked")

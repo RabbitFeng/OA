@@ -32,6 +32,7 @@ public interface ChatMessageDao {
             "inner join address_book ab " +
             "on cl.cl_user_other = ab.ad_user_other " +
             "where cl_user_host = :userHost")
+
     LiveData<List<MessageItem>> queryMessageItem(String userHost);
 
     @Query("select * " +

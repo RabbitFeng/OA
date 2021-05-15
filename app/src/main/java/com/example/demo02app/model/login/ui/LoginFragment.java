@@ -42,9 +42,9 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onActivityCreated: called");
-        super.onActivityCreated(savedInstanceState);
         LoginViewModel.Factory factory = new LoginViewModel.Factory(requireActivity().getApplication());
         loginViewModel = new ViewModelProvider(requireActivity(), factory).get(LoginViewModel.class);
 
@@ -72,6 +72,11 @@ public class LoginFragment extends Fragment {
 //                Log.d(TAG, "onActivityCreated: " + user.toString());
 //            }
 //        });
+
+        binding.tvToRegister.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: called");
+            ((LoginActivity)requireActivity()).toRegister();
+        });
 
         // 观察表单状态
         loginViewModel.getLoginFormStateLiveData().observe(getViewLifecycleOwner(), loginFormState -> {

@@ -6,39 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".model.login.ui.LoginActivity">
 
-    <RadioGroup
-        android:id="@+id/rg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/black"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+<!--    <RadioGroup-->
+<!--        android:id="@+id/rg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:divider="@color/black"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:showDividers="middle">-->
 
-        <RadioButton
-            android:id="@+id/rb_login"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/selector_rb"
-            android:button="@null"
-            android:text="@string/ui_login"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/rb_login"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/selector_rb"-->
+<!--            android:button="@null"-->
+<!--            android:text="@string/ui_login"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="18sp" />-->
 
-        <RadioButton
-            android:id="@+id/rb_register"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/selector_rb"
-            android:button="@null"
-            android:text="@string/ui_register"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </RadioGroup>
+<!--        <RadioButton-->
+<!--            android:id="@+id/rb_register"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/selector_rb"-->
+<!--            android:button="@null"-->
+<!--            android:text="@string/ui_register"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="18sp" />-->
+<!--    </RadioGroup>-->
 
     <FrameLayout
-        android:layout_below="@+id/rg"
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

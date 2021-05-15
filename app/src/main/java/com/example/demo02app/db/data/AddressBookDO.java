@@ -3,6 +3,7 @@ package com.example.demo02app.db.data;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 @Entity(tableName = "address_book", primaryKeys = {"ad_user_host", "ad_user_other"})
 public class AddressBookDO {
@@ -22,6 +23,10 @@ public class AddressBookDO {
 
     @ColumnInfo(name = "ad_user_real_name")
     private String realName;
+
+    @Ignore
+    public AddressBookDO() {
+    }
 
     public AddressBookDO(@NonNull String userHost, @NonNull String userOther, String remarkName, String userPhone, String realName) {
         this.userHost = userHost;

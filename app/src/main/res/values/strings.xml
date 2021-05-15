@@ -26,6 +26,8 @@
     <!-- permissions -->
     <string name="pref_identity">prf_identity</string>
     <!--    <string name="pref_logout">logout</string>-->
+    <!-- 头像 -->
+    <string name="pref_profile_pic">pre_profile_pic</string>
 
     <!-- bundle params keys-->
     <string name="bundle_name">bundle_data</string>
@@ -46,7 +48,7 @@
     <string name="param_remark">ab_remark</string>
 
     <!-- ui -->
-    <string name="ui_login_id">用户名/邮箱/电话号码</string>
+    <string name="ui_login_id">电话号码</string>
     <string name="ui_password">密码</string>
     <string name="ui_remember_me">记住密码</string>
     <string name="ui_login">登录</string>
@@ -102,7 +104,6 @@
     <string name="dialog_message_logout">是否退出登录？</string>
     <string name="dialog_positive">确定</string>
     <string name="dialog_cancel">取消</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ui_address_book">联系人</string>
     <string name="ui_identity">身份</string>
@@ -113,6 +114,11 @@
     <string name="ui_position">职位</string>
     <string name="ui_remark">备注</string>
     <string name="ui_chat">聊天</string>
+    <string name="ui_register_navigation">还没有账号？注册一个</string>
+    <string name="ui_login_navigation">已经有账号？登录</string>
+    <string name="ui_register_null">注册信息为空</string>
+    <string name="ui_name_invalid">姓名格式不正确</string>
+    <string name="ui_send">发送</string>
 
 
 </resources>

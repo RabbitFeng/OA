@@ -7,6 +7,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -72,23 +74,53 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
-                requireArguments().getString(USER_OTHER));
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(ChatViewModel.class);
+//        ChatViewModel.Factory factory = new ChatViewModel.Factory(requireActivity().getApplication(),
+//                requireArguments().getString(USER_OTHER));
+//        viewModel = new ViewModelProvider(requireActivity(), factory).get(ChatViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
+//        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chat, container, false);
         binding.setLifecycleOwner(requireActivity());
+        binding.setViewModel(viewModel);
         return binding.getRoot();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        Log.d(TAG, "onCreateOptionsMenu: called");
+        inflater.inflate(R.menu.tb_mune_message, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        binding.tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: called");
+
+            }
+        });
+
+//        binding.tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Log.d(TAG, "onMenuItemClick: called");
+//                return false;
+//            }
+//        });
+
         adapter = new ChatMessageItemAdapter(null, new OnItemClickCallback<ChatMessageItem>() {
             @Override
             public void onClick(@NonNull ChatMessageItem chatMessageItem) {
@@ -121,8 +153,10 @@ public class ChatFragment extends Fragment {
 
         // 监听视图变化，使得软键盘弹出时，RecyclerView能够跟随最后一项
         binding.rvMessage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+//            EditText输入会触发该监听器
             if (binding.rvMessage.getLayoutManager() instanceof LinearLayoutManager
                     && ((LinearLayoutManager) binding.rvMessage.getLayoutManager()).getOrientation() == LinearLayoutManager.VERTICAL) {
+                Log.d(TAG, "onLayoutChange " + " " + left + " " + top + " " + right + " " + bottom + " " + oldLeft + " " + oldTop + " " + oldRight + " " + oldBottom);
                 // 滚动范围
                 Log.d(TAG, "onLayoutChange: computeVerticalScrollRange:" + binding.rvMessage.computeVerticalScrollRange());
                 // 滚动距离偏移量
@@ -142,6 +176,7 @@ public class ChatFragment extends Fragment {
                     int vOffset = binding.rvMessage.computeVerticalScrollOffset();
                     int vExtent = binding.rvMessage.computeVerticalScrollExtent();
 
+                    // 到最后一条Item的距离
                     int vToBottom = vRange - vOffset - vExtent;
                     Log.d(TAG, "onLayoutChange: toBottom:" + vToBottom);
                     Log.d(TAG, "onLayoutChange: dif:" + dif);
@@ -149,10 +184,12 @@ public class ChatFragment extends Fragment {
                     rvRollBack = Math.min(vToBottom - dif, dif);
                     Log.d(TAG, "onLayoutChange: roll " + dif);
                     binding.rvMessage.scrollBy(0, dif);
-                } else {
+                } else if (dif < 0) {
                     // 软键盘隐藏，rv回滚
                     Log.d(TAG, "onLayoutChange: rollback" + (-rvRollBack));
                     binding.rvMessage.scrollBy(0, -rvRollBack);
+                } else {
+                    Log.d(TAG, "onLayoutChange: do Nothing ");
                 }
             }
         });

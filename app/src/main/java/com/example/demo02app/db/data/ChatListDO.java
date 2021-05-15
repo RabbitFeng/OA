@@ -3,6 +3,7 @@ package com.example.demo02app.db.data;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 /**
  * 聊天列表
@@ -18,7 +19,7 @@ public class ChatListDO {
 
     @ColumnInfo(name = "cl_is_send")
     @NonNull
-    private String isSend;
+    private boolean isSend;
 
     @ColumnInfo(name = "cl_content")
     private String content;
@@ -26,7 +27,11 @@ public class ChatListDO {
     @ColumnInfo(name = "cl_latest_time")
     private long timeOfLatestMessage;
 
-    public ChatListDO(String userHost, @NonNull String userOther, @NonNull String isSend, String content, long timeOfLatestMessage) {
+    @Ignore
+    public ChatListDO() {
+    }
+
+    public ChatListDO(String userHost, @NonNull String userOther, boolean isSend, String content, long timeOfLatestMessage) {
         this.userHost = userHost;
         this.userOther = userOther;
         this.isSend = isSend;
@@ -51,13 +56,12 @@ public class ChatListDO {
         this.userOther = userOther;
     }
 
-    @NonNull
-    public String getIsSend() {
+    public boolean isSend() {
         return isSend;
     }
 
-    public void setIsSend(@NonNull String isSend) {
-        this.isSend = isSend;
+    public void setSend(boolean send) {
+        isSend = send;
     }
 
     public String getContent() {

@@ -132,7 +132,7 @@ public class LoginViewModel extends ViewModel {
         private final UserRepository userRepository;
 
         public Factory(@NonNull Application application) {
-            this.userRepository = ((MyApplication) application).getLoginRepository();
+            this.userRepository = ((MyApplication) application).getUserRepository();
         }
 
         @NonNull

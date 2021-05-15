@@ -23,7 +23,7 @@
 
                 <!-- 头像 -->
                 <ImageView
-                    android:id="@+id/avatar"
+                    android:id="@+id/profile_pic"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="start"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="10dp"
-                    android:layout_toEndOf="@+id/avatar"
+                    android:layout_toEndOf="@+id/profile_pic"
                     android:hint="@string/ui_nickname"
                     android:textSize="20sp" />
 

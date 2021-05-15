@@ -46,8 +46,8 @@ public class AddressBookFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         AddressBookViewModel.Factory factory = new AddressBookViewModel.Factory(requireActivity().getApplication(),
                 requireArguments().getString(USER_OTHER));
         mViewModel = new ViewModelProvider(this, factory).get(AddressBookViewModel.class);
@@ -67,6 +67,9 @@ public class AddressBookFragment extends Fragment {
         });
 
 
+
+
     }
+
 
 }

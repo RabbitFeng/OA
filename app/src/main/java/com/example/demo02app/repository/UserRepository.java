@@ -14,8 +14,8 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.model.login.data.model.RegisterUser;
-import com.example.demo02app.util.OkHttpUtil;
 import com.example.demo02app.util.IdentityUtil;
+import com.example.demo02app.util.OkHttpUtil;
 import com.example.demo02app.util.exception.MyException;
 
 import org.jetbrains.annotations.NotNull;
@@ -99,14 +99,18 @@ public class UserRepository {
     }
 
     public void login(@NonNull final LoggedInUser loggedInUser, @NonNull RepositoryCallback<LoggedInUser> callback) {
+        Log.d(TAG, "login: called " + loggedInUser.getUsername() + " " + loggedInUser.getPassword());
         OkHttpUtil.post(getString(R.string.url_login), convertLoggedUserToMap(loggedInUser)).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: called");
+                e.printStackTrace();
                 callback.onComplete(new Result.Error<>(e));
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Log.d(TAG, "onResponse: called");
                 if (response.isSuccessful()) {
                     String string = Objects.requireNonNull(response.body()).string();
                     try {
@@ -197,6 +201,7 @@ public class UserRepository {
                     .putString(getString(R.string.pref_password), user.getPassword())
                     .putInt(getString(R.string.pref_identity), user.getIdentity())
                     .putBoolean(getString(R.string.pref_logout), user.isLogout())
+                    .putString(getString(R.string.pref_profile_pic), user.getPassword())
                     .apply();
         });
     }
@@ -208,9 +213,10 @@ public class UserRepository {
             String userId = sharedPreferences.getString(getString(R.string.pref_user_id), "");
             String username = sharedPreferences.getString(getString(R.string.pref_username), "");
             String password = sharedPreferences.getString(getString(R.string.pref_password), "");
-            int permission = sharedPreferences.getInt(getString(R.string.pref_identity), IdentityUtil.IDENTITY_EMPLOYEE);
+            int identity = sharedPreferences.getInt(getString(R.string.pref_identity), IdentityUtil.IDENTITY_EMPLOYEE);
             boolean isLogout = sharedPreferences.getBoolean(getString(R.string.pref_logout), true);
-            LoggedInUser userCacheLocal = new LoggedInUser(userId, username, password, permission, isLogout);
+            String profilePicUri = sharedPreferences.getString(getString(R.string.pref_profile_pic), "");
+            LoggedInUser userCacheLocal = new LoggedInUser(userId,username,password,identity,isLogout);
             userCacheLiveData.postValue(userCacheLocal);
         });
     }

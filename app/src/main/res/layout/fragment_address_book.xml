@@ -13,12 +13,14 @@
         tools:context=".model.addressbook.ui.AddressBookFragment">
 
         <RelativeLayout
+            android:layout_margin="20dp"
             android:id="@+id/rl_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <!-- 头像 -->
             <ImageView
+                android:layout_margin="10dp"
                 android:id="@+id/iv_profile_pic"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />

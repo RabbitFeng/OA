@@ -41,9 +41,8 @@ public class MessageListFragment extends Fragment {
     }
 
     @Override
-
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         MessageListViewModel.Factory factory = new MessageListViewModel.Factory(requireActivity().getApplication());
         mViewModel = new ViewModelProvider(this, factory).get(MessageListViewModel.class);
 
@@ -55,7 +54,8 @@ public class MessageListFragment extends Fragment {
                 // 跳转到ChatActivity
                 Intent intent = new Intent(requireActivity(), ChatActivity.class);
                 Bundle data = new Bundle();
-                intent.putExtra(getString(R.string.bundle_message_from), messageItem.getUserOther());
+                data.putString(getString(R.string.bundle_user_other), messageItem.getUserOther());
+                intent.putExtra(getString(R.string.bundle_name), data);
                 startActivity(intent);
             }
 
@@ -67,7 +67,7 @@ public class MessageListFragment extends Fragment {
 
         binding.rv.setAdapter(adapter);
 
-        mViewModel.getMessageItemListLiveData().observe(this, new Observer<List<MessageItem>>() {
+        mViewModel.getMessageItemListLiveData().observe(requireActivity(), new Observer<List<MessageItem>>() {
             @Override
             public void onChanged(List<MessageItem> messageItems) {
                 Log.d(TAG, "onChanged: called");

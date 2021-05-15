@@ -38,8 +38,8 @@ public class AddressBookListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         AddressBookListViewModel.Factory factory = new AddressBookListViewModel.Factory(requireActivity().getApplication(),
                 ((MainActivity) requireActivity()).getCurrentUser().getUserId());
         mViewModel = new ViewModelProvider(requireActivity(), factory).get(AddressBookListViewModel.class);
@@ -51,7 +51,7 @@ public class AddressBookListFragment extends Fragment {
             public void onRefresh() {
                 // 下拉刷新
                 mViewModel.reLoad();
-
+                binding.srlRefresh.setRefreshing(false);
             }
         });
 
@@ -59,7 +59,7 @@ public class AddressBookListFragment extends Fragment {
             @Override
             public void onClick(@NonNull AddressBookItem addressBookItem) {
                 Log.d(TAG, "onClick: " + addressBookItem.getUserId());
-                ((MainActivity)requireActivity()).show(AddressBookFragment.forAddressBook(addressBookItem.getUserId()),
+                ((MainActivity)requireActivity()).LoadFullScreenFragment(AddressBookFragment.forAddressBook(addressBookItem.getUserId()),
                         "addressBook");
             }
 
@@ -81,7 +81,11 @@ public class AddressBookListFragment extends Fragment {
             }
             addressBookItemAdapter.setList(addressBooks);
         });
-
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivity)requireActivity()).restore();
+    }
 }

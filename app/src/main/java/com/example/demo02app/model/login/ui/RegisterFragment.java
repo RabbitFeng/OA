@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,9 +25,6 @@ import com.example.demo02app.databinding.FragmentRegisterBinding;
 
 public class RegisterFragment extends Fragment {
 
-    public interface RegisterListener {
-        void onSuccess();
-    }
 
     private static final String TAG = RegisterFragment.class.getName();
     private FragmentRegisterBinding binding;
@@ -36,13 +32,6 @@ public class RegisterFragment extends Fragment {
     private RegisterViewModel registerViewModel;
 
     private boolean isPasswordVisible = false;
-
-    @NonNull
-    private RegisterListener registerListener;
-
-    public RegisterFragment(@NonNull RegisterListener registerListener) {
-        this.registerListener = registerListener;
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -54,18 +43,18 @@ public class RegisterFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         RegisterViewModel.Factory factory = new RegisterViewModel.Factory(requireActivity().getApplication());
         registerViewModel = new ViewModelProvider(this, factory).get(RegisterViewModel.class);
         binding.setRegisterViewModel(registerViewModel);
 
         binding.etPhone.addTextChangedListener(textWatcher);
         binding.etPassword.addTextChangedListener(textWatcher);
+        binding.etRealName.addTextChangedListener(textWatcher);
 
         // Observe RegisterFormState
-        registerViewModel.getRegisterFormStateLiveData().observe(this, registerFormState -> {
+        registerViewModel.getRegisterFormStateLiveData().observe(getViewLifecycleOwner(), registerFormState -> {
             if (registerFormState == null) {
                 binding.btnRegister.setEnabled(false);
                 return;
@@ -77,10 +66,13 @@ public class RegisterFragment extends Fragment {
             if (registerFormState.getPasswordInvalid() != null) {
                 binding.etPassword.setError(getString(registerFormState.getPasswordInvalid()));
             }
+            if (registerFormState.getNameInvalid() != null) {
+                binding.etRealName.setError(getString(registerFormState.getNameInvalid()));
+            }
         });
 
         // 观察注册结果
-        registerViewModel.getRegisterResultLiveData().observe(this, registerResult -> {
+        registerViewModel.getRegisterResultLiveData().observe(getViewLifecycleOwner(), registerResult -> {
             if (registerResult == null) {
                 return;
             }
@@ -90,7 +82,7 @@ public class RegisterFragment extends Fragment {
                 Toast.makeText(requireContext(), getString(R.string.ui_register_succeed), Toast.LENGTH_SHORT).show();
                 // 注册成功
                 // 自动登录
-                registerListener.onSuccess();
+                getParentFragmentManager().popBackStack();
             }
         });
 
@@ -131,25 +123,36 @@ public class RegisterFragment extends Fragment {
             return false;
         });
 
-        binding.sIdentity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int identity = getResources().getIntArray(R.array.identity_value)[position];
-                registerViewModel.getRegisterUserLiveData().getValue().setIdentity(identity);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        binding.sIdentity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                int identity = getResources().getIntArray(R.array.identity_value)[position];
+////                Objects.requireNonNull(registerViewModel.getRegisterUserLiveData().getValue()).setIdentity(identity);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         // 注册按钮
         binding.btnRegister.setOnClickListener(v -> registerViewModel.register());
         binding.btnRegister.setEnabled(false);
+
+        binding.tvToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                requireActivity().onBackPressed();
+//                requireActivity().getSupportFragmentManager().popBackStack();
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
+
+    private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }

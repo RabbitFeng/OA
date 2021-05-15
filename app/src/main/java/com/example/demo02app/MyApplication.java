@@ -36,7 +36,7 @@ public class MyApplication extends Application {
         return AppDatabase.getInstance(getApplicationContext(), getMyExecutors());
     }
 
-    public UserRepository getLoginRepository() {
+    public UserRepository getUserRepository() {
         return UserRepository.getInstance(getApplicationContext(), getMyExecutors());
     }
 

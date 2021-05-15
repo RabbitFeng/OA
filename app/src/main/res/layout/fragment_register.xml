@@ -14,53 +14,80 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/et_phone"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/oa_register" />
+<!--            android:layout_above="@+id/ll_center"-->
+<!--            android:layout_marginBottom="20dp"-->
+
+        <LinearLayout
+            android:id="@+id/ll_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/ui_phone"
-            android:inputType="number"
-            android:text="@={registerViewModel.registerUserLiveData.phone}" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_password"
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_phone"
+                android:inputType="number"
+                android:text="@={registerViewModel.registerUserLiveData.phone}" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:drawableEnd="@mipmap/visible"
+                android:hint="@string/ui_password"
+                android:inputType="textPassword"
+                android:text="@={registerViewModel.registerUserLiveData.password}" />
+
+            <EditText
+                android:id="@+id/et_real_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_real_name"
+                android:text="@={registerViewModel.registerUserLiveData.realName}" />
+
+            <Spinner
+                android:id="@+id/s_identity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:entries="@array/ui_spinner_identity"
+                app:select="@={IdentityConverter.convertToString(registerViewModel.registerUserLiveData.identity)}" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:text="@string/ui_register" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:drawableEnd="@mipmap/visible"
-            android:hint="@string/ui_password"
-            android:inputType="textPassword"
-            android:text="@={registerViewModel.registerUserLiveData.password}" />
-
-        <EditText
-            android:id="@+id/et_real_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/ui_real_name"
-            android:text="@={registerViewModel.registerUserLiveData.realName}" />
-
-        <Spinner
-            android:id="@+id/s_identity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:entries="@array/ui_spinner_identity"
-            app:select="@={IdentityConverter.convertToString(registerViewModel.registerUserLiveData.identity)}" />
-
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:text="@string/ui_register" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/ui_login_navigation" />
+    </RelativeLayout>
 
 </layout>
+

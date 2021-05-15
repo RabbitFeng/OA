@@ -3,11 +3,14 @@ package com.example.demo02app.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 
 import com.example.demo02app.MyExecutors;
 import com.example.demo02app.db.AppDatabase;
+import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
 import com.example.demo02app.model.chat.entity.ChatMessage;
 import com.example.demo02app.model.chat.entity.ChatMessageItem;
@@ -64,7 +67,6 @@ public class MessageRepository {
         return database.chatMessageDao().queryMessageItem(userHost);
     }
 
-
     public LiveData<List<ChatMessageItem>> loadChatMessageListLiveData(String userHost, String userOther) {
 //        return Transformations.map(database.chatMessageDao().queryAllChatMessage(userHost, userOther), chatMessageDOS -> {
 //            List<ChatMessage> chatMessages = new ArrayList<>(chatMessageDOS.size());
@@ -82,7 +84,8 @@ public class MessageRepository {
         return database.chatMessageDao().queryChatMessage(userHost, userOther);
     }
 
-    public void insertMessage(ChatMessage chatMessage, boolean isSend) {
+    @MainThread
+    public void handleChatMessage(ChatMessage chatMessage, boolean isSend) {
         Log.d(TAG, "insertMessage: called");
         executors.diskIO().execute(() -> {
             ChatMessageDO chatMessageDO = new ChatMessageDO();
@@ -92,6 +95,18 @@ public class MessageRepository {
             chatMessageDO.setContent(chatMessage.getContent());
             chatMessageDO.setTime(chatMessage.getTimestamp());
             database.chatMessageDao().insertChatMessage(chatMessageDO);
+            ChatListDO chatListDO = new ChatListDO();
+            chatListDO.setContent(chatMessageDO.getContent());
+            chatListDO.setTimeOfLatestMessage(chatMessageDO.getTime());
+            chatListDO.setUserHost(chatMessageDO.getUserHost());
+            chatListDO.setUserOther(chatMessageDO.getUserOther());
+            chatListDO.setSend(chatMessageDO.isSend());
+            handleMessageItem(chatListDO);
         });
+    }
+
+    @WorkerThread
+    public void handleMessageItem(ChatListDO chatListDO) {
+        database.chatMessageDao().insertChatList(chatListDO);
     }
 }

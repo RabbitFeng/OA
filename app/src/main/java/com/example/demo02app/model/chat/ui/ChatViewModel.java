@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
+import com.example.demo02app.db.data.AddressBookDO;
 import com.example.demo02app.model.chat.entity.ChatMessage;
 import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.repository.AddressBookRepository;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.DateTimeUtil;
 
@@ -21,23 +23,31 @@ import java.util.List;
 
 public class ChatViewModel extends AndroidViewModel {
     private static final String TAG = ChatViewModel.class.getName();
-    private String userHost;
-    private String userOther;
+    private final String userHost;
+    private final String userOther;
 
     private final MutableLiveData<ChatMessage> chatMessageMutableLiveData;
 
     private final LiveData<List<ChatMessageItem>> chatMessageListLiveData;
 
-    private MessageRepository messageRepository;
+    private final LiveData<AddressBookDO> userOtherAddressBookLiveData;
 
-    public ChatViewModel(@NonNull Application application, String userOther, MessageRepository messageRepository) {
+    private final MessageRepository messageRepository;
+
+    private final AddressBookRepository addressBookRepository;
+
+    public ChatViewModel(@NonNull Application application, String userOther,
+                         MessageRepository messageRepository,
+                         AddressBookRepository addressBookRepository) {
         super(application);
         this.userHost = ((MyApplication) application).getUserId();
-        Log.d(TAG, "ChatViewModel: userHost:" + userHost);
         this.userOther = userOther;
+        Log.d(TAG, "ChatViewModel: userHost:" + userHost);
         this.messageRepository = messageRepository;
+        this.addressBookRepository = addressBookRepository;
         chatMessageMutableLiveData = new MutableLiveData<>();
         chatMessageListLiveData = messageRepository.loadChatMessageListLiveData(userHost, userOther);
+        userOtherAddressBookLiveData = addressBookRepository.findAddressBookByUserId(userHost, userOther);
     }
 
     public void update(String content) {
@@ -57,16 +67,22 @@ public class ChatViewModel extends AndroidViewModel {
         return chatMessageListLiveData;
     }
 
+    public LiveData<AddressBookDO> getUserOtherAddressBookLiveData() {
+        return userOtherAddressBookLiveData;
+    }
+
     public static final class Factory extends ViewModelProvider.NewInstanceFactory {
         private final String userOther;
         private final Application application;
 
         private final MessageRepository messageRepository;
+        private final AddressBookRepository addressBookRepository;
 
         public Factory(Application application, String userOther) {
             this.application = application;
             this.userOther = userOther;
             this.messageRepository = ((MyApplication) application).getMessageRepository();
+            this.addressBookRepository = ((MyApplication) application).getAddressBookRepository();
         }
 
         @NonNull
@@ -74,7 +90,7 @@ public class ChatViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass.isAssignableFrom(ChatViewModel.class)) {
-                return (T) new ChatViewModel(application, userOther, messageRepository);
+                return (T) new ChatViewModel(application, userOther, messageRepository, addressBookRepository);
             } else {
                 throw new IllegalArgumentException("Unknown ViewModel class");
             }

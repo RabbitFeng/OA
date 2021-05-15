@@ -6,6 +6,8 @@ public class LoggedInUser {
     private String password;
     private Integer identity;
     private boolean isLogout;
+    private String profilePicUri;
+    private String realName;
 
     public LoggedInUser() {
     }
@@ -21,6 +23,16 @@ public class LoggedInUser {
         this.password = password;
         this.identity = identity;
         this.isLogout = isLogout;
+    }
+
+    public LoggedInUser(String userId, String username, String password, Integer identity, boolean isLogout, String profilePicUri, String realName) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.identity = identity;
+        this.isLogout = isLogout;
+        this.profilePicUri = profilePicUri;
+        this.realName = realName;
     }
 
     public String getUsername() {
@@ -63,13 +75,32 @@ public class LoggedInUser {
         this.userId = userId;
     }
 
+    public String getProfilePicUri() {
+        return profilePicUri;
+    }
+
+    public void setProfilePicUri(String profilePicUri) {
+        this.profilePicUri = profilePicUri;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
     @Override
     public String toString() {
         return "LoggedInUser{" +
-                "username='" + username + '\'' +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", permission=" + identity +
+                ", identity=" + identity +
                 ", isLogout=" + isLogout +
+                ", profilePicUri='" + profilePicUri + '\'' +
+                ", realName='" + realName + '\'' +
                 '}';
     }
 }

@@ -11,6 +11,7 @@ import com.example.demo02app.R;
 import com.example.demo02app.model.chat.entity.ChatMessage;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.websocket.JWebSocketClient;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.java_websocket.handshake.ServerHandshake;
@@ -49,15 +50,20 @@ public class JWebSocketClientService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand: called");
-        String u_id = intent.getStringExtra("u_id");
+        String u_id = intent.getStringExtra(getString(R.string.param_user_id));
+        Log.d(TAG, "onStartCommand: called " + u_id);
         client = new JWebSocketClient(URI.create(getString(R.string.url_webSocket) + "/" + u_id)) {
             @Override
             public void onMessage(String message) {
                 super.onMessage(message);
                 // 收到消息
-                Log.d(TAG, "onMessage: called:"+message);
-                sendBroadcast();
+                Log.d(TAG, "onMessage: called:" + message);
+                Gson gson = new GsonBuilder().create();
+                ChatMessage chatMessage = gson.fromJson(message, ChatMessage.class);
+                Log.d(TAG, "onMessage: " + chatMessage);
+
+                messageRepository.handleChatMessage(chatMessage, false);
+//                sendBroadcast();
             }
 
             @Override
@@ -93,7 +99,7 @@ public class JWebSocketClientService extends Service {
         if (client != null && client.isOpen()) {
             String s = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(message);
             Log.d(TAG, "sendMessage: " + s);
-            messageRepository.insertMessage(message,true);
+            messageRepository.handleChatMessage(message, true);
 //            jsonObject.put("")
             client.send(s);
         }
@@ -103,8 +109,6 @@ public class JWebSocketClientService extends Service {
         Log.d(TAG, "sendBroadcast: called");
         Intent intent = new Intent();
         intent.setAction(getString(R.string.action_webSocket));
-        sendBroadcast(intent);
+//        sendBroadcast(intent);
     }
-
-
 }

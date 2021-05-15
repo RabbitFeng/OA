@@ -47,11 +47,11 @@
             android:layout_alignBottom="@+id/iv_profile"
             android:layout_marginBottom="5dp"
             android:layout_toEndOf="@+id/iv_profile"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:hint="@string/ui_last_message"
             android:maxLength="15"
             android:maxLines="1"
-            android:text="@{}"
+            android:text="@{messageItem.content}"
             android:textColor="@color/gray"
             android:textSize="15sp" />
 

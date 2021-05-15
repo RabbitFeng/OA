@@ -1,30 +1,27 @@
-package com.example.demo02app;
+package com.example.demo02app.model.mine.info;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.demo02app.MyApplication;
 import com.example.demo02app.model.login.data.model.LoggedInUser;
 import com.example.demo02app.repository.UserRepository;
 
-public class MainViewModel extends ViewModel {
+public class UserInfoViewModel extends AndroidViewModel {
 
+    private final UserRepository userRepository;
     private final LiveData<LoggedInUser> loggedInUserLiveData;
 
-    @NonNull
-    private final UserRepository userRepository;
 
-    public MainViewModel(@NonNull UserRepository userRepository) {
+    public UserInfoViewModel(@NonNull Application application, UserRepository userRepository) {
+        super(application);
         this.userRepository = userRepository;
         loggedInUserLiveData = userRepository.getUserCacheLiveData();
-    }
-
-    public void logout() {
-        // 退出登录
-        userRepository.logout();
     }
 
     public LiveData<LoggedInUser> getLoggedInUserLiveData() {
@@ -32,10 +29,11 @@ public class MainViewModel extends ViewModel {
     }
 
     public static final class Factory extends ViewModelProvider.NewInstanceFactory {
-        @NonNull
+        private final Application application;
         private final UserRepository userRepository;
 
-        public Factory(@NonNull Application application) {
+        public Factory(Application application) {
+            this.application = application;
             this.userRepository = ((MyApplication) application).getUserRepository();
         }
 
@@ -43,11 +41,7 @@ public class MainViewModel extends ViewModel {
         @Override
         @SuppressWarnings("unchecked")
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(MainViewModel.class)) {
-                return (T) new MainViewModel(userRepository);
-            } else {
-                throw new IllegalArgumentException("Unknown ViewModel class");
-            }
+            return (T) new UserInfoViewModel(application, userRepository);
         }
     }
 }

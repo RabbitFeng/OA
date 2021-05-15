@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
             put(R.id.rb_address_book, AddressBookListFragment.newInstance());
             put(R.id.rb_meeting, MeetingListFragment.newInstance());
             put(R.id.rb_notice, NoticeListFragment.newInstance());
-            put(R.id.rb_mine, new MineFragment(MainActivity.this));
+            put(R.id.rb_mine, new MineFragment());
         }
     };
 
@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                         }).setNegativeButton(R.string.dialog_cancel, (dialog, which) -> {
                 }).show();
             });
+//
+//            Glide.with(this).load(Objects.requireNonNull(viewModel.getLoggedInUserLiveData().getValue()).getProfilePicUri()).into(binding.layoutDrawerMenu.profilePic);
 
             viewModel.getLoggedInUserLiveData().observe(this, new Observer<LoggedInUser>() {
                 @Override
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         super.onStart();
         // 开启WebSocket服务
         intentWebSocketService = new Intent(MainActivity.this, JWebSocketClientService.class);
-        intentWebSocketService.putExtra(getString(R.string.param_username), "");
+        intentWebSocketService.putExtra(getString(R.string.param_user_id), ((MyApplication) getApplication()).getUserId());
         startService(intentWebSocketService);
     }
 
@@ -149,10 +151,17 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         return viewModel.getLoggedInUserLiveData().getValue();
     }
 
-    public void show(Fragment fragment, String name) {
+    public void LoadFullScreenFragment(Fragment fragment, String name) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fl_container, fragment)
                 .addToBackStack(name)
                 .commit();
+        binding.tb.setVisibility(View.GONE);
+        binding.llBottom.setVisibility(View.GONE);
+    }
+
+    public void restore() {
+        binding.llBottom.setVisibility(View.VISIBLE);
+        binding.tb.setVisibility(View.VISIBLE);
     }
 }

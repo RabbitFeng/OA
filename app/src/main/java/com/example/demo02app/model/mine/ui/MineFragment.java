@@ -1,31 +1,62 @@
 package com.example.demo02app.model.mine.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMineBinding;
-import com.example.demo02app.model.mine.identity.IdentityConfigFragment;
 
 public class MineFragment extends Fragment {
 
     private static final String TAG = MineFragment.class.getName();
-    private FragmentCallback fragmentCallback;
     private FragmentMineBinding binding;
     private MineViewModel mViewModel;
 
-    public MineFragment(FragmentCallback fragmentCallback) {
-        this.fragmentCallback = fragmentCallback;
+    ActivityResultLauncher<String[]> activityResultLauncher;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.OpenDocument(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                Log.d(TAG, "onActivityResult: set");
+
+//                binding.ivProfile.setImageURI(result);
+//                Glide.with(MineFragment.this)
+//                        .load(result.toString())
+//                        .into(binding.ivProfile);
+                if (result != null) {
+
+                    Log.d(TAG, "onActivityResult: toString " + result.toString());
+                    Log.d(TAG, "onActivityResult: path " + result.getPath());
+                }
+
+
+            }
+        });
+
+//        voidActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.PickContact(), new ActivityResultCallback<Uri>() {
+//            @Override
+//            public void onActivityResult(Uri result) {
+//                Log.d(TAG, "onActivityResult: set");
+//
+//                binding.ivProfile.setImageURI(result);
+//            }
+//        });
     }
 
     @Override
@@ -38,26 +69,50 @@ public class MineFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MineViewModel.class);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MineViewModel.Factory factory = new MineViewModel.Factory(requireActivity().getApplication());
+        mViewModel = new ViewModelProvider(this, factory).get(MineViewModel.class);
+
+        binding.rlTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: called");
+
+            }
+        });
 
         binding.tdIdentity.setOnClickListener(v -> {
-            fragmentCallback.onFragmentNeedsFullScreen(true);
+//            fragmentCallback.onFragmentNeedsFullScreen(true);
 //            fragmentCallback.onFragmentAddToBackStack(new IdentityConfigFragment(),"identity");
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fl_container, new IdentityConfigFragment())
-                    .addToBackStack("identity config0")
-                    .commit();
+
+//            requireActivity().getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.fl_container, new IdentityConfigFragment())
+//                    .addToBackStack("identity config0")
+//                    .commit();
+        });
+
+        binding.ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityResultLauncher.launch(new String[]{"image/*"});
+//                voidActivityResultLauncher.launch(null);
+//
+//                registerForActivityResult(new ActivityResultContracts.OpenDocument(), new ActivityResultCallback<Uri>() {
+//                    @Override
+//                    public void onActivityResult(Uri result) {
+//
+//                    }
+//                }).launch(new String[]{"image/*"});
+
+            }
         });
     }
 
     @Override
     public void onStart() {
         Log.d(TAG, "onStart: called");
-        fragmentCallback.onFragmentNeedsFullScreen(false);
         super.onStart();
     }
-
 }

@@ -84,7 +84,7 @@ public class SplashViewModel extends ViewModel {
         private final UserRepository userRepository;
 
         public Factory(@NonNull Application application) {
-            userRepository = ((MyApplication) application).getLoginRepository();
+            userRepository = ((MyApplication) application).getUserRepository();
         }
 
         @NonNull

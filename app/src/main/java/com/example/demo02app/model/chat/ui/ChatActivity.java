@@ -6,8 +6,10 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
 import com.example.demo02app.model.chat.entity.ChatMessage;
@@ -17,6 +19,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG = ChatActivity.class.getName();
     private JWebSocketClientService socketClientService;
+    private ChatViewModel viewModel;
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -37,14 +40,17 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+
         String userOther = getIntent().getBundleExtra(getString(R.string.bundle_name))
                 .getString(getString(R.string.bundle_user_other));
+        ChatViewModel.Factory factory = new ChatViewModel.Factory(getApplication(), userOther);
+        viewModel = new ViewModelProvider(this, factory).get(ChatViewModel.class);
 
         Log.d(TAG, "onCreate: userOther:" + userOther);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, ChatFragment.forUserChat(userOther))
+                    .replace(R.id.fl_container, new ChatFragment())
                     .commitNow();
         }
     }
@@ -64,7 +70,13 @@ public class ChatActivity extends AppCompatActivity {
         unbindService(connection);
     }
 
-    public void sendMessage(ChatMessage chatMessage){
+    public void sendMessage(ChatMessage chatMessage) {
         socketClientService.sendMessage(chatMessage);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: called");
+        return super.onCreateOptionsMenu(menu);
     }
 }

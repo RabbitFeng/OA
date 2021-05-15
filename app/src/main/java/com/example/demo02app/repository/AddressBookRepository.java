@@ -85,13 +85,10 @@ public class AddressBookRepository {
                             String remark = jsonObject.getString(getString(R.string.param_remark));
                             String phone = jsonObject.getString(getString(R.string.param_phone));
                             String realName = jsonObject.getString(getString(R.string.param_real_name));
-
                             addressBooks.add(new AddressBookDO(userHost,userOther,remark,phone,realName));
                         }
-
-                        database.addressBookDao().deleteAll();
+//                        database.addressBookDao().deleteAll();
                         database.addressBookDao().insertAddressBook(addressBooks);
-
                         Log.d(TAG, "onResponse: insertSuccess");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -99,8 +96,6 @@ public class AddressBookRepository {
                     }
 
                     Log.d(TAG, "onResponse: string" + string);
-                } else {
-                    Log.d(TAG, "onResponse: failure");
                 }
             }
         });
