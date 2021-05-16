@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.addressbook.entity.AddressBookItem;
+import com.example.demo02app.model.addressbook.model.AddressBookItem;
 import com.example.demo02app.repository.AddressBookRepository;
 
 import java.util.List;

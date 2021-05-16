@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentChatBinding;
-import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.model.chat.model.ChatMessageItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import java.util.Objects;
@@ -95,7 +95,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         Log.d(TAG, "onCreateOptionsMenu: called");
-        inflater.inflate(R.menu.tb_mune_message, menu);
+        inflater.inflate(R.menu.tb_menu_message, menu);
 //        super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -103,7 +103,6 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         binding.tb.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,7 +232,7 @@ public class ChatFragment extends Fragment {
                 ((ChatActivity) requireActivity()).sendMessage(viewModel.getChatMessageMutableLiveData().getValue());
                 // 发送后清空输入框
                 binding.viewInput.etContent.getText().clear();
-                // 滚动到最后
+                // 滚动到最后一条消息
                 binding.rvMessage.scrollToPosition(adapter.getItemCount() - 1);
             }
         });

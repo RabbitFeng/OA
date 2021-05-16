@@ -10,7 +10,6 @@ import androidx.room.PrimaryKey;
 public class ChatMessageDO {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cm_id")
-    @NonNull
     private int id;
 
     @ColumnInfo(name = "cm_user_host")
@@ -33,6 +32,9 @@ public class ChatMessageDO {
 
     @Ignore
     public ChatMessageDO() {
+        userHost = "";
+        userOther = "";
+        content = "";
     }
 
     public ChatMessageDO(@NonNull String userHost, @NonNull String userOther, boolean isSend, @NonNull String content, long time) {

@@ -13,25 +13,25 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:layout_alignParentTop="true"
             android:id="@+id/tb"
-            app:title="@string/ui_address_book"
+            app:title="@string/ui_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_below="@+id/tb"
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".model.addressbook.ui.AddressBookListFragment">
+            tools:context=".model.message.ui.MessageListFragment">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_address_book"
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
+
 </layout>

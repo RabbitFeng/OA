@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
-import com.example.demo02app.databinding.FragmentMessageBinding;
+import com.example.demo02app.databinding.FragmentMessageListBinding;
 import com.example.demo02app.model.chat.ui.ChatActivity;
 import com.example.demo02app.model.message.entity.MessageItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MessageListFragment extends Fragment {
     private static final String TAG = MessageListFragment.class.getName();
-    private FragmentMessageBinding binding;
+    private FragmentMessageListBinding binding;
     private MessageListViewModel mViewModel;
     private MessageItemAdapter adapter;
 
@@ -35,7 +35,7 @@ public class MessageListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_message, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_list, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
     }

@@ -9,8 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -19,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.databinding.ActivityMainBinding;
 import com.example.demo02app.model.addressbook.ui.AddressBookListFragment;
-import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.model.login.ui.LoginActivity;
 import com.example.demo02app.model.meeting.ui.MeetingListFragment;
 import com.example.demo02app.model.message.ui.MessageListFragment;
@@ -67,27 +65,27 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fl_container, fragmentSparseArray.get(checkedId))
                         .commitNow();
-                binding.tb.setTitle(titleSparseArray.get(checkedId));
+//                binding.tb.setTitle(titleSparseArray.get(checkedId));
             });
             binding.rg.check(R.id.rb_message);
 
-            binding.tb.setNavigationIcon(R.mipmap.navigation);
-            setSupportActionBar(binding.tb);
-            // drawableLayout
-            binding.dl.addDrawerListener(new ActionBarDrawerToggle(this, binding.dl, binding.tb, titleSparseArray.get(binding.rg.getCheckedRadioButtonId()), R.string.app_name) {{
-                syncState();
-            }});
+//            binding.tb.setNavigationIcon(R.mipmap.navigation);
+//            setSupportActionBar(binding.tb);
+//            // drawableLayout
+//            binding.dl.addDrawerListener(new ActionBarDrawerToggle(this, binding.dl, binding.tb, titleSparseArray.get(binding.rg.getCheckedRadioButtonId()), R.string.app_name) {{
+//                syncState();
+//            }});
 
             // logout
-            binding.layoutDrawerMenu.btnLogout.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.dialog_message_logout)
-                        .setPositiveButton(R.string.dialog_positive, (dialog, which) -> {
-                            // 退出登录
-                            logout();
-                        }).setNegativeButton(R.string.dialog_cancel, (dialog, which) -> {
-                }).show();
-            });
+//            binding.layoutDrawerMenu.btnLogout.setOnClickListener(v -> {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(R.string.dialog_message_logout)
+//                        .setPositiveButton(R.string.dialog_positive, (dialog, which) -> {
+//                            // 退出登录
+//                            logout();
+//                        }).setNegativeButton(R.string.dialog_cancel, (dialog, which) -> {
+//                }).show();
+//            });
 //
 //            Glide.with(this).load(Objects.requireNonNull(viewModel.getLoggedInUserLiveData().getValue()).getProfilePicUri()).into(binding.layoutDrawerMenu.profilePic);
 
@@ -156,12 +154,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                 .replace(R.id.fl_container, fragment)
                 .addToBackStack(name)
                 .commit();
-        binding.tb.setVisibility(View.GONE);
+//        binding.tb.setVisibility(View.GONE);
         binding.llBottom.setVisibility(View.GONE);
     }
 
     public void restore() {
         binding.llBottom.setVisibility(View.VISIBLE);
-        binding.tb.setVisibility(View.VISIBLE);
+//        binding.tb.setVisibility(View.VISIBLE);
     }
 }

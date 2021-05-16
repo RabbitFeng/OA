@@ -11,4 +11,5 @@
         <item name="android:button">@null</item>
         <item name="android:textAlignment">center</item>
     </style>
+
 </resources>

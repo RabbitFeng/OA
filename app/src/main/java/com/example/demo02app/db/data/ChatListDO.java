@@ -18,7 +18,6 @@ public class ChatListDO {
     private String userOther;
 
     @ColumnInfo(name = "cl_is_send")
-    @NonNull
     private boolean isSend;
 
     @ColumnInfo(name = "cl_content")
@@ -29,6 +28,8 @@ public class ChatListDO {
 
     @Ignore
     public ChatListDO() {
+        userOther = "";
+        userOther = "";
     }
 
     public ChatListDO(String userHost, @NonNull String userOther, boolean isSend, String content, long timeOfLatestMessage) {

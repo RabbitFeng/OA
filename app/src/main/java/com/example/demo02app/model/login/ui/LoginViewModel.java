@@ -15,7 +15,7 @@ import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
 import com.example.demo02app.model.login.data.LoginFormState;
 import com.example.demo02app.model.login.data.LoginResult;
-import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.repository.UserRepository;
 import com.example.demo02app.repository.RepositoryCallback;
 import com.example.demo02app.repository.Result;

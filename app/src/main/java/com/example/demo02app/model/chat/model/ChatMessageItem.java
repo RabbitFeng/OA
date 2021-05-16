@@ -1,4 +1,4 @@
-package com.example.demo02app.model.chat.entity;
+package com.example.demo02app.model.chat.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;

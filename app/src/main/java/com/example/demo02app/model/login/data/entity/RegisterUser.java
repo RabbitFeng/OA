@@ -1,4 +1,4 @@
-package com.example.demo02app.model.login.data.model;
+package com.example.demo02app.model.login.data.entity;
 
 import androidx.annotation.NonNull;
 

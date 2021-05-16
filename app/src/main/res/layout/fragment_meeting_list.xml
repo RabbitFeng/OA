@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,26 +7,27 @@
 
     </data>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <Toolbar
             android:layout_alignParentTop="true"
             android:id="@+id/tb"
-            app:title="@string/ui_address_book"
+            android:title="@string/ui_meeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_below="@+id/tb"
+            android:layout_below="@id/tb"
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".model.addressbook.ui.AddressBookListFragment">
+            tools:context=".model.meeting.ui.MeetingListFragment">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_address_book"
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

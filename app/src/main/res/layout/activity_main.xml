@@ -7,6 +7,7 @@
     <data>
 
     </data>
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/dl"
         android:layout_width="match_parent"
@@ -17,17 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:background="?attr/colorPrimary"
-                android:id="@+id/tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <!--            <androidx.appcompat.widget.Toolbar-->
+            <!--                android:id="@+id/tb"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="?attr/colorPrimary" />-->
+
             <FrameLayout
                 android:id="@+id/fl_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/tb"
                 android:layout_above="@+id/ll_bottom" />
+            <!--                android:layout_below="@+id/tb" />-->
 
             <LinearLayout
                 android:id="@+id/ll_bottom"

@@ -1,4 +1,4 @@
-package com.example.demo02app.model.login.data.model;
+package com.example.demo02app.model.login.data.entity;
 
 public class LoggedInUser {
     private String userId;

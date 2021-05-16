@@ -119,6 +119,8 @@
     <string name="ui_register_null">注册信息为空</string>
     <string name="ui_name_invalid">姓名格式不正确</string>
     <string name="ui_send">发送</string>
+    <string name="ui_publish">发布</string>
+    <string name="ui_meeting_publish">发布会议</string>
 
 
 </resources>

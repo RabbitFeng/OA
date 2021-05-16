@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             app:titleMarginStart="20dp"
             android:layout_alignParentTop="true"
-            app:menu="@menu/tb_mune_message"
             app:navigationIcon="@mipmap/back"
             android:background="?attr/colorPrimary">
 

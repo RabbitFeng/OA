@@ -12,8 +12,8 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
-import com.example.demo02app.model.chat.entity.ChatMessage;
-import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.model.chat.model.ChatMessage;
+import com.example.demo02app.model.chat.model.ChatMessageItem;
 import com.example.demo02app.model.message.entity.MessageItem;
 
 import java.util.List;

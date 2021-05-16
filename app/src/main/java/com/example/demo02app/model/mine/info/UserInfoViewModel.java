@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.repository.UserRepository;
 
 public class UserInfoViewModel extends AndroidViewModel {

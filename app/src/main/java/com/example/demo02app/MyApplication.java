@@ -5,8 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.demo02app.db.AppDatabase;
-import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.repository.AddressBookRepository;
+import com.example.demo02app.repository.MeetingRepository;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.repository.UserRepository;
 
@@ -18,7 +19,6 @@ public class MyApplication extends Application {
     private AppDatabase appDatabase;
 
     private LiveData<LoggedInUser> loggedInUserLiveData;
-
 
     @Override
     public void onCreate() {
@@ -48,6 +48,10 @@ public class MyApplication extends Application {
         return MessageRepository.getInstance(this, getAppDatabase(), getMyExecutors());
     }
 
+    public MeetingRepository getMeetingRepository() {
+        return MeetingRepository.getInstance(getApplicationContext(), getAppDatabase(), getMyExecutors());
+    }
+
     public void setMyExecutors(MyExecutors myExecutors) {
         this.myExecutors = myExecutors;
     }
@@ -62,6 +66,10 @@ public class MyApplication extends Application {
 
     public String getUserId() {
         return Objects.requireNonNull(getLoggedInUserLiveData().getValue()).getUserId();
+    }
+
+    public int getUserIdentity() {
+        return Objects.requireNonNull(getLoggedInUserLiveData().getValue()).getIdentity();
     }
 
 }

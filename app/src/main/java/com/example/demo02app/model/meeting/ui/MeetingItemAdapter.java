@@ -3,12 +3,14 @@ package com.example.demo02app.model.meeting.ui;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemMeetingBinding;
-import com.example.demo02app.model.meeting.data.MeetingItem;
+import com.example.demo02app.model.meeting.data.model.MeetingItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
+import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,8 +19,8 @@ import java.util.List;
 public class MeetingItemAdapter extends AbstractBindingAdapter<MeetingItem,ItemMeetingBinding> {
     private static final String TAG = MeetingItemAdapter.class.getName();
 
-    public MeetingItemAdapter() {
-        super(null,null);
+    public MeetingItemAdapter(@Nullable List<MeetingItem> list, @Nullable OnItemClickCallback<MeetingItem> onItemClickCallback) {
+        super(list, onItemClickCallback);
     }
 
     @Override

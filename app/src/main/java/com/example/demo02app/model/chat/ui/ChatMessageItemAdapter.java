@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemChatMessageReceiverBinding;
 import com.example.demo02app.databinding.ItemChatMessageSendBinding;
-import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.model.chat.model.ChatMessageItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 

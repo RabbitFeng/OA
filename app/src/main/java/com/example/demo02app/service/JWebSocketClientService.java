@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
-import com.example.demo02app.model.chat.entity.ChatMessage;
+import com.example.demo02app.model.chat.model.ChatMessage;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.websocket.JWebSocketClient;
 import com.google.gson.Gson;
@@ -100,7 +100,6 @@ public class JWebSocketClientService extends Service {
             String s = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(message);
             Log.d(TAG, "sendMessage: " + s);
             messageRepository.handleChatMessage(message, true);
-//            jsonObject.put("")
             client.send(s);
         }
     }

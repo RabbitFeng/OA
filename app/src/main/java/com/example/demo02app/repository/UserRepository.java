@@ -12,8 +12,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
-import com.example.demo02app.model.login.data.model.LoggedInUser;
-import com.example.demo02app.model.login.data.model.RegisterUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.RegisterUser;
 import com.example.demo02app.util.IdentityUtil;
 import com.example.demo02app.util.OkHttpUtil;
 import com.example.demo02app.util.exception.MyException;

@@ -10,6 +10,10 @@ public class DateTimeConverter {
         return DateTimeUtil.getDateAndTimeString(time);
     }
 
+    public static String toHourAndMinute(long time) {
+        return DateTimeUtil.getTimeString(time, DateTimeUtil.PATTERN_TIME_H_M);
+    }
+
     public static long convertToTime(String timeStr) {
         return DateTimeUtil.getTimestamp(timeStr);
     }

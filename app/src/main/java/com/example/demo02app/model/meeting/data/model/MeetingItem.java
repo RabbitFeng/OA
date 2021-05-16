@@ -1,16 +1,29 @@
-package com.example.demo02app.model.meeting.data;
+package com.example.demo02app.model.meeting.data.model;
 
 public class MeetingItem {
+    private int id;
     private String title;
-    private String beginTime;
-    private String endTime;
+    private long beginTime;
+    private long endTime;
     private String address;
 
-    public MeetingItem(String title, String beginTime, String endTime, String address) {
+    public MeetingItem() {
+    }
+
+    public MeetingItem(int id, String title, long beginTime, long endTime, String address) {
+        this.id = id;
         this.title = title;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -21,19 +34,19 @@ public class MeetingItem {
         this.title = title;
     }
 
-    public String getBeginTime() {
+    public long getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(String beginTime) {
+    public void setBeginTime(long beginTime) {
         this.beginTime = beginTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 

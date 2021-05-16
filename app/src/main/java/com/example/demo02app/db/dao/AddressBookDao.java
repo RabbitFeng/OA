@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.demo02app.db.data.AddressBookDO;
-import com.example.demo02app.model.addressbook.entity.AddressBookItem;
+import com.example.demo02app.model.addressbook.model.AddressBookItem;
 
 import java.util.List;
 

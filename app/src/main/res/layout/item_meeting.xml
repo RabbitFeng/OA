@@ -3,9 +3,11 @@
 
     <data>
 
+        <import type="com.example.demo02app.util.converter.DateTimeConverter" />
+
         <variable
             name="meetingItem"
-            type="com.example.demo02app.model.meeting.data.MeetingItem" />
+            type="com.example.demo02app.model.meeting.data.model.MeetingItem" />
     </data>
 
     <RelativeLayout
@@ -36,16 +38,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:text="@{DateTimeConverter.toHourAndMinute(meetingItem.beginTime)+'-'+DateTimeConverter.toHourAndMinute(meetingItem.endTime)}"
             android:hint="@string/hint_time_range"
-            android:text="@{meetingItem.beginTime+'-'+meetingItem.endTime}"
             android:textSize="18sp" />
+
+<!--            android:text="@{meetingItem.beginTime+'-'+meetingItem.endTime}"-->
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_address"
-            android:layout_toRightOf="@+id/iv"
+            android:layout_toEndOf="@+id/iv"
             android:hint="@string/hint_title"
             android:text="@{meetingItem.title}"
             android:textSize="15sp" />

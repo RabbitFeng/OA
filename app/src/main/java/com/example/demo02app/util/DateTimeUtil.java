@@ -16,6 +16,7 @@ public class DateTimeUtil {
     public static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String PATTERN_DATE = "yyyy-MM-dd";
     public static final String PATTERN_TIME = "HH:mm:ss";
+    public static final String PATTERN_TIME_H_M = "HH:mm";
 
     public static final SimpleDateFormat SDF = new SimpleDateFormat(PATTERN, Locale.CHINA);
     public static final SimpleDateFormat SDF_YEAR = new SimpleDateFormat(PATTERN_DATE, Locale.CHINA);
@@ -55,6 +56,10 @@ public class DateTimeUtil {
      */
     public static String getTimeString(long timestamp) {
         return SDF_TIME.format(new Date(timestamp));
+    }
+
+    public static String getTimeString(long timestamp, String pattern) {
+        return new SimpleDateFormat(pattern,Locale.CHINA).format(timestamp);
     }
 
     /**

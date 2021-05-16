@@ -9,7 +9,7 @@ import androidx.room.Query;
 
 import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
-import com.example.demo02app.model.chat.entity.ChatMessageItem;
+import com.example.demo02app.model.chat.model.ChatMessageItem;
 import com.example.demo02app.model.message.entity.MessageItem;
 
 import java.util.List;

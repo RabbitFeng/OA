@@ -3,7 +3,7 @@ package com.example.demo02app.model.login.data;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.example.demo02app.model.login.data.model.LoggedInUser;
+import com.example.demo02app.model.login.data.entity.LoggedInUser;
 
 
 public class RegisterResult {

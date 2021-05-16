@@ -11,7 +11,7 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.AddressBookDO;
-import com.example.demo02app.model.addressbook.entity.AddressBookItem;
+import com.example.demo02app.model.addressbook.model.AddressBookItem;
 import com.example.demo02app.util.OkHttpUtil;
 
 import org.jetbrains.annotations.NotNull;

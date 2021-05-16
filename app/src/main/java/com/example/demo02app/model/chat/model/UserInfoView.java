@@ -1,4 +1,4 @@
-package com.example.demo02app.model.chat.entity;
+package com.example.demo02app.model.chat.model;
 
 import com.example.demo02app.db.data.AddressBookDO;
 
