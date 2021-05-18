@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.MainActivity;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookListBinding;
@@ -26,8 +27,23 @@ public class AddressBookListFragment extends Fragment {
     private AddressBookListViewModel mViewModel;
     private AddressBookItemAdapter addressBookItemAdapter;
 
-    public static AddressBookListFragment newInstance() {
-        return new AddressBookListFragment();
+    @Nullable
+    private FragmentCallback callback;
+
+    private AddressBookListFragment(@Nullable FragmentCallback callback) {
+        this.callback = callback;
+    }
+
+    public static AddressBookListFragment newInstance(@Nullable FragmentCallback callback) {
+        return new AddressBookListFragment(callback);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (callback != null) {
+            callback.onFragmentNeedsFullScreen(false);
+        }
     }
 
     @Override
@@ -59,14 +75,19 @@ public class AddressBookListFragment extends Fragment {
             @Override
             public void onClick(@NonNull AddressBookItem addressBookItem) {
                 Log.d(TAG, "onClick: " + addressBookItem.getUserId());
-                ((MainActivity)requireActivity()).LoadFullScreenFragment(AddressBookFragment.forAddressBook(addressBookItem.getUserId()),
-                        "addressBook");
+//                ((MainActivity)requireActivity()).LoadFullScreenFragment(AddressBookFragment.forAddressBook(addressBookItem.getUserId()),
+//                        "addressBook");
+                if (callback != null) {
+                    callback.onFragmentAddToBackStack(AddressBookFragment.forAddressBook(addressBookItem.getUserId()), "addressBook");
+                    callback.onFragmentNeedsFullScreen(true);
+                }
             }
 
             @Override
-            public boolean onLongClick(@NonNull AddressBookItem addressBookItem) {
+            public boolean onLongClick(View v, @NonNull AddressBookItem addressBookItem, int position) {
                 return false;
             }
+
         });
 
         binding.rvAddressBook.setAdapter(addressBookItemAdapter);
@@ -83,9 +104,5 @@ public class AddressBookListFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((MainActivity)requireActivity()).restore();
-    }
+
 }

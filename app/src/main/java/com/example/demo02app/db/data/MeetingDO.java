@@ -5,31 +5,41 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "meeting")
 public class MeetingDO {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "m_id")
+    @SerializedName("m_id")
     private int id;
 
     @ColumnInfo(name = "m_user_host")
+    @SerializedName("m_user_host")
     private String userHost;
 
     @ColumnInfo(name = "m_user_publisher")
+    @SerializedName("m_publisher")
     private String userPublisher;
 
     @ColumnInfo(name = "m_title")
+    @SerializedName("m_title")
     private String title;
 
     @ColumnInfo(name = "m_begin_time")
+    @SerializedName("m_start_time")
     private long beginTime;
 
     @ColumnInfo(name = "m_end_time")
+    @SerializedName("m_end_time")
     private long endTime;
 
     @ColumnInfo(name = "m_address")
+    @SerializedName("m_address")
     private String address;
 
     @ColumnInfo(name = "m_time")
+    @SerializedName("m_publish_time")
     private long publishTime;
 
     @Ignore
@@ -45,6 +55,20 @@ public class MeetingDO {
         this.endTime = endTime;
         this.address = address;
         this.publishTime = publishTime;
+    }
+
+    @Override
+    public String toString() {
+        return "MeetingDO{" +
+                "id=" + id +
+                ", userHost='" + userHost + '\'' +
+                ", userPublisher='" + userPublisher + '\'' +
+                ", title='" + title + '\'' +
+                ", beginTime=" + beginTime +
+                ", endTime=" + endTime +
+                ", address='" + address + '\'' +
+                ", publishTime=" + publishTime +
+                '}';
     }
 
     public int getId() {

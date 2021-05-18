@@ -75,7 +75,7 @@ public abstract class AbstractBindingAdapter<T, B extends ViewDataBinding> exten
             if (onItemClickCallback == null) {
                 return false;
             }
-            return onItemClickCallback.onLongClick(list.get(position));
+            return onItemClickCallback.onLongClick(holder.getBinding().getRoot(), list.get(position), position);
         });
     }
 

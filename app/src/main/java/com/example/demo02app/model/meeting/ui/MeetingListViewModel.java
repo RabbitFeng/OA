@@ -33,6 +33,14 @@ public class MeetingListViewModel extends AndroidViewModel {
         return meetingItemLiveData;
     }
 
+    public void reLoad(){
+        meetingRepository.loadAllMeeting(userHost);
+    }
+
+    public void delete(int id){
+        meetingRepository.delete(id);
+    }
+
     public static final class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;

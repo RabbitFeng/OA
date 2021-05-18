@@ -36,10 +36,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<Fragment>() {
         {
             put(R.id.rb_message, MessageListFragment.newInstance());
-            put(R.id.rb_address_book, AddressBookListFragment.newInstance());
-            put(R.id.rb_meeting, MeetingListFragment.newInstance());
-            put(R.id.rb_notice, NoticeListFragment.newInstance());
-            put(R.id.rb_mine, new MineFragment());
+
+            put(R.id.rb_address_book, AddressBookListFragment.newInstance(MainActivity.this));
+            put(R.id.rb_meeting, MeetingListFragment.newInstance(MainActivity.this));
+            put(R.id.rb_notice, NoticeListFragment.newInstance(MainActivity.this));
+            put(R.id.rb_mine, MineFragment.newInstance(MainActivity.this));
         }
     };
 
@@ -147,19 +148,5 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
 
     public LoggedInUser getCurrentUser() {
         return viewModel.getLoggedInUserLiveData().getValue();
-    }
-
-    public void LoadFullScreenFragment(Fragment fragment, String name) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fl_container, fragment)
-                .addToBackStack(name)
-                .commit();
-//        binding.tb.setVisibility(View.GONE);
-        binding.llBottom.setVisibility(View.GONE);
-    }
-
-    public void restore() {
-        binding.llBottom.setVisibility(View.VISIBLE);
-//        binding.tb.setVisibility(View.VISIBLE);
     }
 }

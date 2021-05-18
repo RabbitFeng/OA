@@ -12,18 +12,19 @@
         android:layout_height="match_parent">
 
         <Toolbar
-            android:layout_alignParentTop="true"
             android:id="@+id/tb"
-            android:title="@string/ui_meeting"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:navigationIcon="@mipmap/back"
+            android:title="@string/ui_notice" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_below="@id/tb"
+            android:layout_below="@+id/tb"
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".model.meeting.ui.MeetingListFragment">
+            tools:context=".model.notice.ui.NoticeListFragment">
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
@@ -32,5 +33,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
 </layout>

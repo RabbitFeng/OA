@@ -5,7 +5,14 @@
     <string name="url_login">http://192.168.1.107:8080/login</string>
     <string name="url_register">http://192.168.1.107:8080/register</string>
     <string name="url_address_book">http://192.168.1.107:8080/address_book</string>
-    <string name="url_address_book_id">http://192.168.1.107:8080/address_book_id</string>
+    <string name="url_address_book_id">http://192.168.1.107:8080/addess_book_id</string>
+    <string name="url_meeting">http://192.168.1.107:8080/meeting</string>
+    <string name="url_meeting_publish">http://192.168.1.107:8080/meeting_publish</string>
+    <string name="url_meeting_delete">http://192.168.1.107:8080/meeting_delete</string>
+    <string name="url_notice">http://192.168.1.107:8080/notice</string>
+    <string name="url_notice_publish">http://192.168.1.107:8080/notice_publish</string>
+    <string name="url_notice_delete">http://192.168.1.107:8080/notice_delete</string>
+
     <string name="url_webSocket">ws://192.168.1.107:8080/websocket/</string>
 
     <!--  shared preference  -->
@@ -47,6 +54,21 @@
     <string name="param_user_other">ab_other</string>
     <string name="param_remark">ab_remark</string>
 
+    <string name="param_meeting_id">m_id</string>
+    <string name="param_meeting_title">m_title</string>
+    <string name="param_meeting_address">m_address</string>
+    <string name="param_meeting_publisher">m_publisher</string>
+    <string name="param_meeting_start_time">m_start_time</string>
+    <string name="param_meeting_end_time">m_end_time</string>
+    <string name="param_meeting_publish_time">m_publish_time</string>
+    <string name="param_meeting_user_host">m_publish_user_host</string>
+
+    <string name="param_notice_id">n_id</string>
+    <string name="param_notice_publisher">n_publisher</string>
+    <string name="param_notice_title">n_title</string>
+    <string name="param_notice_content">n_content</string>
+    <string name="param_notice_publish_time">n_publish_time</string>
+
     <!-- ui -->
     <string name="ui_login_id">电话号码</string>
     <string name="ui_password">密码</string>
@@ -70,6 +92,8 @@
     <string name="ui_phone_invalid">电话号码格式不正确</string>
     <string name="ui_register_succeed">注册成功</string>
     <string name="ui_register_failed">注册失败</string>
+
+    <string name="ui_publish_failed">发布失败</string>
 
     <!-- action -->
     <string name="action_webSocket">android.intent.action.CHAT_RECEIVER</string>
@@ -121,6 +145,30 @@
     <string name="ui_send">发送</string>
     <string name="ui_publish">发布</string>
     <string name="ui_meeting_publish">发布会议</string>
+    <string name="ui_address">地址</string>
+    <string name="ui_start_time">开始时间</string>
+    <string name="ui_publisher">发布者</string>
+    <string name="ui_end_time">结束时间</string>
+    <string name="ui_publish_time">发布时间</string>
+
+    <string name="ui_no_such_data">暂无数据</string>
+    <string name="ui_meeting_title">会议主题</string>
+    <string name="ui_meeting_address">会议地址</string>
+
+    <string name="param_result">result</string>
+    <string name="param_data">data</string>
+
+    <string name="ui_title_invalid">标题为空</string>
+    <string name="ui_address_invalid">地址为空</string>
+    <string name="ui_start_time_invalid">开始时间为空</string>
+    <string name="ui_end_time_invalid">结束时间为空</string>
+    <string name="ui_delete">删除</string>
+    <string name="ui_positive">确定</string>
+    <string name="ui_cancel">取消</string>
+    <string name="ui_start_after_end_time">结束时间不应当早于开始时间</string>
+    <string name="ui_user_info">用户信息</string>
+    <string name="ui_publish_notice">发布公告</string>
+    <string name="ui_notice_title">公告标题</string>
 
 
 </resources>

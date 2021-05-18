@@ -60,7 +60,7 @@ public class MessageListFragment extends Fragment {
             }
 
             @Override
-            public boolean onLongClick(@NonNull MessageItem messageItem) {
+            public boolean onLongClick(View v, @NonNull MessageItem messageItem, int position) {
                 return false;
             }
         });

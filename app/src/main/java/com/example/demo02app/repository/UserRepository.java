@@ -131,12 +131,13 @@ public class UserRepository {
     /**
      * 退出登录
      */
-    public void logout() {
+    public void logout(@NonNull RepositoryCallback<Boolean> callback) {
         Objects.requireNonNull(userCacheLiveData.getValue()).setLogout(true);
         executors.diskIO().execute(() -> {
             SharedPreferences sharedPreferences =
                     appContext.getSharedPreferences(getString(R.string.pref_login_key), Context.MODE_PRIVATE);
             sharedPreferences.edit().putBoolean(getString(R.string.pref_logout), true).apply();
+            callback.onComplete(new Result.Success<>(true));
         });
     }
 
@@ -216,7 +217,7 @@ public class UserRepository {
             int identity = sharedPreferences.getInt(getString(R.string.pref_identity), IdentityUtil.IDENTITY_EMPLOYEE);
             boolean isLogout = sharedPreferences.getBoolean(getString(R.string.pref_logout), true);
             String profilePicUri = sharedPreferences.getString(getString(R.string.pref_profile_pic), "");
-            LoggedInUser userCacheLocal = new LoggedInUser(userId,username,password,identity,isLogout);
+            LoggedInUser userCacheLocal = new LoggedInUser(userId, username, password, identity, isLogout);
             userCacheLiveData.postValue(userCacheLocal);
         });
     }

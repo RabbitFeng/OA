@@ -13,12 +13,15 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.db.dao.AddressBookDao;
 import com.example.demo02app.db.dao.ChatMessageDao;
 import com.example.demo02app.db.dao.MeetingDAO;
+import com.example.demo02app.db.dao.NoticeDAO;
 import com.example.demo02app.db.data.AddressBookDO;
 import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
 import com.example.demo02app.db.data.MeetingDO;
+import com.example.demo02app.db.data.NoticeDO;
 
-@Database(entities = {ChatListDO.class, ChatMessageDO.class, AddressBookDO.class, MeetingDO.class}, exportSchema = false, version = 1)
+@Database(entities = {ChatListDO.class, ChatMessageDO.class, AddressBookDO.class, MeetingDO.class, NoticeDO.class},
+        exportSchema = false, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private volatile static AppDatabase sInstance;
@@ -32,6 +35,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ChatMessageDao chatMessageDao();
 
     public abstract MeetingDAO meetingDAO();
+
+    public abstract NoticeDAO noticeDAO();
 
     public static AppDatabase getInstance(final Context context, final MyExecutors executors) {
         if (sInstance == null) {

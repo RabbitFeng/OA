@@ -9,6 +9,7 @@ import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.repository.AddressBookRepository;
 import com.example.demo02app.repository.MeetingRepository;
 import com.example.demo02app.repository.MessageRepository;
+import com.example.demo02app.repository.NoticeRepository;
 import com.example.demo02app.repository.UserRepository;
 
 import java.util.Objects;
@@ -49,7 +50,11 @@ public class MyApplication extends Application {
     }
 
     public MeetingRepository getMeetingRepository() {
-        return MeetingRepository.getInstance(getApplicationContext(), getAppDatabase(), getMyExecutors());
+        return MeetingRepository.getInstance(this, getAppDatabase(), getMyExecutors());
+    }
+
+    public NoticeRepository getNoticeRepository() {
+        return NoticeRepository.getInstance(this, getAppDatabase(), getMyExecutors());
     }
 
     public void setMyExecutors(MyExecutors myExecutors) {

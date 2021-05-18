@@ -4,9 +4,11 @@
 
     <data>
 
+        <import type="com.example.demo02app.util.converter.DateTimeConverter" />
+
         <variable
             name="noticeItem"
-            type="com.example.demo02app.model.notice.data.NoticeItem" />
+            type="com.example.demo02app.model.notice.data.model.NoticeItem" />
     </data>
 
     <RelativeLayout
@@ -48,7 +50,7 @@
             android:hint="@string/hint_date"
             android:padding="5dp"
             android:singleLine="true"
-            android:text="@{noticeItem.publishTime}"
+            android:text="@{DateTimeConverter.convertToString(noticeItem.publishTime)}"
             android:textAlignment="viewEnd"
             android:textSize="18sp" />
 

@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".model.meeting.ui.MeetingFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.demo02app.model.meeting.ui.MeetingViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:context=".model.meeting.ui.MeetingFragment">
 
-</FrameLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:navigationIcon="@mipmap/back"
+            app:title="@string/ui_meeting" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tb"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_meeting"
+                android:text="@{@string/ui_meeting +':'+ viewModel.meetingDetailViewLiveData.title}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_address"
+                android:text="@{@string/ui_address +':'+ viewModel.meetingDetailViewLiveData.address}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_publisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_publisher"
+                android:text="@{@string/ui_publisher +':'+ viewModel.meetingDetailViewLiveData.publisher}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_start_time"
+                android:text="@{@string/ui_meeting +':' +viewModel.meetingDetailViewLiveData.beginTime}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_end_time"
+                android:text="@{@string/ui_end_time +':' + viewModel.meetingDetailViewLiveData.endTime}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_publish_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/ui_publish_time"
+                android:text="@{@string/ui_publish_time +':'+ viewModel.meetingDetailViewLiveData.publishTime}"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

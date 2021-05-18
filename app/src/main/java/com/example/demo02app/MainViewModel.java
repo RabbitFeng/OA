@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.model.login.data.entity.LoggedInUser;
+import com.example.demo02app.repository.RepositoryCallback;
+import com.example.demo02app.repository.Result;
 import com.example.demo02app.repository.UserRepository;
 
 public class MainViewModel extends ViewModel {
@@ -17,6 +19,7 @@ public class MainViewModel extends ViewModel {
     @NonNull
     private final UserRepository userRepository;
 
+
     public MainViewModel(@NonNull UserRepository userRepository) {
         this.userRepository = userRepository;
         loggedInUserLiveData = userRepository.getUserCacheLiveData();
@@ -24,7 +27,12 @@ public class MainViewModel extends ViewModel {
 
     public void logout() {
         // 退出登录
-        userRepository.logout();
+        userRepository.logout(new RepositoryCallback<Boolean>() {
+            @Override
+            public void onComplete(Result<Boolean> t) {
+
+            }
+        });
     }
 
     public LiveData<LoggedInUser> getLoggedInUserLiveData() {

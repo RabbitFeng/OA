@@ -16,14 +16,26 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMineBinding;
+import com.example.demo02app.model.mine.info.UserInfoFragment;
 
 public class MineFragment extends Fragment {
 
     private static final String TAG = MineFragment.class.getName();
+    @NonNull
+    private FragmentCallback callback;
     private FragmentMineBinding binding;
     private MineViewModel mViewModel;
+
+    public static MineFragment newInstance(@NonNull FragmentCallback callback) {
+        return new MineFragment(callback);
+    }
+
+    public MineFragment(@NonNull FragmentCallback callback) {
+        this.callback = callback;
+    }
 
     ActivityResultLauncher<String[]> activityResultLauncher;
 
@@ -40,12 +52,9 @@ public class MineFragment extends Fragment {
 //                        .load(result.toString())
 //                        .into(binding.ivProfile);
                 if (result != null) {
-
                     Log.d(TAG, "onActivityResult: toString " + result.toString());
                     Log.d(TAG, "onActivityResult: path " + result.getPath());
                 }
-
-
             }
         });
 
@@ -57,6 +66,13 @@ public class MineFragment extends Fragment {
 //                binding.ivProfile.setImageURI(result);
 //            }
 //        });
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart: called");
+        super.onStart();
+        callback.onFragmentNeedsFullScreen(false);
     }
 
     @Override
@@ -78,7 +94,8 @@ public class MineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: called");
-
+                callback.onFragmentAddToBackStack(new UserInfoFragment(),"userInfo");
+                callback.onFragmentNeedsFullScreen(true);
             }
         });
 
@@ -110,9 +127,5 @@ public class MineFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onStart() {
-        Log.d(TAG, "onStart: called");
-        super.onStart();
-    }
+
 }

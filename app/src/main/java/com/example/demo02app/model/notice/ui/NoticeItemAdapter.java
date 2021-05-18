@@ -1,20 +1,22 @@
 package com.example.demo02app.model.notice.ui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemNoticeBinding;
-import com.example.demo02app.model.notice.data.NoticeItem;
+import com.example.demo02app.model.notice.data.model.NoticeItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
+import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class NoticeItemAdapter extends AbstractBindingAdapter<NoticeItem, ItemNoticeBinding> {
-    public NoticeItemAdapter() {
-        super(null, null);
+    public NoticeItemAdapter(@Nullable List<NoticeItem> list, @Nullable OnItemClickCallback<NoticeItem> onItemClickCallback) {
+        super(list, onItemClickCallback);
     }
 
     @Override

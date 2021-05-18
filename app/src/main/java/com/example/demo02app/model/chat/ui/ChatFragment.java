@@ -130,9 +130,10 @@ public class ChatFragment extends Fragment {
             }
 
             @Override
-            public boolean onLongClick(@NonNull ChatMessageItem chatMessageItem) {
+            public boolean onLongClick(View v, @NonNull ChatMessageItem chatMessageItem, int position) {
                 return false;
             }
+
         });
         binding.rvMessage.setAdapter(adapter);
 

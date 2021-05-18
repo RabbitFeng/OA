@@ -13,10 +13,10 @@ import java.util.List;
 
 @Dao
 public interface AddressBookDao {
-    @Query("select * from address_book where ad_user_host = :userHost order by ad_remark_name asc")
+    @Query("select * from address_book where ad_user_host = :userHost and ad_user_other!=:userHost order by ad_remark_name asc")
     LiveData<List<AddressBookDO>> selectAddressBook(String userHost);
 
-    @Query("select * from address_book where ad_user_host=:userHost and ad_user_other=:userOther")
+    @Query("select * from address_book where ad_user_host=:userHost and ad_user_other=:userOther and ad_user_other!=:userHost")
     LiveData<AddressBookDO> selectAddressBookByUserId(String userHost, String userOther);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -24,7 +24,7 @@ public interface AddressBookDao {
 
     @Query("select ad_user_other,ad_remark_name " +
             "from address_book " +
-            "where ad_user_host = :userHost " +
+            "where ad_user_host = :userHost and ad_user_other!=:userHost " +
             "order by ad_remark_name asc")
     LiveData<List<AddressBookItem>> selectAddressBookItem(String userHost);
 
