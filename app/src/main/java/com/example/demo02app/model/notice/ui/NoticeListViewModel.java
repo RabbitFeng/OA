@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.model.notice.data.model.NoticeItem;
 import com.example.demo02app.repository.NoticeRepository;
+import com.example.demo02app.repository.RepositoryCallback;
+import com.example.demo02app.repository.Result;
 
 import java.util.List;
 
@@ -35,7 +37,14 @@ public class NoticeListViewModel extends AndroidViewModel {
     }
 
     public void delete(int id) {
-
+        repository.delete(id, new RepositoryCallback<Integer>() {
+            @Override
+            public void onComplete(Result<Integer> t) {
+                if (t instanceof Result.Success) {
+                    repository.loadFromNet();
+                }
+            }
+        });
     }
 
     public static final class Factory extends ViewModelProvider.NewInstanceFactory {

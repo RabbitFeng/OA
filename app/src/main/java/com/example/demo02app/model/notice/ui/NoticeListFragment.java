@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -54,7 +54,6 @@ public class NoticeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         NoticeListViewModel.Factory factory = new NoticeListViewModel.Factory(requireActivity().getApplication());
         viewModel = new ViewModelProvider(this, factory).get(NoticeListViewModel.class);
-
     }
 
     @Override
@@ -75,7 +74,6 @@ public class NoticeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         int userIdentity = ((MyApplication) requireActivity().getApplication()).getUserIdentity();
 
         if (userIdentity == IdentityUtil.IDENTITY_ADMIN) {
@@ -93,8 +91,8 @@ public class NoticeListFragment extends Fragment {
                     return false;
                 }
             });
-        }
 
+        }
 
         adapter = new NoticeItemAdapter(null, new OnItemClickCallback<NoticeItem>() {
             @Override

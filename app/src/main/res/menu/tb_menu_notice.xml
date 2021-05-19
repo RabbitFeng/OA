@@ -5,5 +5,5 @@
         android:id="@+id/action_publish_notice"
         android:icon="@mipmap/publish"
         android:title="@string/ui_publish"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="withText" />
 </menu>

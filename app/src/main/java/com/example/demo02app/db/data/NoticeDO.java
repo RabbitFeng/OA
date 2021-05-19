@@ -2,6 +2,7 @@ package com.example.demo02app.db.data;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +34,7 @@ public class NoticeDO {
     @SerializedName("n_publish_time")
     private long publishTime;
 
+    @Ignore
     public NoticeDO() {
     }
 

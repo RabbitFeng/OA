@@ -14,7 +14,7 @@ import androidx.lifecycle.Transformations;
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
 import com.example.demo02app.db.data.MeetingDO;
-import com.example.demo02app.model.meeting.data.MeetingFormState;
+import com.example.demo02app.model.meeting.data.MeetingPublishFormState;
 import com.example.demo02app.model.meeting.data.MeetingPublishResult;
 import com.example.demo02app.model.meeting.data.model.MeetingItem;
 import com.example.demo02app.model.meeting.data.model.MeetingItemView;
@@ -29,10 +29,9 @@ public class MeetingPublishViewModel extends AndroidViewModel {
     private final MutableLiveData<MeetingItem> meetingItemLiveData;
     private final LiveData<MeetingItemView> meetingItemViewLiveData;
 
-    private final MutableLiveData<MeetingFormState> meetingFormStateLiveData;
+    private final MutableLiveData<MeetingPublishFormState> meetingFormStateLiveData;
 
     private final MutableLiveData<MeetingPublishResult> publishResultLiveData;
-
 
     //    private MutableLiveData<>
     public MeetingPublishViewModel(@NonNull Application application) {
@@ -52,7 +51,6 @@ public class MeetingPublishViewModel extends AndroidViewModel {
                 return itemView;
             }
         });
-
         meetingFormStateLiveData = new MutableLiveData<>();
         publishResultLiveData = new MutableLiveData<>();
     }
@@ -102,30 +100,30 @@ public class MeetingPublishViewModel extends AndroidViewModel {
     public void updateFormState() {
         MeetingItem meetingItem = meetingItemLiveData.getValue();
         if (meetingItem == null) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(false));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(false));
             return;
         }
         if (TextUtils.isEmpty(meetingItem.getTitle())) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(R.string.ui_title_invalid));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(R.string.ui_title_invalid));
             return;
         }
         if (TextUtils.isEmpty(meetingItem.getAddress())) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(R.string.ui_address_invalid));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(R.string.ui_address_invalid));
             return;
         }
         if (meetingItem.getBeginTime() == 0) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(R.string.ui_start_time_invalid));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(R.string.ui_start_time_invalid));
             return;
         }
         if (meetingItem.getEndTime() == 0) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(R.string.ui_end_time_invalid));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(R.string.ui_end_time_invalid));
             return;
         }
         if (meetingItem.getEndTime() < meetingItem.getBeginTime()) {
-            meetingFormStateLiveData.setValue(new MeetingFormState(R.string.ui_start_after_end_time));
+            meetingFormStateLiveData.setValue(new MeetingPublishFormState(R.string.ui_start_after_end_time));
             return;
         }
-        meetingFormStateLiveData.setValue(new MeetingFormState(true));
+        meetingFormStateLiveData.setValue(new MeetingPublishFormState(true));
 
     }
 
@@ -137,7 +135,7 @@ public class MeetingPublishViewModel extends AndroidViewModel {
         return meetingItemViewLiveData;
     }
 
-    public LiveData<MeetingFormState> getMeetingFormStateLiveData() {
+    public LiveData<MeetingPublishFormState> getMeetingFormStateLiveData() {
         return meetingFormStateLiveData;
     }
 

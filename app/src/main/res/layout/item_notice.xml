@@ -36,7 +36,7 @@
             android:hint="@string/hint_publisher"
             android:padding="5dp"
             android:singleLine="true"
-            android:text="@{noticeItem.publisher}"
+            android:text="@{noticeItem.publisherName}"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="20sp" />

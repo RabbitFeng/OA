@@ -15,7 +15,7 @@ public class NoticeItem {
     private String content;
 
     @ColumnInfo(name = "ad_user_real_name")
-    private String publisher;
+    private String publisherName;
 
     @ColumnInfo(name = "n_publish_time")
     private long publishTime;
@@ -30,16 +30,16 @@ public class NoticeItem {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", publisher='" + publisher + '\'' +
+                ", publisher='" + publisherName + '\'' +
                 ", publishTime=" + publishTime +
                 '}';
     }
 
-    public NoticeItem(int id, String title, String content, String publisher, long publishTime) {
+    public NoticeItem(int id, String title, String content, String publisherName, long publishTime) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.publisher = publisher;
+        this.publisherName = publisherName;
         this.publishTime = publishTime;
     }
 
@@ -67,12 +67,12 @@ public class NoticeItem {
         this.content = content;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public String getPublisherName() {
+        return publisherName;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
     }
 
     public long getPublishTime() {

@@ -13,11 +13,15 @@ import com.example.demo02app.R;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.NoticeDO;
 import com.example.demo02app.model.notice.data.model.NoticeItem;
+import com.example.demo02app.model.notice.data.model.NoticePublish;
+import com.example.demo02app.util.DateTimeUtil;
 import com.example.demo02app.util.OkHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -96,6 +100,78 @@ public class NoticeRepository {
                         database.noticeDAO().deleteAll(userHost);
                         database.noticeDAO().insert(noticeDOS);
                     });
+                }
+            }
+        });
+    }
+
+    public void publish(NoticePublish noticePublish, RepositoryCallback<NoticeDO> callback) {
+        NoticeDO noticeDO = new NoticeDO();
+        noticeDO.setTitle(noticePublish.getTitle());
+        noticeDO.setContent(noticePublish.getContent());
+        noticeDO.setPublisher(userHost);
+        noticeDO.setPublishTime(DateTimeUtil.toUTC(DateTimeUtil.getCurrentTimeStamp()));
+        OkHttpUtil.post(getString(R.string.url_notice_publish), new HashMap<String, String>() {{
+            put(getString(R.string.param_notice_title), noticeDO.getTitle());
+            put(getString(R.string.param_notice_content), noticeDO.getContent());
+            put(getString(R.string.param_notice_publisher), noticeDO.getPublisher());
+            put(getString(R.string.param_notice_publish_time), String.valueOf(noticeDO.getPublishTime()));
+        }}).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: called");
+                callback.onComplete(new Result.Error<>(e));
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Log.d(TAG, "onResponse: called");
+                if (response.isSuccessful()) {
+                    String string = Objects.requireNonNull(response.body()).string();
+                    Log.d(TAG, "onResponse: " + string);
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        int result = jsonObject.getInt(getString(R.string.param_result));
+                        if (result == Result.RESULT_SUCCESS) {
+                            callback.onComplete(new Result.Success<>(null));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.onComplete(new Result.Error<>(e));
+                    }
+                }
+            }
+        });
+    }
+
+    public void delete(int id, RepositoryCallback<Integer> callback) {
+        OkHttpUtil.post(getString(R.string.url_notice_delete), new HashMap<String, String>() {{
+            put(getString(R.string.param_user_id), userHost);
+            put(getString(R.string.param_notice_id), String.valueOf(id));
+        }}).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: called");
+                callback.onComplete(new Result.Error<>(e));
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Log.d(TAG, "onResponse: called");
+                if (response.isSuccessful()) {
+                    String string = Objects.requireNonNull(response.body()).string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        int result = jsonObject.getInt(getString(R.string.param_result));
+                        if (result == Result.RESULT_SUCCESS) {
+                            callback.onComplete(new Result.Success<>(id));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.onComplete(new Result.Error<>(e));
+                    }
+                } else {
+                    callback.onComplete(new Result.Error<>(new IOException()));
                 }
             }
         });

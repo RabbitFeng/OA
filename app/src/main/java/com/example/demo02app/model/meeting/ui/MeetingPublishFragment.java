@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMeetingPublishBinding;
-import com.example.demo02app.model.meeting.data.MeetingFormState;
+import com.example.demo02app.model.meeting.data.MeetingPublishFormState;
 import com.example.demo02app.model.meeting.data.MeetingPublishResult;
 import com.example.demo02app.util.view.DateTimePicker;
 
@@ -50,14 +50,14 @@ public class MeetingPublishFragment extends Fragment {
 
         binding.setViewModel(viewModel);
 
-        viewModel.getMeetingFormStateLiveData().observe(getViewLifecycleOwner(), new Observer<MeetingFormState>() {
+        viewModel.getMeetingFormStateLiveData().observe(getViewLifecycleOwner(), new Observer<MeetingPublishFormState>() {
             @Override
-            public void onChanged(MeetingFormState meetingFormState) {
-                if (meetingFormState != null) {
+            public void onChanged(MeetingPublishFormState meetingPublishFormState) {
+                if (meetingPublishFormState != null) {
 //                    if (meetingFormState.getError() != null) {
 //                        Toast.makeText(requireContext(), getString(meetingFormState.getError()), Toast.LENGTH_SHORT).show();
 //                    }
-                    binding.btnPublish.setEnabled(meetingFormState.isValid());
+                    binding.btnPublish.setEnabled(meetingPublishFormState.isValid());
                 } else {
                     binding.btnPublish.setEnabled(false);
                 }

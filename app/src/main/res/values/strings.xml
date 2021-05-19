@@ -158,10 +158,11 @@
     <string name="param_result">result</string>
     <string name="param_data">data</string>
 
-    <string name="ui_title_invalid">标题为空</string>
-    <string name="ui_address_invalid">地址为空</string>
-    <string name="ui_start_time_invalid">开始时间为空</string>
-    <string name="ui_end_time_invalid">结束时间为空</string>
+    <string name="ui_title_invalid">标题尚未填写</string>
+    <string name="ui_content_invalid">内容尚未填写</string>
+    <string name="ui_address_invalid">地址尚未填写</string>
+    <string name="ui_start_time_invalid">开始时间尚未选择</string>
+    <string name="ui_end_time_invalid">结束时间尚未选择</string>
     <string name="ui_delete">删除</string>
     <string name="ui_positive">确定</string>
     <string name="ui_cancel">取消</string>
@@ -169,6 +170,7 @@
     <string name="ui_user_info">用户信息</string>
     <string name="ui_publish_notice">发布公告</string>
     <string name="ui_notice_title">公告标题</string>
+    <string name="ui_notice_content">公告内容</string>
 
 
 </resources>

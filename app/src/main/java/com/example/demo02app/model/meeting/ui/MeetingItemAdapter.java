@@ -29,7 +29,7 @@ public class MeetingItemAdapter extends AbstractBindingAdapter<MeetingItem,ItemM
     }
 
     @Override
-    public void onBind(@NonNull @NotNull BindingHolder<ItemMeetingBinding> holder, @NotNull MeetingItem meetingItem, int position) {
+    public void onBind(@NonNull BindingHolder<ItemMeetingBinding> holder, @NotNull MeetingItem meetingItem, int position) {
         holder.getBinding().setMeetingItem(meetingItem);
         holder.getBinding().executePendingBindings();
     }
