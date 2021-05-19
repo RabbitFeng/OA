@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private final SparseArray<Fragment> fragmentSparseArray = new SparseArray<Fragment>() {
         {
             put(R.id.rb_message, MessageListFragment.newInstance());
-
             put(R.id.rb_address_book, AddressBookListFragment.newInstance(MainActivity.this));
             put(R.id.rb_meeting, MeetingListFragment.newInstance(MainActivity.this));
             put(R.id.rb_notice, NoticeListFragment.newInstance(MainActivity.this));

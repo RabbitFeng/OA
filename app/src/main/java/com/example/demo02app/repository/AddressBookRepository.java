@@ -11,7 +11,7 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.AddressBookDO;
-import com.example.demo02app.model.addressbook.model.AddressBookItem;
+import com.example.demo02app.model.addressbook.data.AddressBookItem;
 import com.example.demo02app.util.OkHttpUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +57,7 @@ public class AddressBookRepository {
     }
 
     public LiveData<List<AddressBookItem>> loadAddressBook(String uId) {
-        loadFromNet(uId);
+//        loadFromNet(uId);
         return database.addressBookDao().selectAddressBookItem(uId);
     }
 
@@ -85,10 +85,20 @@ public class AddressBookRepository {
                             String remark = jsonObject.getString(getString(R.string.param_remark));
                             String phone = jsonObject.getString(getString(R.string.param_phone));
                             String realName = jsonObject.getString(getString(R.string.param_real_name));
-                            addressBooks.add(new AddressBookDO(userHost,userOther,remark,phone,realName));
+                            addressBooks.add(new AddressBookDO(userHost, userOther, remark, phone, realName));
                         }
-//                        database.addressBookDao().deleteAll();
-                        database.addressBookDao().insertAddressBook(addressBooks);
+                        executors.diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.runInTransaction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        database.addressBookDao().deleteAll();
+                                        database.addressBookDao().insertAddressBook(addressBooks);
+                                    }
+                                });
+                            }
+                        });
                         Log.d(TAG, "onResponse: insertSuccess");
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
-import com.example.demo02app.model.chat.model.ChatMessage;
+import com.example.demo02app.model.chat.data.ChatMessage;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.websocket.JWebSocketClient;
 import com.google.gson.Gson;

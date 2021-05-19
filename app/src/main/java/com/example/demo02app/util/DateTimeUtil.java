@@ -123,4 +123,14 @@ public class DateTimeUtil {
         return calendar1.getTimeInMillis();
     }
 
+    public static long toLocal(long time){
+        Calendar calendar = Calendar.getInstance(TZ_UTC);
+        calendar.setTimeInMillis(time);
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+
+        return calendar1.getTimeInMillis();
+    }
+
 }

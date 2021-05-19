@@ -22,7 +22,7 @@ import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMeetingListBinding;
-import com.example.demo02app.model.meeting.data.model.MeetingItem;
+import com.example.demo02app.model.meeting.data.entity.MeetingItem;
 import com.example.demo02app.util.IdentityUtil;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
@@ -47,8 +47,7 @@ public class MeetingListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MeetingListViewModel.Factory factory = new MeetingListViewModel.Factory(requireActivity().getApplication());
-        viewModel = new ViewModelProvider(this, factory).get(MeetingListViewModel.class);
+         Log.d(TAG, "onCreate: called");
     }
 
     @Override
@@ -64,12 +63,17 @@ public class MeetingListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meeting_list, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
+        Log.d(TAG, "onCreateView: called");
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: called");
         super.onViewCreated(view, savedInstanceState);
+
+        MeetingListViewModel.Factory factory = new MeetingListViewModel.Factory(requireActivity().getApplication());
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(MeetingListViewModel.class);
 
         // 获取用户权限
         int userIdentity = ((MyApplication) requireActivity().getApplication()).getUserIdentity();
@@ -152,11 +156,23 @@ public class MeetingListFragment extends Fragment {
             binding.srlRefresh.setRefreshing(false);
         });
 
-        viewModel.getMeetingItemLiveData().observe(requireActivity(), meetingItems -> {
+        viewModel.getMeetingItemLiveData().observe(getViewLifecycleOwner(), meetingItems -> {
             Log.d(TAG, "onChanged: called");
             if (meetingItems != null) {
                 adapter.setList(meetingItems);
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
     }
 }

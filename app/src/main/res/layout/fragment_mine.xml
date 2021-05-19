@@ -84,6 +84,7 @@
                     android:drawableTop="@mipmap/identity"
                     android:text="@string/ui_identity"
                     android:textAlignment="center"
+                    android:visibility="gone"
                     app:drawable_height="64dp"
                     app:drawable_width="64dp" />
             </TableRow>

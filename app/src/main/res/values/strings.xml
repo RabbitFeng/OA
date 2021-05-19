@@ -171,6 +171,8 @@
     <string name="ui_publish_notice">发布公告</string>
     <string name="ui_notice_title">公告标题</string>
     <string name="ui_notice_content">公告内容</string>
+    <string name="ui_save">保存</string>
+    <string name="ui_input">输入内容</string>
 
 
 </resources>

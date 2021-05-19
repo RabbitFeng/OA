@@ -12,8 +12,8 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.R;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.MeetingDO;
-import com.example.demo02app.model.meeting.data.model.MeetingDetail;
-import com.example.demo02app.model.meeting.data.model.MeetingItem;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetail;
+import com.example.demo02app.model.meeting.data.entity.MeetingItem;
 import com.example.demo02app.util.DateTimeUtil;
 import com.example.demo02app.util.OkHttpUtil;
 import com.google.gson.Gson;
@@ -66,7 +66,8 @@ public class MeetingRepository {
 
     // 查询本地数据库
     public LiveData<List<MeetingItem>> loadAllMeeting(String userHost) {
-        loadFromNet(userHost);
+        Log.d(TAG, "loadAllMeeting: called");
+//        loadFromNet(userHost);
         return Transformations.map(database.meetingDAO().queryAllMeetingDO(userHost), input -> {
             List<MeetingItem> meetingItems = new ArrayList<>(input.size());
             for (MeetingDO meetingDO : input) {
@@ -99,12 +100,23 @@ public class MeetingRepository {
                     Gson gson = new Gson();
                     List<MeetingDO> meetingDOS = gson.fromJson(string, new TypeToken<List<MeetingDO>>() {
                     }.getType());
-                    for (MeetingDO meetingDO : meetingDOS) {
-                        meetingDO.setUserHost(userHost);
-                    }
+
                     Log.d(TAG, "onResponse: " + meetingDOS);
-                    database.meetingDAO().deleteAll(userHost);
-                    database.meetingDAO().insert(meetingDOS);
+                    executors.diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (MeetingDO meetingDO : meetingDOS) {
+                                meetingDO.setUserHost(userHost);
+                            }
+                            database.runInTransaction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    database.meetingDAO().deleteAll(userHost);
+                                    database.meetingDAO().insert(meetingDOS);
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });

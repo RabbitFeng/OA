@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.message.entity.MessageItem;
+import com.example.demo02app.model.message.data.MessageItem;
 import com.example.demo02app.repository.MessageRepository;
 
 import java.util.List;

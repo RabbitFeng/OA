@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
-import com.example.demo02app.model.chat.model.ChatMessage;
+import com.example.demo02app.model.chat.data.ChatMessage;
 import com.example.demo02app.service.JWebSocketClientService;
 
 public class ChatActivity extends AppCompatActivity {

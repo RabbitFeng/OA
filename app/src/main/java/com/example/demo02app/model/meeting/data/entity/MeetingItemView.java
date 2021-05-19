@@ -1,4 +1,4 @@
-package com.example.demo02app.model.meeting.data.model;
+package com.example.demo02app.model.meeting.data.entity;
 
 public class MeetingItemView {
     private String title;

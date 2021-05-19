@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.demo02app.util.converter.DateTimeConverter"/>
+        <variable
+            name="viewModel"
+            type="com.example.demo02app.model.schedule.ui.ScheduleViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".model.schedule.ui.ScheduleFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@mipmap/back"
+            app:subtitle="@{viewModel.timeLiveData}"
+            app:menu="@menu/tb_menu_schedule"
+            android:background="?attr/colorPrimary"
+            app:title="@string/ui_schedule" />
+
+        <EditText
+            android:hint="@string/ui_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tb" />
+
+    </RelativeLayout>
+</layout>

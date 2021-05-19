@@ -1,4 +1,4 @@
-package com.example.demo02app.model.meeting.data.model;
+package com.example.demo02app.model.meeting.data.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;

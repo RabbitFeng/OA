@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
 import com.example.demo02app.db.data.AddressBookDO;
-import com.example.demo02app.model.chat.model.ChatMessage;
-import com.example.demo02app.model.chat.model.ChatMessageItem;
+import com.example.demo02app.model.chat.data.ChatMessage;
+import com.example.demo02app.model.chat.data.ChatMessageItem;
 import com.example.demo02app.repository.AddressBookRepository;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.util.DateTimeUtil;

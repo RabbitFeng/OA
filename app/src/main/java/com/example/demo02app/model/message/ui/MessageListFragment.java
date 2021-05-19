@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMessageListBinding;
 import com.example.demo02app.model.chat.ui.ChatActivity;
-import com.example.demo02app.model.message.entity.MessageItem;
+import com.example.demo02app.model.message.data.MessageItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class MessageListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MessageListViewModel.Factory factory = new MessageListViewModel.Factory(requireActivity().getApplication());
-        mViewModel = new ViewModelProvider(this, factory).get(MessageListViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), factory).get(MessageListViewModel.class);
 
         Log.d(TAG, "onActivityCreated: 关闭toolbar");
 

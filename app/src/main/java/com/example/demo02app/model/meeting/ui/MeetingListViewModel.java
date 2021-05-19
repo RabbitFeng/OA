@@ -1,6 +1,7 @@
 package com.example.demo02app.model.meeting.ui;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -9,12 +10,14 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.meeting.data.model.MeetingItem;
+import com.example.demo02app.model.meeting.data.entity.MeetingItem;
+import com.example.demo02app.model.message.ui.MessageListViewModel;
 import com.example.demo02app.repository.MeetingRepository;
 
 import java.util.List;
 
 public class MeetingListViewModel extends AndroidViewModel {
+    private static final String TAG = MessageListViewModel.class.getName();
     @NonNull
     private final MeetingRepository meetingRepository;
 
@@ -24,6 +27,7 @@ public class MeetingListViewModel extends AndroidViewModel {
 
     public MeetingListViewModel(@NonNull Application application, @NonNull MeetingRepository meetingRepository) {
         super(application);
+        Log.d(TAG, "MeetingListViewModel: called");
         this.meetingRepository = meetingRepository;
         userHost = ((MyApplication) application).getUserId();
         meetingItemLiveData = meetingRepository.loadAllMeeting(userHost);
@@ -33,11 +37,11 @@ public class MeetingListViewModel extends AndroidViewModel {
         return meetingItemLiveData;
     }
 
-    public void reLoad(){
+    public void reLoad() {
         meetingRepository.loadAllMeeting(userHost);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         meetingRepository.delete(id);
     }
 

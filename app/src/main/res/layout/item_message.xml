@@ -8,7 +8,7 @@
 
         <variable
             name="messageItem"
-            type="com.example.demo02app.model.message.entity.MessageItem" />
+            type="com.example.demo02app.model.message.data.MessageItem" />
     </data>
 
     <RelativeLayout

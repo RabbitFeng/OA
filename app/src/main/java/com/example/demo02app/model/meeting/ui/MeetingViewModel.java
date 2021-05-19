@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.MyApplication;
-import com.example.demo02app.model.meeting.data.model.MeetingDetail;
-import com.example.demo02app.model.meeting.data.model.MeetingDetailView;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetail;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetailView;
 import com.example.demo02app.repository.MeetingRepository;
 import com.example.demo02app.util.DateTimeUtil;
 

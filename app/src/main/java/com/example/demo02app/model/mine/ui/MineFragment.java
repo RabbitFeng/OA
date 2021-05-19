@@ -20,20 +20,21 @@ import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMineBinding;
 import com.example.demo02app.model.mine.info.UserInfoFragment;
+import com.example.demo02app.model.schedule.ui.ScheduleListFragment;
 
 public class MineFragment extends Fragment {
 
     private static final String TAG = MineFragment.class.getName();
-    @NonNull
+    @Nullable
     private FragmentCallback callback;
     private FragmentMineBinding binding;
     private MineViewModel mViewModel;
 
-    public static MineFragment newInstance(@NonNull FragmentCallback callback) {
+    public static MineFragment newInstance(@Nullable FragmentCallback callback) {
         return new MineFragment(callback);
     }
 
-    public MineFragment(@NonNull FragmentCallback callback) {
+    public MineFragment(@Nullable FragmentCallback callback) {
         this.callback = callback;
     }
 
@@ -72,7 +73,9 @@ public class MineFragment extends Fragment {
     public void onStart() {
         Log.d(TAG, "onStart: called");
         super.onStart();
-        callback.onFragmentNeedsFullScreen(false);
+        if (callback != null) {
+            callback.onFragmentNeedsFullScreen(false);
+        }
     }
 
     @Override
@@ -94,8 +97,19 @@ public class MineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: called");
-                callback.onFragmentAddToBackStack(new UserInfoFragment(),"userInfo");
-                callback.onFragmentNeedsFullScreen(true);
+                if (callback != null) {
+                    callback.onFragmentAddToBackStack(new UserInfoFragment(), "userInfo");
+                    callback.onFragmentNeedsFullScreen(true);
+                }
+            }
+        });
+
+        binding.tdSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onFragmentAddToBackStack(new ScheduleListFragment(callback), "scheduleList");
+                }
             }
         });
 

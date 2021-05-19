@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentMeetingBinding;
-import com.example.demo02app.model.meeting.data.model.MeetingDetail;
-import com.example.demo02app.model.meeting.data.model.MeetingDetailView;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetail;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetailView;
 
 public class MeetingFragment extends Fragment {
 

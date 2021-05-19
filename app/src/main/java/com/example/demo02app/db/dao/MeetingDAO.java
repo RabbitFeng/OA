@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.demo02app.db.data.MeetingDO;
-import com.example.demo02app.model.meeting.data.model.MeetingDetail;
+import com.example.demo02app.model.meeting.data.entity.MeetingDetail;
 
 import java.util.List;
 
@@ -31,6 +31,4 @@ public interface MeetingDAO {
 
     @Query("delete from meeting where m_user_host =:userHost")
     void deleteAll(String userHost);
-
-
 }

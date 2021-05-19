@@ -17,7 +17,7 @@ import com.example.demo02app.FragmentCallback;
 import com.example.demo02app.MainActivity;
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentAddressBookListBinding;
-import com.example.demo02app.model.addressbook.model.AddressBookItem;
+import com.example.demo02app.model.addressbook.data.AddressBookItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 public class AddressBookListFragment extends Fragment {

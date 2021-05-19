@@ -8,7 +8,7 @@
 
         <variable
             name="chatMessageItem"
-            type="com.example.demo02app.model.chat.model.ChatMessageItem" />
+            type="com.example.demo02app.model.chat.data.ChatMessageItem" />
     </data>
 
     <RelativeLayout

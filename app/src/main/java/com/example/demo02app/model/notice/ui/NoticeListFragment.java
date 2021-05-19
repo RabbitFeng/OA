@@ -52,8 +52,7 @@ public class NoticeListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NoticeListViewModel.Factory factory = new NoticeListViewModel.Factory(requireActivity().getApplication());
-        viewModel = new ViewModelProvider(this, factory).get(NoticeListViewModel.class);
+
     }
 
     @Override
@@ -73,6 +72,9 @@ public class NoticeListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        NoticeListViewModel.Factory factory = new NoticeListViewModel.Factory(requireActivity().getApplication());
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(NoticeListViewModel.class);
 
         int userIdentity = ((MyApplication) requireActivity().getApplication()).getUserIdentity();
 

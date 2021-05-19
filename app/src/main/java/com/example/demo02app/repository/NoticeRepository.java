@@ -68,7 +68,7 @@ public class NoticeRepository {
     }
 
     public LiveData<List<NoticeItem>> loadAllNoticeItem() {
-        loadFromNet();
+//        loadFromNet();
         return database.noticeDAO().queryAllNoticeItem(userHost);
     }
 
@@ -97,8 +97,13 @@ public class NoticeRepository {
                         for (NoticeDO noticeDO : noticeDOS) {
                             noticeDO.setUserHost(userHost);
                         }
-                        database.noticeDAO().deleteAll(userHost);
-                        database.noticeDAO().insert(noticeDOS);
+                        database.runInTransaction(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.noticeDAO().deleteAll(userHost);
+                                database.noticeDAO().insert(noticeDOS);
+                            }
+                        });
                     });
                 }
             }

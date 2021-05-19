@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".model.schedule.ui.ScheduleListFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@mipmap/back"
+            app:title="@string/ui_schedule" />
+
+        <com.haibin.calendarview.CalendarView
+            android:id="@+id/cv"
+            app:month_view="com.example.demo02app.util.view.ColorfulMonthView"
+            app:scheme_theme_color="@color/olive_drab1"
+            android:layout_width="match_parent"
+            app:select_mode="default_mode"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tb" />
+
+<!--        <TextView-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:text="长按编辑日程"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_height="wrap_content"/>-->
+    </RelativeLayout>
+</layout>

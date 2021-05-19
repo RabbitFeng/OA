@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.ItemMeetingBinding;
-import com.example.demo02app.model.meeting.data.model.MeetingItem;
+import com.example.demo02app.model.meeting.data.entity.MeetingItem;
 import com.example.demo02app.util.adapter.AbstractBindingAdapter;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 

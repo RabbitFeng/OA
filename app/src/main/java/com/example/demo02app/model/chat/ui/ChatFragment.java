@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.demo02app.R;
 import com.example.demo02app.databinding.FragmentChatBinding;
-import com.example.demo02app.model.chat.model.ChatMessageItem;
+import com.example.demo02app.model.chat.data.ChatMessageItem;
 import com.example.demo02app.util.adapter.OnItemClickCallback;
 
 import java.util.Objects;

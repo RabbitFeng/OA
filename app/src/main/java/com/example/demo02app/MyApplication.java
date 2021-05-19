@@ -7,9 +7,11 @@ import androidx.lifecycle.LiveData;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.model.login.data.entity.LoggedInUser;
 import com.example.demo02app.repository.AddressBookRepository;
+import com.example.demo02app.repository.LogRepository;
 import com.example.demo02app.repository.MeetingRepository;
 import com.example.demo02app.repository.MessageRepository;
 import com.example.demo02app.repository.NoticeRepository;
+import com.example.demo02app.repository.ScheduleRepository;
 import com.example.demo02app.repository.UserRepository;
 
 import java.util.Objects;
@@ -57,12 +59,11 @@ public class MyApplication extends Application {
         return NoticeRepository.getInstance(this, getAppDatabase(), getMyExecutors());
     }
 
-    public void setMyExecutors(MyExecutors myExecutors) {
-        this.myExecutors = myExecutors;
+    public ScheduleRepository getScheduleRepository() {
+        return ScheduleRepository.getInstance(this, getAppDatabase(), getMyExecutors());
     }
-
-    public void setAppDatabase(AppDatabase appDatabase) {
-        this.appDatabase = appDatabase;
+    public LogRepository getLogRepository() {
+        return LogRepository.getInstance(this, getAppDatabase(), getMyExecutors());
     }
 
     public LiveData<LoggedInUser> getLoggedInUserLiveData() {

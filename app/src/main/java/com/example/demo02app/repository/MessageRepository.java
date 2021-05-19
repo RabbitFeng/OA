@@ -12,9 +12,9 @@ import com.example.demo02app.MyExecutors;
 import com.example.demo02app.db.AppDatabase;
 import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
-import com.example.demo02app.model.chat.model.ChatMessage;
-import com.example.demo02app.model.chat.model.ChatMessageItem;
-import com.example.demo02app.model.message.entity.MessageItem;
+import com.example.demo02app.model.chat.data.ChatMessage;
+import com.example.demo02app.model.chat.data.ChatMessageItem;
+import com.example.demo02app.model.message.data.MessageItem;
 
 import java.util.List;
 

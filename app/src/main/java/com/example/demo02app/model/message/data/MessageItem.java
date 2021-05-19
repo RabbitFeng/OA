@@ -1,4 +1,4 @@
-package com.example.demo02app.model.message.entity;
+package com.example.demo02app.model.message.data;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;

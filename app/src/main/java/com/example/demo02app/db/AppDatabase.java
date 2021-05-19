@@ -14,14 +14,20 @@ import com.example.demo02app.db.dao.AddressBookDao;
 import com.example.demo02app.db.dao.ChatMessageDao;
 import com.example.demo02app.db.dao.MeetingDAO;
 import com.example.demo02app.db.dao.NoticeDAO;
+import com.example.demo02app.db.dao.ScheduleDAO;
 import com.example.demo02app.db.data.AddressBookDO;
 import com.example.demo02app.db.data.ChatListDO;
 import com.example.demo02app.db.data.ChatMessageDO;
+import com.example.demo02app.db.data.LogDO;
 import com.example.demo02app.db.data.MeetingDO;
 import com.example.demo02app.db.data.NoticeDO;
+import com.example.demo02app.db.data.ScheduleDO;
 
-@Database(entities = {ChatListDO.class, ChatMessageDO.class, AddressBookDO.class, MeetingDO.class, NoticeDO.class},
-        exportSchema = false, version = 1)
+@Database(entities = {ChatListDO.class, ChatMessageDO.class,
+        AddressBookDO.class, MeetingDO.class,
+        NoticeDO.class, ScheduleDO.class,
+        LogDO.class},
+        exportSchema = false, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private volatile static AppDatabase sInstance;
@@ -37,6 +43,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract MeetingDAO meetingDAO();
 
     public abstract NoticeDAO noticeDAO();
+
+    public abstract ScheduleDAO scheduleDAO();
 
     public static AppDatabase getInstance(final Context context, final MyExecutors executors) {
         if (sInstance == null) {
@@ -71,4 +79,6 @@ public abstract class AppDatabase extends RoomDatabase {
     private void setDatabaseCreated() {
         mIsDatabaseCreated.postValue(true);
     }
+
+
 }

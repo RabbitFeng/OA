@@ -16,6 +16,10 @@ public class DateTimeConverter {
         return DateTimeUtil.getTimeStringUTC(time);
     }
 
+    public static String toDateString(long time){
+        return DateTimeUtil.getDateString(time);
+    }
+
     public static long convertToTime(String timeStr) {
         try {
             return DateTimeUtil.getTimestamp(timeStr);
